@@ -1,0 +1,23 @@
+[
+    {
+        "did": "02148010001",
+        "dName": "Dr. Chen",
+        "department":"dentistry",
+        "hid":"0214801",
+        "availableTime":"Monday,Tuesday,Friday"
+    },
+    {
+        "did": "02148010002",
+        "dName": "Dr. Xu",
+        "department":"medical department",
+        "hid":"0214801",
+        "availableTime":"Monday,Wednesday"
+    },
+    {
+        "did": "02147010001",
+        "dName": "Dr. Jack",
+        "department":"dentistry",
+        "hid":"0214701",
+        "availableTime":"Monday,Tuesday,Friday"
+    }
+]
