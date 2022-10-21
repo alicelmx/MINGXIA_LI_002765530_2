@@ -16,7 +16,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LoginFrame extends javax.swing.JFrame {
     
-    private LoginDao loginDao;
+    private LoginDao loginDao = new LoginDao();
 
     /**
      * Creates new form LoginFrame

@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author limingxia
@@ -11,12 +13,12 @@ package model;
 public class Hospital {
     
     private String hid;
-    private String hname;
+    private String hName;
     private String city;
     private String community;
     private String zipcode;
-    private DoctorDirectory doctorDirectory;
-    private PatientDirectory patientDirectory;
+    private List<String> doctorDirectory;
+    private List<String> patientDirectory;
 
     public String getHid() {
         return hid;
@@ -26,12 +28,12 @@ public class Hospital {
         this.hid = hid;
     }
 
-    public String getHname() {
-        return hname;
+    public String gethName() {
+        return hName;
     }
 
-    public void setHname(String hname) {
-        this.hname = hname;
+    public void sethName(String hName) {
+        this.hName = hName;
     }
 
     public String getCity() {
@@ -61,19 +63,19 @@ public class Hospital {
     
     
 
-    public DoctorDirectory getDoctorDirectory() {
+    public List<String> getDoctorDirectory() {
         return doctorDirectory;
     }
 
-    public void setDoctorDirectory(DoctorDirectory doctorDirectory) {
+    public void setDoctorDirectory(List<String> doctorDirectory) {
         this.doctorDirectory = doctorDirectory;
     }
 
-    public PatientDirectory getPatientDirectory() {
+    public List<String> getPatientDirectory() {
         return patientDirectory;
     }
 
-    public void setPatientDirectory(PatientDirectory patientDirectory) {
+    public void setPatientDirectory(List<String> patientDirectory) {
         this.patientDirectory = patientDirectory;
     }
     

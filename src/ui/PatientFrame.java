@@ -4,8 +4,10 @@
  */
 package ui;
 
+import dao.DoctorDao;
 import dao.HospitalDao;
 import dao.PatientDao;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Doctor;
@@ -20,8 +22,10 @@ import model.Patient;
  */
 public class PatientFrame extends javax.swing.JFrame {
     
-    private PatientDao patientDao;    
-    private HospitalDao hospitalDao;
+    private PatientDao patientDao = new PatientDao();    
+    private HospitalDao hospitalDao = new HospitalDao();
+    private DoctorDao doctorDao = new DoctorDao();
+
 
     List<NearDoctorModel> nearDoctorList;
     
@@ -123,15 +127,17 @@ public class PatientFrame extends javax.swing.JFrame {
         // search hospital
         List<Hospital> hospitalList = hospitalDao.findHospitalByZipcode(zipcode);
         
+        nearDoctorList = new ArrayList<>();
         hospitalList.stream().forEach(o -> {
-            o.getDoctorDirectory().getDoctorList().stream().forEach(m -> {
+            o.getDoctorDirectory().stream().forEach(m -> {
+                
+                Doctor doctor = doctorDao.findDoctorByDid(m);
                 
                 NearDoctorModel nearDoctorModel = new NearDoctorModel();
-                
-                nearDoctorModel.setHospital(o.getHname());
-                nearDoctorModel.setAvailableTime(m.getAvailableTime());
-                nearDoctorModel.setName(m.getdName());
-                nearDoctorModel.setDepartment(m.getDepartment());
+                nearDoctorModel.setHospital(o.gethName());
+                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
+                nearDoctorModel.setName(doctor.getdName());
+                nearDoctorModel.setDepartment(doctor.getDepartment());
                 
                 nearDoctorList.add(nearDoctorModel);
             });

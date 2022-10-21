@@ -20,8 +20,7 @@ import tool.GsonUtils;
  * @author limingxia
  */
 public class HospitalDao {
-    public static final String hopitalInfoJson = "HospitalInfo.json";
-    public static final Type type = new TypeToken<List<Hospital>>() {}.getType();
+    public static final String hopitalInfoJson = "../database/HospitalInfo.json";
     
     /**
      * search userId by username
@@ -29,17 +28,17 @@ public class HospitalDao {
      * @return 
      */
     public List<Hospital> findHospitalByZipcode(String zipcode) {
-        List<Hospital> patientModelList = null;
-        // TODO 这里可能会有层级问题
+        List<Hospital> hospitalModelList = null;
+
         var file = new File(HospitalDao.class.getResource(hopitalInfoJson).getFile());
         try {
             String json = FileUtils.readFileToString(file,"utf-8");
             // TODO 这里序列化可能有问题
-            patientModelList = GsonUtils.parseJsonArrayWithGson(json, type);
+            hospitalModelList = GsonUtils.parseJsonArrayWithGson(json, Hospital.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        List<Hospital> resList = patientModelList.stream().filter(s->s.getZipcode().equalsIgnoreCase(zipcode)).collect(Collectors.toList());
+        List<Hospital> resList = hospitalModelList.stream().filter(s->s.getZipcode().equalsIgnoreCase(zipcode)).collect(Collectors.toList());
             
         return resList;
     }
@@ -56,7 +55,7 @@ public class HospitalDao {
         try {
             String json = FileUtils.readFileToString(file,"utf-8");
             // TODO 这里序列化可能有问题
-            patientModelList = GsonUtils.parseJsonArrayWithGson(json, type);
+            patientModelList = GsonUtils.parseJsonArrayWithGson(json, Hospital.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

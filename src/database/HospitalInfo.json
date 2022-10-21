@@ -5,8 +5,8 @@
         "city":"Malden",
         "community":"rockland park",
         "zipcode":"02148",
-        "doctorDirectory":"02148010001",
-        "PatientDirectory":"202210190001"
+        "doctorDirectory":["02148010001"],
+        "PatientDirectory":["202210190001"]
     },
     {
         "hid": "0214701",
@@ -14,7 +14,7 @@
         "city":"Cambridge",
         "community":"twenty 20",
         "zipcode":"02147",
-        "doctorDirectory":"02147010001",
-        "PatientDirectory":""
+        "doctorDirectory":["02147010001"],
+        "PatientDirectory":[]
     }
 ]

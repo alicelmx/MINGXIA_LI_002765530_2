@@ -21,27 +21,26 @@ import tool.GsonUtils;
  */
 public class DoctorDao {
     
-    public static final String doctorInfoJson = "DoctorInfo.json";
-    public static final Type type = new TypeToken<List<Doctor>>() {}.getType();
+    public static final String doctorInfoJson = "../database/DoctorInfo.json";
     
     /**
      * search userId by username
      * @param did
      * @return 
      */
-    public List<Doctor> findDoctorByDid(String did) {
+    public Doctor findDoctorByDid(String did) {
         List<Doctor> patientModelList = null;
-        // TODO 这里可能会有层级问题
+        
         var file = new File(HospitalDao.class.getResource(doctorInfoJson).getFile());
         try {
             String json = FileUtils.readFileToString(file,"utf-8");
             // TODO 这里序列化可能有问题
-            patientModelList = GsonUtils.parseJsonArrayWithGson(json, type);
+            patientModelList = GsonUtils.parseJsonArrayWithGson(json, Doctor.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
         List<Doctor> resList = patientModelList.stream().filter(s->s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
             
-        return resList;
+        return resList.get(0);
     }
 }

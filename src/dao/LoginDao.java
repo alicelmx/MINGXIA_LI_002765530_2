@@ -23,8 +23,7 @@ import tool.GsonUtils;
  */
 public class LoginDao {
     
-    public static final String loginInfoJson = "LoginInfo.json";
-    public static final Type type = new TypeToken<List<LoginModel>>() {}.getType();
+    public static final String loginInfoJson = "../database/LoginInfo.json";
     
     /**
      * search userId by username
@@ -33,12 +32,12 @@ public class LoginDao {
      */
     public LoginModel findLoginUserByName(String name) {
         List<LoginModel> loginModelList = null;
-        // TODO 这里可能会有层级问题
-        var file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
+      
+        File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
         try {
             String json = FileUtils.readFileToString(file,"utf-8");
             // TODO 这里序列化可能有问题
-            loginModelList = GsonUtils.parseJsonArrayWithGson(json, type);
+            loginModelList = GsonUtils.parseJsonArrayWithGson(json, LoginModel.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

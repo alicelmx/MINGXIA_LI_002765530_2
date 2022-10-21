@@ -21,8 +21,7 @@ import tool.GsonUtils;
  */
 public class PatientDao {
     
-    public static final String patientInfoJson = "PatientInfo.json";
-    public static final Type type = new TypeToken<List<Patient>>() {}.getType();
+    public static final String patientInfoJson = "../database/PatientInfo.json";
     
     /**
      * search userId by username
@@ -31,12 +30,12 @@ public class PatientDao {
      */
     public Patient findPatientInfoByUid(String uid) {
         List<Patient> patientModelList = null;
-        // TODO 这里可能会有层级问题
-        var file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         try {
             String json = FileUtils.readFileToString(file,"utf-8");
             // TODO 这里序列化可能有问题
-            patientModelList = GsonUtils.parseJsonArrayWithGson(json, type);
+            patientModelList = GsonUtils.parseJsonArrayWithGson(json, Patient.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

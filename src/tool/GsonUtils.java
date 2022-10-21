@@ -51,7 +51,7 @@ public class GsonUtils {
      * @param <T>
      * @return
      */
-    public static <T> List<T> parseJsonArrayWithGson(String jsonData, Type type) {
+    public static <T> List<T> parseJsonArrayWithGson(String jsonData, Class<T> type) {
         List<T> result = null;
         Gson gson = new GsonBuilder().create();
         try {

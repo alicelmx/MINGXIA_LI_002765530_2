@@ -13,9 +13,7 @@ import java.util.List;
  * @author limingxia
  */
 public class DoctorDirectory {
-    
-    private DoctorDao doctorDao;
-            
+                
     private ArrayList<Doctor> doctorList;
 
     public ArrayList<Doctor> getDoctorList() {
@@ -25,5 +23,7 @@ public class DoctorDirectory {
     public void setDoctorList(ArrayList<Doctor> doctorList) {
         this.doctorList = doctorList;
     }
+    
+    
     
 }
