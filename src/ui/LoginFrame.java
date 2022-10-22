@@ -4,7 +4,6 @@
  */
 package ui;
 
-import com.google.gson.Gson;
 import dao.LoginDao;
 import javax.swing.JOptionPane;
 import model.LoginModel;
@@ -15,7 +14,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author limingxia
  */
 public class LoginFrame extends javax.swing.JFrame {
-    
+
     private LoginDao loginDao = new LoginDao();
 
     /**
@@ -35,16 +34,18 @@ public class LoginFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         lblUsername = new javax.swing.JLabel();
-        lblUsername1 = new javax.swing.JLabel();
+        lblPassword = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
+        lblRole = new javax.swing.JLabel();
+        cbbSelectedRole = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblUsername.setText("username:");
 
-        lblUsername1.setText("password:");
+        lblPassword.setText("password:");
 
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +66,10 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
+        lblRole.setText("role:");
+
+        cbbSelectedRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "System Admin", "Community Admin", "Hospital Admin", "Doctor", "Patient" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -75,14 +80,18 @@ public class LoginFrame extends javax.swing.JFrame {
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsername)
-                            .addComponent(lblUsername1))
+                            .addComponent(lblPassword)
+                            .addComponent(lblRole))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(99, 99, 99)
                                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(107, 107, 107)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(124, 124, 124)
+                                .addComponent(cbbSelectedRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(176, 176, 176)
                         .addComponent(btnLogin)))
@@ -91,15 +100,19 @@ public class LoginFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
+                .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsername1)
+                    .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblRole)
+                    .addComponent(cbbSelectedRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btnLogin)
                 .addGap(79, 79, 79))
         );
@@ -112,35 +125,59 @@ public class LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsernameActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO 校验不同的用户角色：
+
         String userName = this.txtUsername.getText();
-	String password = new String(this.txtPassword.getPassword());
-        
-        // TODO 密码校验
-		if(StringUtils.isEmpty(userName)){
-			JOptionPane.showMessageDialog(this, "Please Input Username!");
-			return;
-		}
-		if(StringUtils.isEmpty(password)){
-			JOptionPane.showMessageDialog(this, "Please Input Password!");
-			return;
-		
-		} 
-               
-                LoginModel loginModel = loginDao.findLoginUserByName(userName);
-                if(!loginModel.getPassword().equals(password)){
-			JOptionPane.showMessageDialog(this, "Please Check Username and Password!");
-                        return;
-		}
-        
-        // patient
+        String password = new String(this.txtPassword.getPassword());
+
+        // TODO 根据不同角色进行密码校验
+        if (StringUtils.isEmpty(userName)) {
+            JOptionPane.showMessageDialog(this, "Please Input Username!");
+            return;
+        }
+        if (StringUtils.isEmpty(password)) {
+            JOptionPane.showMessageDialog(this, "Please Input Password!");
+            return;
+
+        }
+
+        LoginModel loginModel = loginDao.findLoginUserByName(userName);
+        if (!loginModel.getPassword().equals(password)) {
+            JOptionPane.showMessageDialog(this, "Please Check Username and Password!");
+            return;
+        }
+
         JOptionPane.showMessageDialog(this, "登陆成功！");
-        
-	PatientFrame patientFrame =  new PatientFrame(loginModel.getUid(), userName);
-	patientFrame.setVisible(true);
-        this.dispose();
-        
-        
+
+        // show different Frame according to selected role
+        int selectRoleIdx = cbbSelectedRole.getSelectedIndex();
+        switch (selectRoleIdx) {
+            case 0: // System Admin
+
+                break;
+            case 1: // Community Admin, Hospital Admin, Doctor, Patient
+
+                break;
+
+            case 2: // Hospital Admin
+
+                break;
+
+            case 3: // Doctor
+                DoctorFrame doctorFrame = new DoctorFrame(loginModel.getUid(), userName);
+                doctorFrame.setVisible(true);
+                this.dispose();
+
+                break;
+            case 4: // Patient
+                // TODO appointment
+                PatientFrame patientFrame = new PatientFrame(loginModel.getUid(), userName);
+                patientFrame.setVisible(true);
+                this.dispose();
+
+                break;
+        }
+
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
@@ -184,8 +221,10 @@ public class LoginFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
+    private javax.swing.JComboBox<String> cbbSelectedRole;
+    private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblUsername;
-    private javax.swing.JLabel lblUsername1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

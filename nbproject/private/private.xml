@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/database/LoginInfo.json</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/model/AppointmentModel.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/ui/PatientFrame.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/database/AppointmentList.json</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/model/Hospital.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/dao/AppointmentDao.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/ui/DiagnoseFrame.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/database/HospitalInfo.json</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/model/Encounter.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/model/VitalSign.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/dao/PatientDao.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/dao/HospitalDao.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/database/DoctorInfo.json</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/database/EncounterRecord.json</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/tool/GsonUtils.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/dao/LoginDao.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/ui/LoginFrame.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/ui/DoctorFrame.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/tool/JsonFileUitls.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/model/PersonDirectory.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/model/Doctor.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/dao/DoctorDao.java</file>
+            <file>file:/Users/limingxia/NetBeansProjects/MINGXIA_LI_002765530_ASSIGNMENT2/src/database/PatientInfo.json</file>
+        </group>
+    </open-files>
+</project-private>

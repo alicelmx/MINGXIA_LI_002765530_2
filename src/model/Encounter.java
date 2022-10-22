@@ -10,4 +10,87 @@ package model;
  */
 public class Encounter {
     
+    private String eid; 
+    private String datetime;
+    private String pName; 
+    private String dName;
+    private String hName;
+    private String deptment;
+    private VitalSign vitalSign;
+    private String prescription;
+    private String remark;
+
+    public String getEid() {
+        return eid;
+    }
+
+    public void setEid(String eid) {
+        this.eid = eid;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
+    }
+
+    public String getpName() {
+        return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+
+    public String getdName() {
+        return dName;
+    }
+
+    public void setdName(String dName) {
+        this.dName = dName;
+    }
+
+    public String gethName() {
+        return hName;
+    }
+
+    public void sethName(String hName) {
+        this.hName = hName;
+    }
+
+    public String getDeptment() {
+        return deptment;
+    }
+
+    public void setDeptment(String deptment) {
+        this.deptment = deptment;
+    }
+
+    public VitalSign getVitalSign() {
+        return vitalSign;
+    }
+
+    public void setVitalSign(VitalSign vitalSign) {
+        this.vitalSign = vitalSign;
+    }
+
+    public String getPrescription() {
+        return prescription;
+    }
+
+    public void setPrescription(String prescription) {
+        this.prescription = prescription;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+    
+    
 }

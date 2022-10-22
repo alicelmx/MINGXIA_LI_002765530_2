@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Doctor;
-import model.DoctorDirectory;
 import model.Hospital;
 import model.NearDoctorModel;
 import model.Patient;
@@ -21,16 +20,16 @@ import model.Patient;
  * @author limingxia
  */
 public class PatientFrame extends javax.swing.JFrame {
-    
-    private PatientDao patientDao = new PatientDao();    
+
+    private PatientDao patientDao = new PatientDao();
     private HospitalDao hospitalDao = new HospitalDao();
     private DoctorDao doctorDao = new DoctorDao();
 
-
     List<NearDoctorModel> nearDoctorList;
-    
+
     public String username;
     public String userId;
+
     /**
      * Creates new form PatientFrame
      */
@@ -119,34 +118,33 @@ public class PatientFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBrowseDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseDoctorsActionPerformed
-    
+
         // Patients are able to look for a doctor under the near hospitals
         Patient patient = patientDao.findPatientInfoByUid(userId);
         String zipcode = patient.getZipcode();
-        
+
         // search hospital
         List<Hospital> hospitalList = hospitalDao.findHospitalByZipcode(zipcode);
-        
+
         nearDoctorList = new ArrayList<>();
         hospitalList.stream().forEach(o -> {
             o.getDoctorDirectory().stream().forEach(m -> {
-                
+
                 Doctor doctor = doctorDao.findDoctorByDid(m);
-                
+
                 NearDoctorModel nearDoctorModel = new NearDoctorModel();
                 nearDoctorModel.setHospital(o.gethName());
                 nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
                 nearDoctorModel.setName(doctor.getdName());
                 nearDoctorModel.setDepartment(doctor.getDepartment());
-                
+
                 nearDoctorList.add(nearDoctorModel);
             });
         });
-        
+
         populateTable();
-        
-        
-        
+
+
     }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
 
     /**
@@ -190,7 +188,6 @@ public class PatientFrame extends javax.swing.JFrame {
     private javax.swing.JTable tbNearDoctors;
     // End of variables declaration//GEN-END:variables
 
-    
     private void populateTable() {
         DefaultTableModel model = (DefaultTableModel) tbNearDoctors.getModel();
         model.setRowCount(0);

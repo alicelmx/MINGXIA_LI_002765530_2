@@ -11,10 +11,9 @@ package model;
 public class VitalSign {
     
     private double bloodPressure;
-    private double heartRate;
-    private double height;
-    private double weight;
-    private double vision;
+    private double pulseRate;
+    private double respirationRate;
+    private double bodyTemperature;
 
     public double getBloodPressure() {
         return bloodPressure;
@@ -24,38 +23,29 @@ public class VitalSign {
         this.bloodPressure = bloodPressure;
     }
 
-    public double getHeartRate() {
-        return heartRate;
+    public double getPulseRate() {
+        return pulseRate;
     }
 
-    public void setHeartRate(double heartRate) {
-        this.heartRate = heartRate;
+    public void setPulseRate(double pulseRate) {
+        this.pulseRate = pulseRate;
     }
 
-    public double getHeight() {
-        return height;
+    public double getRespirationRate() {
+        return respirationRate;
     }
 
-    public void setHeight(double height) {
-        this.height = height;
+    public void setRespirationRate(double respirationRate) {
+        this.respirationRate = respirationRate;
     }
 
-    public double getWeight() {
-        return weight;
+    public double getBodyTemperature() {
+        return bodyTemperature;
     }
 
-    public void setWeight(double weight) {
-        this.weight = weight;
+    public void setBodyTemperature(double bodyTemperature) {
+        this.bodyTemperature = bodyTemperature;
     }
-
-    public double getVision() {
-        return vision;
-    }
-
-    public void setVision(double vision) {
-        this.vision = vision;
-    }
-    
     
     
 }

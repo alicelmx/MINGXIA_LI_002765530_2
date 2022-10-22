@@ -4,14 +4,12 @@
  */
 package dao;
 
-import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
+import model.AppointmentModel;
 import model.Doctor;
-import model.Hospital;
 import org.apache.commons.io.FileUtils;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
@@ -20,21 +18,21 @@ import tool.JsonFileUitls;
  *
  * @author limingxia
  */
-public class DoctorDao {
+public class AppointmentDao {
     
-    public static final String doctorInfoJson = "../database/DoctorInfo.json";
+    public static final String doctorInfoJson = "../database/AppointmentList.json";
     
     /**
      * search userId by username
      * @param did
      * @return 
      */
-    public Doctor findDoctorByDid(String did) {
-        
+    public List<AppointmentModel> queryAppointmentByDid(String did) {
+       
         File file = new File(HospitalDao.class.getResource(doctorInfoJson).getFile());
-        List<Doctor> patientModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
-        List<Doctor> resList = patientModelList.stream().filter(s->s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
+        List<AppointmentModel> appointmentModelList = JsonFileUitls.readJsonFileToModel(file, AppointmentModel.class);
+        List<AppointmentModel> resList = appointmentModelList.stream().filter(s->s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
             
-        return resList.get(0);
+        return appointmentModelList.stream().filter(s->s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
     }
 }

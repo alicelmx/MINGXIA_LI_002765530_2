@@ -14,6 +14,7 @@ import model.LoginModel;
 import model.Patient;
 import org.apache.commons.io.FileUtils;
 import tool.GsonUtils;
+import tool.JsonFileUitls;
 
 /**
  *
@@ -29,18 +30,11 @@ public class PatientDao {
      * @return 
      */
     public Patient findPatientInfoByUid(String uid) {
-        List<Patient> patientModelList = null;
         
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
-        try {
-            String json = FileUtils.readFileToString(file,"utf-8");
-            // TODO 这里序列化可能有问题
-            patientModelList = GsonUtils.parseJsonArrayWithGson(json, Patient.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
         List<Patient> resList = patientModelList.stream().filter(s->s.getPid().equalsIgnoreCase(uid)).collect(Collectors.toList());
-            
+
         return resList.get(0);
     }
     

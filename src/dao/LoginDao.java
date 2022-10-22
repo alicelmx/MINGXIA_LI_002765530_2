@@ -16,6 +16,7 @@ import model.LoginModel;
 import model.Person;
 import org.apache.commons.io.FileUtils;
 import tool.GsonUtils;
+import tool.JsonFileUitls;
 
 /**
  *
@@ -31,16 +32,9 @@ public class LoginDao {
      * @return 
      */
     public LoginModel findLoginUserByName(String name) {
-        List<LoginModel> loginModelList = null;
       
         File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
-        try {
-            String json = FileUtils.readFileToString(file,"utf-8");
-            // TODO 这里序列化可能有问题
-            loginModelList = GsonUtils.parseJsonArrayWithGson(json, LoginModel.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        List<LoginModel> loginModelList = JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
         List<LoginModel> resList = loginModelList.stream().filter(s->s.getUsername().equalsIgnoreCase(name)).collect(Collectors.toList());
             
         return resList.get(0);

@@ -9,9 +9,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import model.Encounter;
 
 /**
  *
@@ -19,14 +19,6 @@ import java.util.List;
  */
 public class GsonUtils {
 
-    /**
-     * 将Json数据解析成相应的映射对象
-     *
-     * @param jsonData
-     * @param type
-     * @param <T>
-     * @return
-     */
     public static <T> T parseJsonWithGson(String jsonData, Class<T> type) {
         T result = null;
 
@@ -43,14 +35,6 @@ public class GsonUtils {
         return result;
     }
 
-    /**
-     * 将Json数组解析成相应的映射对象List
-     *
-     * @param jsonData
-     * @param type
-     * @param <T>
-     * @return
-     */
     public static <T> List<T> parseJsonArrayWithGson(String jsonData, Class<T> type) {
         List<T> result = null;
         Gson gson = new GsonBuilder().create();
@@ -79,13 +63,6 @@ public class GsonUtils {
         return result;
     }
     
-    /**
-     * 将对象转换成Json
-     *
-     * @param entity
-     * @param <T>
-     * @return
-     */
     public static <T> String toJsonWithSerializeNulls(T entity) {
         entity.getClass();
         Gson gson = new GsonBuilder().serializeNulls().create();
@@ -101,5 +78,22 @@ public class GsonUtils {
         }
         return result;
     }
+
+//    public static String listToJson(<T> entityList) {
+//        
+//        String result = "";
+//        Gson gson = new GsonBuilder().serializeNulls().create();
+//        try {
+//            result = gson.toJson(entityList);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (gson != null) {
+//                gson = null;
+//            }
+//        }
+//        
+//        return result;
+//    }
 
 }
