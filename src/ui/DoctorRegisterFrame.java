@@ -439,7 +439,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         String email = txtDepartment.getText();
         String department = txtDepartment.getText();
         String availableTime = txtAvailableTime.getText();
-                
+        int selectedLevel = chooseLevel.getSelectedIndex();
 
         // 两张表一起写
         LoginModel newPatientLoginModel = new LoginModel();
@@ -461,6 +461,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         doctor.setDateOfBirth(dateOfBirth);
         doctor.setDepartment(department);
         doctor.setAvailableTime(availableTime);
+        doctor.setLevel(selectedLevel);
         
         doctorDao.insertNewDoctor(doctor);
         

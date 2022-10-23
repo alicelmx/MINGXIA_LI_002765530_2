@@ -159,7 +159,8 @@ public class LoginFrame extends javax.swing.JFrame {
         // show different Frame according to selected role
         switch (selectRoleIdx) {
             case 0: // System Admin
-
+                
+                
                 break;
             case 1: // Community Admin
 

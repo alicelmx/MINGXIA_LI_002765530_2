@@ -68,6 +68,8 @@ public class Doctor extends Person {
         this.availableTime = availableTime;
     }
 
-    
-
+    @Override
+    public String toString() {
+        return getdName();
+    }
 }

@@ -57,6 +57,16 @@ public class PatientDao {
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
     }
+
+    public void deletePatient(Patient patient) {
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        List<Patient> allEncounters = queryAllPatientModel();
+        allEncounters.remove(patient);
+        
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(allEncounters);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+    }
    
     
 }

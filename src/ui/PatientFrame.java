@@ -9,6 +9,7 @@ import dao.HospitalDao;
 import dao.PatientDao;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Doctor;
 import model.Hospital;
@@ -55,10 +56,12 @@ public class PatientFrame extends javax.swing.JFrame {
         btnBrowseDoctors = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbNearDoctors = new javax.swing.JTable();
+        btnMakeAppointment = new javax.swing.JButton();
+        txtSearchArea = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnBrowseDoctors.setText("browse doctors");
+        btnBrowseDoctors.setText("search");
         btnBrowseDoctors.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBrowseDoctorsActionPerformed(evt);
@@ -93,25 +96,46 @@ public class PatientFrame extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbNearDoctors);
 
+        btnMakeAppointment.setText("Make Appointment");
+        btnMakeAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMakeAppointmentActionPerformed(evt);
+            }
+        });
+
+        txtSearchArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchAreaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBrowseDoctors))
+                .addContainerGap(115, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBrowseDoctors))
+                    .addComponent(btnMakeAppointment)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(btnBrowseDoctors)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBrowseDoctors)
+                    .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(btnMakeAppointment)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
@@ -146,6 +170,28 @@ public class PatientFrame extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
+
+    private void btnMakeAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAppointmentActionPerformed
+        // TODO add your handling code here:
+        int selectedRowIndex = tbNearDoctors.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please select a Doctor to Make Appointment.");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tbNearDoctors.getModel();
+        Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
+        String hospitalName = (String)model.getValueAt(selectedRowIndex, 1);
+                
+        AppointmentFrame appointmentFrame = new AppointmentFrame(selectedDoctor, hospitalName);
+        appointmentFrame.setLocationRelativeTo(null);
+        appointmentFrame.setVisible(true);
+    }//GEN-LAST:event_btnMakeAppointmentActionPerformed
+
+    private void txtSearchAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchAreaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,8 +230,10 @@ public class PatientFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBrowseDoctors;
+    private javax.swing.JButton btnMakeAppointment;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbNearDoctors;
+    private javax.swing.JTextField txtSearchArea;
     // End of variables declaration//GEN-END:variables
 
     private void populateTable() {
@@ -195,7 +243,7 @@ public class PatientFrame extends javax.swing.JFrame {
         for (NearDoctorModel doctor : nearDoctorList) {
 
             Object[] row = new Object[4];
-            row[0] = doctor;// TODO 改toString
+            row[0] = doctor;
             row[1] = doctor.getHospital();
             row[2] = doctor.getDepartment();
             row[3] = doctor.getAvailableTime();

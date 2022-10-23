@@ -64,6 +64,11 @@ public class Patient extends Person {
     public void setEncounterHistory(EncounterHistory encounterHistory) {
         this.encounterHistory = encounterHistory;
     }
+
+    @Override
+    public String toString() {
+        return getPid();
+    }
     
     
 }
