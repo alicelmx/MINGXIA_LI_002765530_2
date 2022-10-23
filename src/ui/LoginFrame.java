@@ -5,6 +5,7 @@
 package ui;
 
 import dao.LoginDao;
+import enumvalue.RoleEnum;
 import javax.swing.JOptionPane;
 import model.LoginModel;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
+    public int selectRoleIdx;
+
     private LoginDao loginDao = new LoginDao();
 
     /**
@@ -22,6 +25,13 @@ public class LoginFrame extends javax.swing.JFrame {
      */
     public LoginFrame() {
         initComponents();
+    }
+
+    LoginFrame(int selectRoleIdx) {
+
+        this.selectRoleIdx = selectRoleIdx;
+        initComponents();
+
     }
 
     /**
@@ -38,8 +48,7 @@ public class LoginFrame extends javax.swing.JFrame {
         txtUsername = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
-        lblRole = new javax.swing.JLabel();
-        cbbSelectedRole = new javax.swing.JComboBox<>();
+        btnCreateNewAccount = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,34 +75,35 @@ public class LoginFrame extends javax.swing.JFrame {
             }
         });
 
-        lblRole.setText("role:");
-
-        cbbSelectedRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "System Admin", "Community Admin", "Hospital Admin", "Doctor", "Patient" }));
+        btnCreateNewAccount.setText("Create New Account");
+        btnCreateNewAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateNewAccountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblUsername)
-                            .addComponent(lblPassword)
-                            .addComponent(lblRole))
+                            .addComponent(lblPassword))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(99, 99, 99)
                                 .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(107, 107, 107)
-                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(124, 124, 124)
-                                .addComponent(cbbSelectedRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(40, 40, 40)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
+                        .addGap(96, 96, 96)
+                        .addComponent(btnCreateNewAccount)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLogin)))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -108,13 +118,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(111, 111, 111)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblRole)
-                    .addComponent(cbbSelectedRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(btnLogin)
-                .addGap(79, 79, 79))
+                    .addComponent(btnLogin)
+                    .addComponent(btnCreateNewAccount))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         pack();
@@ -149,12 +157,11 @@ public class LoginFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "登陆成功！");
 
         // show different Frame according to selected role
-        int selectRoleIdx = cbbSelectedRole.getSelectedIndex();
         switch (selectRoleIdx) {
             case 0: // System Admin
 
                 break;
-            case 1: // Community Admin, Hospital Admin, Doctor, Patient
+            case 1: // Community Admin
 
                 break;
 
@@ -183,6 +190,26 @@ public class LoginFrame extends javax.swing.JFrame {
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPasswordActionPerformed
+
+    private void btnCreateNewAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateNewAccountActionPerformed
+        // TODO add your handling code here:
+        if (selectRoleIdx == RoleEnum.COMMUNITY_ADMIN.getIndex()
+                || selectRoleIdx == RoleEnum.SYSTEM_ADMIN.getIndex()
+                || selectRoleIdx == RoleEnum.HOSPITAL_ADMIN.getIndex()) {
+
+            JOptionPane.showMessageDialog(this, "Attention: Only Doctor and Patient can register.");
+            return;
+        }
+
+        if (selectRoleIdx == enumvalue.RoleEnum.DOCTOR.getIndex()) {
+            // TODO doctor register
+
+        } else {
+            PatientRegisterFrame patientRegisterFrame = new PatientRegisterFrame();
+            patientRegisterFrame.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnCreateNewAccountActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,10 +247,9 @@ public class LoginFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCreateNewAccount;
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox<String> cbbSelectedRole;
     private javax.swing.JLabel lblPassword;
-    private javax.swing.JLabel lblRole;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;

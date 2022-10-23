@@ -7,11 +7,13 @@ package dao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import static dao.EncounterDao.EncounterRecordJson;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
+import model.Encounter;
 import model.LoginModel;
 import model.Person;
 import org.apache.commons.io.FileUtils;
@@ -38,5 +40,22 @@ public class LoginDao {
         List<LoginModel> resList = loginModelList.stream().filter(s->s.getUsername().equalsIgnoreCase(name)).collect(Collectors.toList());
             
         return resList.get(0);
+    }
+    
+    public List<LoginModel> queryAllLoginModel() {
+        
+        File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
+        return JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
+    }
+    
+    public void insertNewUser(LoginModel newPatientLoginModel) {
+        
+        File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
+        List<LoginModel> allEncounters = queryAllLoginModel();
+        allEncounters.add(newPatientLoginModel);
+        
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(allEncounters);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
     }
 }

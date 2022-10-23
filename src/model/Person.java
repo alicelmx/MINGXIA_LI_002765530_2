@@ -14,7 +14,8 @@ public class Person {
     private String username;
     private String firstName;
     private String lastName;
-    private Integer gender; // 0-male, 1-female, 2-prefer not to say
+    private Integer gender; 
+    private Integer marritialStatus;
     private String phoneNum;
     private String email;
     private String city;
@@ -62,6 +63,15 @@ public class Person {
         this.gender = gender;
     }
 
+    public Integer getMarritialStatus() {
+        return marritialStatus;
+    }
+
+    public void setMarritialStatus(Integer marritialStatus) {
+        this.marritialStatus = marritialStatus;
+    }
+
+    
     public String getPhoneNum() {
         return phoneNum;
     }

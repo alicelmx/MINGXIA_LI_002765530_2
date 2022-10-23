@@ -4,7 +4,10 @@
  */
 package dao;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import static dao.LoginDao.loginInfoJson;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -37,5 +40,23 @@ public class PatientDao {
 
         return resList.get(0);
     }
+    
+    public List<Patient> queryAllPatientModel() {
+        
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        return JsonFileUitls.readJsonFileToModel(file, Patient.class);
+    }
+    
+    public void insertNewPatient(Patient patient) {
+        
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        List<Patient> allEncounters = queryAllPatientModel();
+        allEncounters.add(patient);
+        
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(allEncounters);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+    }
+   
     
 }

@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.util.List;
-
 /**
  *
  * @author limingxia
