@@ -10,7 +10,6 @@ package model;
  */
 public class Person {
     
-    private String pid;
     private String username;
     private String firstName;
     private String lastName;
@@ -18,18 +17,7 @@ public class Person {
     private Integer marritialStatus;
     private String phoneNum;
     private String email;
-    private String city;
-    private String community;
-    private String zipcode;
-    private String house;
-
-    public String getPid() {
-        return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
-    }
+    private String dateOfBirth;
 
     public String getUsername() {
         return username;
@@ -88,35 +76,13 @@ public class Person {
         this.email = email;
     }
 
-    public String getCity() {
-        return city;
+    public String getDateOfBirth() {
+        return dateOfBirth;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
-
-    public String getCommunity() {
-        return community;
-    }
-
-    public void setCommunity(String community) {
-        this.community = community;
-    }
-
-    public String getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public String getHouse() {
-        return house;
-    }
-
-    public void setHouse(String house) {
-        this.house = house;
-    }
+    
+    
 }

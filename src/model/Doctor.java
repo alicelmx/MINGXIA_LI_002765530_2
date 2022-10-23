@@ -8,11 +8,12 @@ package model;
  *
  * @author limingxia
  */
-public class Doctor {
+public class Doctor extends Person {
     
     private String did;
     private String dName;
     private String department;
+    private Integer level;
     private String hid; // belong to which hospital
     // TODO 看病记录
     // 可预约时间
@@ -42,6 +43,15 @@ public class Doctor {
         this.department = department;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    
     public String getHid() {
         return hid;
     }

@@ -480,9 +480,10 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         patient.setHouse(houseNo);
         patient.setLastName(lastName);
         patient.setMarritialStatus(selectedMaritialStatus);
-        patient.setPhoneNum(houseNo);
         patient.setPid("22222"); //  TODO 序号生成器
         patient.setZipcode(zipcode);
+        patient.setPhoneNum(mobilePhone);
+        patient.setDateOfBirth(dateOfBirth);
 
         patientDao.insertNewPatient(patient);
         
