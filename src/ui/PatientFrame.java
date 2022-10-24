@@ -4,44 +4,21 @@
  */
 package ui;
 
-import dao.DoctorDao;
-import dao.HospitalDao;
-import dao.PatientDao;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import model.Doctor;
-import model.Hospital;
-import model.NearDoctorModel;
-import model.Patient;
-
 /**
  *
  * @author limingxia
  */
 public class PatientFrame extends javax.swing.JFrame {
 
-    private PatientDao patientDao = new PatientDao();
-    private HospitalDao hospitalDao = new HospitalDao();
-    private DoctorDao doctorDao = new DoctorDao();
-
-    List<NearDoctorModel> nearDoctorList;
-
-    public String username;
-    public String userId;
-
     /**
-     * Creates new form PatientFrame
+     * Creates new form SystemAdminFrame
      */
     public PatientFrame() {
         initComponents();
     }
 
-    PatientFrame(String userId, String userName) {
-        this.userId = userId;
-        this.username = userName;
-        initComponents();
+    PatientFrame(String uid, String userName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -53,145 +30,116 @@ public class PatientFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnBrowseDoctors = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbNearDoctors = new javax.swing.JTable();
-        btnMakeAppointment = new javax.swing.JButton();
-        txtSearchArea = new javax.swing.JTextField();
+        splitPane = new javax.swing.JSplitPane();
+        funcitonPane = new javax.swing.JPanel();
+        btnAuthManagement = new javax.swing.JButton();
+        btnHospitalManagement = new javax.swing.JButton();
+        btnDoctorManagement = new javax.swing.JButton();
+        contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnBrowseDoctors.setText("search");
-        btnBrowseDoctors.addActionListener(new java.awt.event.ActionListener() {
+        funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
+
+        btnAuthManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
+        btnAuthManagement.setText("Profile");
+        btnAuthManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBrowseDoctorsActionPerformed(evt);
+                btnAuthManagementActionPerformed(evt);
             }
         });
 
-        tbNearDoctors.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Name", "Hospital", "Department", "Available Time"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tbNearDoctors);
-
-        btnMakeAppointment.setText("Make Appointment");
-        btnMakeAppointment.addActionListener(new java.awt.event.ActionListener() {
+        btnHospitalManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnHospitalManagement.setText("Appointment");
+        btnHospitalManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMakeAppointmentActionPerformed(evt);
+                btnHospitalManagementActionPerformed(evt);
             }
         });
 
-        txtSearchArea.addActionListener(new java.awt.event.ActionListener() {
+        btnDoctorManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnDoctorManagement.setText("History");
+        btnDoctorManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchAreaActionPerformed(evt);
+                btnDoctorManagementActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout funcitonPaneLayout = new javax.swing.GroupLayout(funcitonPane);
+        funcitonPane.setLayout(funcitonPaneLayout);
+        funcitonPaneLayout.setHorizontalGroup(
+            funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(funcitonPaneLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnDoctorManagement)
+                    .addComponent(btnHospitalManagement)
+                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
+        );
+
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnHospitalManagement});
+
+        funcitonPaneLayout.setVerticalGroup(
+            funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(funcitonPaneLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(btnHospitalManagement)
+                .addGap(41, 41, 41)
+                .addComponent(btnDoctorManagement)
+                .addContainerGap(305, Short.MAX_VALUE))
+        );
+
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnHospitalManagement});
+
+        splitPane.setLeftComponent(funcitonPane);
+
+        javax.swing.GroupLayout contentPaneLayout = new javax.swing.GroupLayout(contentPane);
+        contentPane.setLayout(contentPaneLayout);
+        contentPaneLayout.setHorizontalGroup(
+            contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 608, Short.MAX_VALUE)
+        );
+        contentPaneLayout.setVerticalGroup(
+            contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        splitPane.setRightComponent(contentPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBrowseDoctors))
-                    .addComponent(btnMakeAppointment)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53))
+            .addComponent(splitPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBrowseDoctors)
-                    .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(btnMakeAppointment)
-                .addContainerGap(53, Short.MAX_VALUE))
+            .addComponent(splitPane, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnBrowseDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseDoctorsActionPerformed
-
-        // Patients are able to look for a doctor under the near hospitals
-        Patient patient = patientDao.findPatientInfoByUid(userId);
-        String zipcode = patient.getZipcode();
-
-        // search hospital
-        List<Hospital> hospitalList = hospitalDao.findHospitalByZipcode(zipcode);
-
-        nearDoctorList = new ArrayList<>();
-        hospitalList.stream().forEach(o -> {
-            o.getDoctorDirectory().stream().forEach(m -> {
-
-                Doctor doctor = doctorDao.findDoctorByDid(m);
-
-                NearDoctorModel nearDoctorModel = new NearDoctorModel();
-                nearDoctorModel.setHospital(o.gethName());
-                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
-                nearDoctorModel.setName(doctor.getdName());
-                nearDoctorModel.setDepartment(doctor.getDepartment());
-
-                nearDoctorList.add(nearDoctorModel);
-            });
-        });
-
-        populateTable();
-
-
-    }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
-
-    private void btnMakeAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMakeAppointmentActionPerformed
-        // TODO add your handling code here:
-        int selectedRowIndex = tbNearDoctors.getSelectedRow();
-
-        if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please select a Doctor to Make Appointment.");
-            return;
-        }
+    private void btnAuthManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthManagementActionPerformed
         
-        DefaultTableModel model = (DefaultTableModel) tbNearDoctors.getModel();
-        Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
-        String hospitalName = (String)model.getValueAt(selectedRowIndex, 1);
-                
-        AppointmentFrame appointmentFrame = new AppointmentFrame(selectedDoctor, hospitalName);
-        appointmentFrame.setLocationRelativeTo(null);
-        appointmentFrame.setVisible(true);
-    }//GEN-LAST:event_btnMakeAppointmentActionPerformed
+        PatientFrame patientFrame = new PatientFrame();
+        splitPane.setRightComponent(patientFrame);
+    }//GEN-LAST:event_btnAuthManagementActionPerformed
 
-    private void txtSearchAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchAreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchAreaActionPerformed
+    private void btnHospitalManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalManagementActionPerformed
+
+        PatientAppointmentPane patientAppointmentPane = new PatientAppointmentPane();
+        splitPane.setRightComponent(patientAppointmentPane);
+    }//GEN-LAST:event_btnHospitalManagementActionPerformed
+
+    private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed
+    
+        PatientHistoryPane patientHistoryPane = new PatientHistoryPane();
+        splitPane.setRightComponent(patientHistoryPane);
+    }//GEN-LAST:event_btnDoctorManagementActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,36 +167,26 @@ public class PatientFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PatientFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PatientFrame().setVisible(true);
+                PatientFrame systemAdminFrame = new PatientFrame();
+                systemAdminFrame.setLocationRelativeTo(null);
+                systemAdminFrame.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrowseDoctors;
-    private javax.swing.JButton btnMakeAppointment;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbNearDoctors;
-    private javax.swing.JTextField txtSearchArea;
+    private javax.swing.JButton btnAuthManagement;
+    private javax.swing.JButton btnDoctorManagement;
+    private javax.swing.JButton btnHospitalManagement;
+    private javax.swing.JPanel contentPane;
+    private javax.swing.JPanel funcitonPane;
+    private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
-
-    private void populateTable() {
-        DefaultTableModel model = (DefaultTableModel) tbNearDoctors.getModel();
-        model.setRowCount(0);
-
-        for (NearDoctorModel doctor : nearDoctorList) {
-
-            Object[] row = new Object[4];
-            row[0] = doctor;
-            row[1] = doctor.getHospital();
-            row[2] = doctor.getDepartment();
-            row[3] = doctor.getAvailableTime();
-
-            model.addRow(row);
-        }
-    }
 }

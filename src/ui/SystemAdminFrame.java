@@ -195,7 +195,9 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SystemAdminFrame().setVisible(true);
+                SystemAdminFrame systemAdminFrame = new SystemAdminFrame();
+                systemAdminFrame.setLocationRelativeTo(null);
+                systemAdminFrame.setVisible(true);
             }
         });
     }

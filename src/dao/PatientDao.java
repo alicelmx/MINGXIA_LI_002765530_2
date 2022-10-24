@@ -18,12 +18,15 @@ import model.Patient;
 import org.apache.commons.io.FileUtils;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
+import tool.SerialGenerator;
 
 /**
  *
  * @author limingxia
  */
 public class PatientDao {
+    
+    SerialGenerator serialGenerator = SerialGenerator.getInstance();
     
     public static final String patientInfoJson = "../database/PatientInfo.json";
     
@@ -48,6 +51,8 @@ public class PatientDao {
     }
     
     public void insertNewPatient(Patient patient) {
+        // TODO 待测试
+        patient.setPid(serialGenerator.next());
         
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> allEncounters = queryAllPatientModel();

@@ -16,12 +16,15 @@ import model.Patient;
 import org.apache.commons.io.FileUtils;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
+import tool.SerialGenerator;
 
 /**
  *
  * @author limingxia
  */
 public class HospitalDao {
+    
+    
     public static final String hopitalInfoJson = "../database/HospitalInfo.json";
     public File file = new File(HospitalDao.class.getResource(hopitalInfoJson).getFile());
 

@@ -6,6 +6,10 @@
 package ui;
 
 import enumvalue.RoleEnum;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -29,22 +33,22 @@ public class HomePageFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         btnRoleAsPatient = new javax.swing.JButton();
         btnRoleAsDoctor = new javax.swing.JButton();
         btnRoleAsSysAdmin = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnHospitalAdmin = new javax.swing.JButton();
+        btnCommunityAdmin = new javax.swing.JButton();
+        HeaderPanel = new javax.swing.JPanel();
+        lblSystemName = new javax.swing.JLabel();
+        lblIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MainPage");
+        setTitle("Smart Medical Management System");
         setName("MainPage"); // NOI18N
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel1.setText("Smart medical management system");
+        setResizable(false);
 
         btnRoleAsPatient.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRoleAsPatient.setForeground(new java.awt.Color(0, 0, 204));
+        btnRoleAsPatient.setForeground(new java.awt.Color(204, 51, 0));
         btnRoleAsPatient.setText("I am a Patient");
         btnRoleAsPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,7 +57,7 @@ public class HomePageFrame extends javax.swing.JFrame {
         });
 
         btnRoleAsDoctor.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRoleAsDoctor.setForeground(new java.awt.Color(153, 0, 153));
+        btnRoleAsDoctor.setForeground(new java.awt.Color(153, 204, 0));
         btnRoleAsDoctor.setText("I am a Doctor");
         btnRoleAsDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +66,7 @@ public class HomePageFrame extends javax.swing.JFrame {
         });
 
         btnRoleAsSysAdmin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        btnRoleAsSysAdmin.setForeground(new java.awt.Color(0, 153, 153));
+        btnRoleAsSysAdmin.setForeground(new java.awt.Color(0, 153, 204));
         btnRoleAsSysAdmin.setText("System Admin");
         btnRoleAsSysAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,49 +74,87 @@ public class HomePageFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(0, 0, 153));
-        jButton5.setText("Update Patient Record");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnHospitalAdmin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnHospitalAdmin.setForeground(new java.awt.Color(0, 102, 255));
+        btnHospitalAdmin.setText("Hospital Admin");
+        btnHospitalAdmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnHospitalAdminActionPerformed(evt);
             }
         });
+
+        btnCommunityAdmin.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        btnCommunityAdmin.setForeground(new java.awt.Color(204, 0, 204));
+        btnCommunityAdmin.setText("Community Admin");
+        btnCommunityAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCommunityAdminActionPerformed(evt);
+            }
+        });
+
+        HeaderPanel.setBackground(new java.awt.Color(0, 153, 153));
+
+        lblSystemName.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        lblSystemName.setForeground(new java.awt.Color(255, 255, 255));
+        lblSystemName.setText("Smart Medical Management System");
+
+        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital.png"))); // NOI18N
+
+        javax.swing.GroupLayout HeaderPanelLayout = new javax.swing.GroupLayout(HeaderPanel);
+        HeaderPanel.setLayout(HeaderPanelLayout);
+        HeaderPanelLayout.setHorizontalGroup(
+            HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HeaderPanelLayout.createSequentialGroup()
+                .addContainerGap(37, Short.MAX_VALUE)
+                .addComponent(lblIcon)
+                .addGap(18, 18, 18)
+                .addComponent(lblSystemName)
+                .addGap(30, 30, 30))
+        );
+        HeaderPanelLayout.setVerticalGroup(
+            HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HeaderPanelLayout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addGroup(HeaderPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(lblSystemName)
+                    .addComponent(lblIcon))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(108, 108, 108)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRoleAsPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRoleAsDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(260, 260, 260)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnRoleAsSysAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129))
+                .addGap(212, 212, 212)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRoleAsPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(btnHospitalAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRoleAsSysAdmin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCommunityAdmin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRoleAsDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(HeaderPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRoleAsSysAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRoleAsPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRoleAsDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61))
+                .addComponent(HeaderPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(btnRoleAsSysAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnHospitalAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCommunityAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(btnRoleAsPatient, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(btnRoleAsDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnCommunityAdmin, btnHospitalAdmin, btnRoleAsDoctor, btnRoleAsPatient, btnRoleAsSysAdmin});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -121,6 +163,7 @@ public class HomePageFrame extends javax.swing.JFrame {
         
         // rule: only patient and doctor could create accounts by themselves.
         LoginFrame loginFrame = new LoginFrame(RoleEnum.PATIENT.getIndex());
+        loginFrame.setLocationRelativeTo(null);
         loginFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRoleAsPatientActionPerformed
@@ -137,10 +180,14 @@ public class HomePageFrame extends javax.swing.JFrame {
 //this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_btnRoleAsSysAdminActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-//new UpdatePatient().setVisible(true);
-//this.dispose();// TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    private void btnHospitalAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalAdminActionPerformed
+        //new UpdatePatient().setVisible(true);
+        //this.dispose();// TODO add your handling code here:
+    }//GEN-LAST:event_btnHospitalAdminActionPerformed
+
+    private void btnCommunityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityAdminActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCommunityAdminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -173,16 +220,22 @@ public class HomePageFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomePageFrame().setVisible(true);
+                HomePageFrame homePageFrame = new HomePageFrame();
+                
+                homePageFrame.setLocationRelativeTo(null);
+                homePageFrame.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel HeaderPanel;
+    private javax.swing.JButton btnCommunityAdmin;
+    private javax.swing.JButton btnHospitalAdmin;
     private javax.swing.JButton btnRoleAsDoctor;
     private javax.swing.JButton btnRoleAsPatient;
     private javax.swing.JButton btnRoleAsSysAdmin;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblIcon;
+    private javax.swing.JLabel lblSystemName;
     // End of variables declaration//GEN-END:variables
 }

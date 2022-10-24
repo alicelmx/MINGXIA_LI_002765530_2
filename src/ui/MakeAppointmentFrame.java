@@ -13,7 +13,7 @@ import model.Doctor;
  *
  * @author limingxia
  */
-public class AppointmentFrame extends javax.swing.JFrame {
+public class MakeAppointmentFrame extends javax.swing.JFrame {
     
     public Doctor doctor;
     public String hospitalName;
@@ -23,11 +23,11 @@ public class AppointmentFrame extends javax.swing.JFrame {
     /**
      * Creates new form AppointmentFrame
      */
-    public AppointmentFrame() {
+    public MakeAppointmentFrame() {
         initComponents();
     }
 
-    AppointmentFrame(Doctor selectedDoctor, String hospitalName) {
+    MakeAppointmentFrame(Doctor selectedDoctor, String hospitalName) {
         this.doctor = selectedDoctor;
         this.hospitalName = hospitalName;
         
@@ -53,8 +53,10 @@ public class AppointmentFrame extends javax.swing.JFrame {
         btnSubmitAppointment = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
+        iconDoctor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         lblHospital.setText("Hospital:");
 
@@ -70,6 +72,7 @@ public class AppointmentFrame extends javax.swing.JFrame {
 
         lblAppointmentTime.setText("Appointment Time:");
 
+        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/modify.png"))); // NOI18N
         btnSubmitAppointment.setText("Submit");
         btnSubmitAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -77,63 +80,78 @@ public class AppointmentFrame extends javax.swing.JFrame {
             }
         });
 
-        btnBack.setText("<<< Back");
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NavBack.png"))); // NOI18N
+        btnBack.setText(" Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(this.doctor.getAvailableTime().split(",")));
+
+        iconDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/doctor.jpeg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
-                .addComponent(btnBack)
-                .addGap(129, 129, 129)
-                .addComponent(btnSubmitAppointment)
-                .addGap(242, 242, 242))
             .addGroup(layout.createSequentialGroup()
-                .addGap(234, 234, 234)
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblAppointmentTime)
-                        .addGap(38, 38, 38)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(iconDoctor)
+                        .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHospital)
                             .addComponent(lblDepartment)
-                            .addComponent(lblDoctorNameTitle))
-                        .addGap(29, 29, 29)
+                            .addComponent(lblDoctorNameTitle)
+                            .addComponent(lblAppointmentTime))
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDoctorName)
                             .addComponent(lblDepartmentName)
-                            .addComponent(lblHospitalName))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(lblHospitalName)
+                            .addComponent(lblDoctorName)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(100, 100, 100)
+                        .addComponent(btnSubmitAppointment)
+                        .addGap(129, 129, 129))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(74, 74, 74)
+                .addGap(69, 69, 69)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(iconDoctor)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblHospital)
+                            .addComponent(lblHospitalName))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(lblDepartmentName)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(lblDepartment)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(lblDoctorNameTitle)
+                                    .addComponent(lblDoctorName))))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblAppointmentTime)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblHospital)
-                    .addComponent(lblHospitalName))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDepartment)
-                    .addComponent(lblDepartmentName))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblDoctorNameTitle)
-                    .addComponent(lblDoctorName))
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAppointmentTime)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(157, 157, 157)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmitAppointment)
-                    .addComponent(btnBack))
-                .addContainerGap(158, Short.MAX_VALUE))
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(113, 113, 113))
         );
 
         pack();
@@ -154,6 +172,10 @@ public class AppointmentFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -171,20 +193,23 @@ public class AppointmentFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MakeAppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MakeAppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MakeAppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MakeAppointmentFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AppointmentFrame().setVisible(true);
+                MakeAppointmentFrame appointmentFrame = new MakeAppointmentFrame();
+                appointmentFrame.setLocationRelativeTo(null);
+                appointmentFrame.setVisible(true);
             }
         });
     }
@@ -192,6 +217,7 @@ public class AppointmentFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmitAppointment;
+    private javax.swing.JLabel iconDoctor;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel lblAppointmentTime;
     private javax.swing.JLabel lblDepartment;

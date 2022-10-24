@@ -371,7 +371,9 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DiagnoseFrame().setVisible(true);
+                DiagnoseFrame diagnoseFrame = new DiagnoseFrame();
+                diagnoseFrame.setLocationRelativeTo(null);
+                diagnoseFrame.setVisible(true);
             }
         });
     }

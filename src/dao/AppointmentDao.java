@@ -35,7 +35,6 @@ public class AppointmentDao {
        
         File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
         List<AppointmentModel> appointmentModelList = JsonFileUitls.readJsonFileToModel(file, AppointmentModel.class);
-        List<AppointmentModel> resList = appointmentModelList.stream().filter(s->s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
             
         return appointmentModelList.stream().filter(s->s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
     }
@@ -57,5 +56,13 @@ public class AppointmentDao {
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
         
+    }
+
+    public List<AppointmentModel> queryAppointmentByPid(String userId) {
+        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
+        List<AppointmentModel> appointmentModelList = JsonFileUitls.readJsonFileToModel(file, AppointmentModel.class);
+        List<AppointmentModel> resList = appointmentModelList.stream().filter(s->s.getPid().equalsIgnoreCase(userId)).collect(Collectors.toList());
+            
+        return resList;
     }
 }
