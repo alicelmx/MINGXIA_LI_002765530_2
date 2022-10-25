@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author limingxia
@@ -11,9 +13,10 @@ package model;
 public class AppointmentModel {
     
     private String aid;
-    private String pid;
-    private String did;
+    private String pName;
+    private String dName;
     private String datetime;
+    private int status; // 0 未进行 1已结束（已结束的预约看不到）
 
     public String getAid() {
         return aid;
@@ -24,20 +27,20 @@ public class AppointmentModel {
     }
 
     
-    public String getPid() {
-        return pid;
+    public String getpName() {
+        return pName;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
-    public String getDid() {
-        return did;
+    public String getdName() {
+        return dName;
     }
 
-    public void setDid(String did) {
-        this.did = did;
+    public void setdName(String dName) {
+        this.dName = dName;
     }
 
     public String getDatetime() {
@@ -48,11 +51,37 @@ public class AppointmentModel {
         this.datetime = datetime;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return this.aid;
     }
     
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof AppointmentModel)) {
+            return false;
+        }
+
+        AppointmentModel appointmentModel = (AppointmentModel) obj;
+
+        return Objects.equals(aid, appointmentModel.getAid())
+                && Objects.equals(dName, appointmentModel.getdName())
+                && Objects.equals(pName, appointmentModel.getpName())
+                && Objects.equals(datetime, appointmentModel.getDatetime())
+                && Objects.equals(status, appointmentModel.getStatus());
+    }
+
     
 }

@@ -53,13 +53,13 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="btnHistory" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAppointment" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnPatientProfile" linkSize="1" min="-2" pref="86" max="-2" attributes="0"/>
+                          <Component id="btnDoctorManagement" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnHospitalManagement" linkSize="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAuthManagement" linkSize="1" min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="37" max="32767" attributes="0"/>
+                      <EmptySpace pref="63" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -67,18 +67,18 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
-                      <Component id="btnPatientProfile" linkSize="2" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="btnAuthManagement" linkSize="2" min="-2" pref="41" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                      <Component id="btnAppointment" linkSize="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnHospitalManagement" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
-                      <Component id="btnHistory" linkSize="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnDoctorManagement" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="305" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="btnPatientProfile">
+            <Component class="javax.swing.JButton" name="btnAuthManagement">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/assets/userName.png"/>
@@ -86,29 +86,29 @@
                 <Property name="text" type="java.lang.String" value="Profile"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPatientProfileActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAuthManagementActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAppointment">
+            <Component class="javax.swing.JButton" name="btnHospitalManagement">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/assets/TimeCard.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Appointment"/>
+                <Property name="text" type="java.lang.String" value="Doctor"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAppointmentActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHospitalManagementActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btnHistory">
+            <Component class="javax.swing.JButton" name="btnDoctorManagement">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/assets/ActualSizeHS.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="History"/>
+                <Property name="text" type="java.lang.String" value="Patient"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistoryActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDoctorManagementActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

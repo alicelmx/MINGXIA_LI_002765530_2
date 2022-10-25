@@ -8,20 +8,17 @@ package ui;
  *
  * @author limingxia
  */
-public class DoctorFrame extends javax.swing.JFrame {
-    
-    public String userName;
-    
+public class CommunityAdminFrame extends javax.swing.JFrame {
+
     /**
      * Creates new form SystemAdminFrame
      */
-    public DoctorFrame() {
+    public CommunityAdminFrame() {
         initComponents();
     }
 
-    DoctorFrame(String userName) {
-        this.userName = userName;
-        initComponents();
+    CommunityAdminFrame(String uid, String userName) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     /**
@@ -35,36 +32,27 @@ public class DoctorFrame extends javax.swing.JFrame {
 
         splitPane = new javax.swing.JSplitPane();
         funcitonPane = new javax.swing.JPanel();
-        btnAuthManagement = new javax.swing.JButton();
-        btnDiagnose = new javax.swing.JButton();
-        btnDoctorManagement = new javax.swing.JButton();
+        btnAddCommunity = new javax.swing.JButton();
+        btnSearchCommunity = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnAuthManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
-        btnAuthManagement.setText("Profile");
-        btnAuthManagement.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCommunity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnAddCommunity.setText("Add");
+        btnAddCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAuthManagementActionPerformed(evt);
+                btnAddCommunityActionPerformed(evt);
             }
         });
 
-        btnDiagnose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
-        btnDiagnose.setText("Diagnose");
-        btnDiagnose.addActionListener(new java.awt.event.ActionListener() {
+        btnSearchCommunity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnSearchCommunity.setText("Search");
+        btnSearchCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDiagnoseActionPerformed(evt);
-            }
-        });
-
-        btnDoctorManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
-        btnDoctorManagement.setText("History");
-        btnDoctorManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDoctorManagementActionPerformed(evt);
+                btnSearchCommunityActionPerformed(evt);
             }
         });
 
@@ -73,29 +61,26 @@ public class DoctorFrame extends javax.swing.JFrame {
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(42, 42, 42)
                 .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDoctorManagement)
-                    .addComponent(btnDiagnose)
-                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                    .addComponent(btnSearchCommunity)
+                    .addComponent(btnAddCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAuthManagement, btnDiagnose, btnDoctorManagement});
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddCommunity, btnSearchCommunity});
 
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(btnDiagnose)
+                .addGap(95, 95, 95)
+                .addComponent(btnAddCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(btnDoctorManagement)
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addComponent(btnSearchCommunity)
+                .addContainerGap(382, Short.MAX_VALUE))
         );
 
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAuthManagement, btnDiagnose, btnDoctorManagement});
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddCommunity, btnSearchCommunity});
 
         splitPane.setLeftComponent(funcitonPane);
 
@@ -126,23 +111,17 @@ public class DoctorFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAuthManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthManagementActionPerformed
+    private void btnAddCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCommunityActionPerformed
         
-        DoctorFrame patientFrame = new DoctorFrame();
-        splitPane.setRightComponent(patientFrame);
-    }//GEN-LAST:event_btnAuthManagementActionPerformed
+        AddCommunityPane addCommunityPane = new AddCommunityPane();
+        splitPane.setRightComponent(addCommunityPane);
+    }//GEN-LAST:event_btnAddCommunityActionPerformed
 
-    private void btnDiagnoseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiagnoseActionPerformed
-
-        DoctorDiagnosePane doctorDiagnosePane = new DoctorDiagnosePane(userName);
-        splitPane.setRightComponent(doctorDiagnosePane);
-    }//GEN-LAST:event_btnDiagnoseActionPerformed
-
-    private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed
-    
-        PatientHistoryPane patientHistoryPane = new PatientHistoryPane();
-        splitPane.setRightComponent(patientHistoryPane);
-    }//GEN-LAST:event_btnDoctorManagementActionPerformed
+    private void btnSearchCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCommunityActionPerformed
+           
+        CommunityManagementPane cmp = new CommunityManagementPane();
+        splitPane.setRightComponent(cmp);
+    }//GEN-LAST:event_btnSearchCommunityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,22 +140,14 @@ public class DoctorFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DoctorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DoctorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DoctorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DoctorFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CommunityAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -189,15 +160,16 @@ public class DoctorFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DoctorFrame().setVisible(true);
+                CommunityAdminFrame systemAdminFrame = new CommunityAdminFrame();
+                systemAdminFrame.setLocationRelativeTo(null);
+                systemAdminFrame.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAuthManagement;
-    private javax.swing.JButton btnDiagnose;
-    private javax.swing.JButton btnDoctorManagement;
+    private javax.swing.JButton btnAddCommunity;
+    private javax.swing.JButton btnSearchCommunity;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
     private javax.swing.JSplitPane splitPane;

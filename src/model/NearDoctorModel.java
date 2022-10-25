@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author limingxia
@@ -13,7 +15,7 @@ public class NearDoctorModel {
     private String name;
     private String hospital;
     private String department;
-    private String availableTime;
+    private List<String> availableTime;
 
     public String getName() {
         return name;
@@ -39,11 +41,11 @@ public class NearDoctorModel {
         this.department = department;
     }
 
-    public String getAvailableTime() {
+    public List<String> getAvailableTime() {
         return availableTime;
     }
 
-    public void setAvailableTime(String availableTime) {
+    public void setAvailableTime(List<String> availableTime) {
         this.availableTime = availableTime;
     }
 
@@ -51,6 +53,4 @@ public class NearDoctorModel {
     public String toString() {
         return name;
     }
-    
-    
 }

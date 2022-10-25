@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author limingxia
@@ -19,6 +21,7 @@ public class Encounter {
     private VitalSign vitalSign;
     private String prescription;
     private String remark;
+    
 
     public String getEid() {
         return eid;
@@ -92,5 +95,29 @@ public class Encounter {
         this.remark = remark;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Encounter)) {
+            return false;
+        }
+
+        Encounter encounter = (Encounter) obj;
+
+        return Objects.equals(eid, encounter.getEid())
+                && Objects.equals(datetime, encounter.getDatetime())
+                && Objects.equals(pName, encounter.getpName())
+                && Objects.equals(dName, encounter.getdName())
+                && Objects.equals(hName, encounter.gethName())
+                && Objects.equals(deptment, encounter.getDeptment())
+                && Objects.equals(vitalSign, encounter.getVitalSign())
+                && Objects.equals(prescription, encounter.getPrescription())
+                && Objects.equals(remark, encounter.getRemark())
+                ;
+    }
+
     
 }

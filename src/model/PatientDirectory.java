@@ -5,6 +5,7 @@
 package model;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -42,6 +43,22 @@ public class PatientDirectory {
                         || s.getCity().equalsIgnoreCase(keyword)
                         || s.getCommunity().equalsIgnoreCase(keyword)
                 ).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof PatientDirectory)) {
+            return false;
+        }
+
+        PatientDirectory patientDirectory = (PatientDirectory) obj;
+
+        return Objects.equals(patientList, patientDirectory.getPatientList());
+               
     }
 
 }

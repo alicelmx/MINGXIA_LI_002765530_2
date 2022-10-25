@@ -4,10 +4,13 @@
  */
 package ui;
 
+import dao.DoctorDao;
 import dao.LoginDao;
+import dao.PatientDao;
 import enumvalue.RoleEnum;
 import javax.swing.JOptionPane;
 import model.LoginModel;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -19,6 +22,9 @@ public class LoginFrame extends javax.swing.JFrame {
     public int selectRoleIdx;
 
     private LoginDao loginDao = new LoginDao();
+    private DoctorDao doctorDao = new DoctorDao();
+    private PatientDao patientDao = new PatientDao();
+
 
     /**
      * Creates new form LoginFrame
@@ -149,7 +155,6 @@ public class LoginFrame extends javax.swing.JFrame {
         String userName = this.txtUsername.getText();
         String password = new String(this.txtPassword.getPassword());
 
-        // TODO 根据不同角色进行密码校验
         if (StringUtils.isEmpty(userName)) {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
             return;
@@ -160,37 +165,50 @@ public class LoginFrame extends javax.swing.JFrame {
 
         }
 
-        LoginModel loginModel = loginDao.findLoginUserByName(userName);
+        LoginModel loginModel = loginDao.findLoginUserByName(userName, selectRoleIdx);
+        if(ObjectUtils.isEmpty(loginModel)) {
+            JOptionPane.showMessageDialog(this, "Non-existent User, Please Register or Check Info!");
+            return;
+        }
         if (!loginModel.getPassword().equals(password)) {
             JOptionPane.showMessageDialog(this, "Please Check Username and Password!");
             return;
         }
 
-        JOptionPane.showMessageDialog(this, "登陆成功！");
+        JOptionPane.showMessageDialog(this, "Login Successfully!");
 
-        // show different Frame according to selected role
         switch (selectRoleIdx) {
             case 0: // System Admin
-                
+                SystemAdminFrame systemAdminFrame = new SystemAdminFrame();
+                systemAdminFrame.setLocationRelativeTo(null);
+                systemAdminFrame.setVisible(true);
+                this.dispose();
                 
                 break;
             case 1: // Community Admin
+                CommunityAdminFrame communityAdminFrame = new CommunityAdminFrame();
+                communityAdminFrame.setLocationRelativeTo(null);
+                communityAdminFrame.setVisible(true);
+                this.dispose();
 
                 break;
 
             case 2: // Hospital Admin
-
+                HospitalAdminFrame hospitalAdminFrame = new HospitalAdminFrame();
+                hospitalAdminFrame.setLocationRelativeTo(null);
+                hospitalAdminFrame.setVisible(true);
                 break;
 
             case 3: // Doctor
-                DoctorFrame doctorFrame = new DoctorFrame(loginModel.getUid(), userName);
+                DoctorFrame doctorFrame = new DoctorFrame(userName);
+                doctorFrame.setLocationRelativeTo(null);
                 doctorFrame.setVisible(true);
                 this.dispose();
 
                 break;
             case 4: // Patient
-                // TODO appointment
-                PatientFrame patientFrame = new PatientFrame(loginModel.getUid(), userName);
+                PatientFrame patientFrame = new PatientFrame(userName);
+                patientFrame.setLocationRelativeTo(null);
                 patientFrame.setVisible(true);
                 this.dispose();
 
@@ -210,15 +228,19 @@ public class LoginFrame extends javax.swing.JFrame {
                 || selectRoleIdx == RoleEnum.SYSTEM_ADMIN.getIndex()
                 || selectRoleIdx == RoleEnum.HOSPITAL_ADMIN.getIndex()) {
 
-            JOptionPane.showMessageDialog(this, "Attention: Only Doctor and Patient can register.");
+            JOptionPane.showMessageDialog(this, "Attention: Only Doctor and Patient Can Register!");
             return;
         }
 
         if (selectRoleIdx == enumvalue.RoleEnum.DOCTOR.getIndex()) {
-            // TODO doctor register
+            DoctorRegisterFrame doctorRegisterFrame = new DoctorRegisterFrame();
+            doctorRegisterFrame.setLocationRelativeTo(null);
+            doctorRegisterFrame.setVisible(true);
+            this.dispose();
 
         } else {
             PatientRegisterFrame patientRegisterFrame = new PatientRegisterFrame();
+            patientRegisterFrame.setLocationRelativeTo(null);
             patientRegisterFrame.setVisible(true);
             this.dispose();
         }
@@ -254,7 +276,7 @@ public class LoginFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginFrame().setVisible(true);   
+                new LoginFrame().setVisible(true);
             }
         });
     }

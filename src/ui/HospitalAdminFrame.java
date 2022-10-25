@@ -8,12 +8,20 @@ package ui;
  *
  * @author limingxia
  */
-public class SystemAdminFrame extends javax.swing.JFrame {
-
+public class HospitalAdminFrame extends javax.swing.JFrame {
+    public String uid;
+    public String userName;
+    
     /**
      * Creates new form SystemAdminFrame
      */
-    public SystemAdminFrame() {
+    public HospitalAdminFrame() {
+        initComponents();
+    }
+
+    HospitalAdminFrame(String uid, String userName) {
+        this.uid = uid;
+        this.userName = userName;
         initComponents();
     }
 
@@ -28,50 +36,36 @@ public class SystemAdminFrame extends javax.swing.JFrame {
 
         splitPane = new javax.swing.JSplitPane();
         funcitonPane = new javax.swing.JPanel();
+        btnAuthManagement = new javax.swing.JButton();
         btnHospitalManagement = new javax.swing.JButton();
         btnDoctorManagement = new javax.swing.JButton();
-        btnCommunityManagement = new javax.swing.JButton();
-        btnPatientManagement = new javax.swing.JButton();
-        btnPatientManagement1 = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setResizable(false);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnHospitalManagement.setText("Manage Hospital ");
+        btnAuthManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
+        btnAuthManagement.setText("Profile");
+        btnAuthManagement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuthManagementActionPerformed(evt);
+            }
+        });
+
+        btnHospitalManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnHospitalManagement.setText("Doctor");
         btnHospitalManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHospitalManagementActionPerformed(evt);
             }
         });
 
-        btnDoctorManagement.setText("Manage Doctor");
+        btnDoctorManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnDoctorManagement.setText("Patient");
         btnDoctorManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDoctorManagementActionPerformed(evt);
-            }
-        });
-
-        btnCommunityManagement.setText("  Manage Community");
-        btnCommunityManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCommunityManagementActionPerformed(evt);
-            }
-        });
-
-        btnPatientManagement.setText("Manage Patient");
-        btnPatientManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPatientManagementActionPerformed(evt);
-            }
-        });
-
-        btnPatientManagement1.setText("Manage Encounter");
-        btnPatientManagement1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPatientManagement1ActionPerformed(evt);
             }
         });
 
@@ -80,30 +74,29 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
-                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnHospitalManagement)
+                .addGap(34, 34, 34)
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnDoctorManagement)
-                    .addComponent(btnCommunityManagement)
-                    .addComponent(btnPatientManagement)
-                    .addComponent(btnPatientManagement1))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(btnHospitalManagement)
+                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
+
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnHospitalManagement});
+
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(93, 93, 93)
+                .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
                 .addComponent(btnHospitalManagement)
-                .addGap(31, 31, 31)
+                .addGap(41, 41, 41)
                 .addComponent(btnDoctorManagement)
-                .addGap(42, 42, 42)
-                .addComponent(btnCommunityManagement)
-                .addGap(33, 33, 33)
-                .addComponent(btnPatientManagement)
-                .addGap(29, 29, 29)
-                .addComponent(btnPatientManagement1)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addContainerGap(305, Short.MAX_VALUE))
         );
+
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnHospitalManagement});
 
         splitPane.setLeftComponent(funcitonPane);
 
@@ -115,7 +108,7 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 599, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
 
         splitPane.setRightComponent(contentPane);
@@ -134,33 +127,23 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAuthManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthManagementActionPerformed
+        
+        HospitalAdminFrame patientFrame = new HospitalAdminFrame();
+        splitPane.setRightComponent(patientFrame);
+    }//GEN-LAST:event_btnAuthManagementActionPerformed
+
     private void btnHospitalManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalManagementActionPerformed
 
-        HospitalManagementPane hospitalManagementPane = new HospitalManagementPane();
-        splitPane.setRightComponent(hospitalManagementPane);
+        PatientAppointmentPane patientAppointmentPane = new PatientAppointmentPane(uid);
+        splitPane.setRightComponent(patientAppointmentPane);
     }//GEN-LAST:event_btnHospitalManagementActionPerformed
 
-    private void btnPatientManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientManagementActionPerformed
-
-        PatientManagementPane patientManagementPane = new PatientManagementPane();
-        splitPane.setRightComponent(patientManagementPane);
-    }//GEN-LAST:event_btnPatientManagementActionPerformed
-
-    private void btnCommunityManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityManagementActionPerformed
-
-        CommunityManagementPane communityManagementPane = new CommunityManagementPane();
-        splitPane.setRightComponent(communityManagementPane);
-    }//GEN-LAST:event_btnCommunityManagementActionPerformed
-
     private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed
-
-        DoctorManagementPane doctorManagementPane = new DoctorManagementPane();
-        splitPane.setRightComponent(doctorManagementPane);
+    
+        PatientHistoryPane patientHistoryPane = new PatientHistoryPane();
+        splitPane.setRightComponent(patientHistoryPane);
     }//GEN-LAST:event_btnDoctorManagementActionPerformed
-
-    private void btnPatientManagement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientManagement1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPatientManagement1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,20 +162,51 @@ public class SystemAdminFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SystemAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(HospitalAdminFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                SystemAdminFrame systemAdminFrame = new SystemAdminFrame();
+                HospitalAdminFrame systemAdminFrame = new HospitalAdminFrame();
                 systemAdminFrame.setLocationRelativeTo(null);
                 systemAdminFrame.setVisible(true);
             }
@@ -200,11 +214,9 @@ public class SystemAdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCommunityManagement;
+    private javax.swing.JButton btnAuthManagement;
     private javax.swing.JButton btnDoctorManagement;
     private javax.swing.JButton btnHospitalManagement;
-    private javax.swing.JButton btnPatientManagement;
-    private javax.swing.JButton btnPatientManagement1;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
     private javax.swing.JSplitPane splitPane;

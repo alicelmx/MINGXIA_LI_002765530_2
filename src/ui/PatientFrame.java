@@ -9,7 +9,8 @@ package ui;
  * @author limingxia
  */
 public class PatientFrame extends javax.swing.JFrame {
-
+    public String userName;
+    
     /**
      * Creates new form SystemAdminFrame
      */
@@ -17,8 +18,9 @@ public class PatientFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    PatientFrame(String uid, String userName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    PatientFrame(String userName) {
+        this.userName = userName;
+        initComponents();
     }
 
     /**
@@ -32,36 +34,36 @@ public class PatientFrame extends javax.swing.JFrame {
 
         splitPane = new javax.swing.JSplitPane();
         funcitonPane = new javax.swing.JPanel();
-        btnAuthManagement = new javax.swing.JButton();
-        btnHospitalManagement = new javax.swing.JButton();
-        btnDoctorManagement = new javax.swing.JButton();
+        btnPatientProfile = new javax.swing.JButton();
+        btnAppointment = new javax.swing.JButton();
+        btnHistory = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnAuthManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
-        btnAuthManagement.setText("Profile");
-        btnAuthManagement.addActionListener(new java.awt.event.ActionListener() {
+        btnPatientProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
+        btnPatientProfile.setText("Profile");
+        btnPatientProfile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAuthManagementActionPerformed(evt);
+                btnPatientProfileActionPerformed(evt);
             }
         });
 
-        btnHospitalManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
-        btnHospitalManagement.setText("Appointment");
-        btnHospitalManagement.addActionListener(new java.awt.event.ActionListener() {
+        btnAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnAppointment.setText("Appointment");
+        btnAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHospitalManagementActionPerformed(evt);
+                btnAppointmentActionPerformed(evt);
             }
         });
 
-        btnDoctorManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
-        btnDoctorManagement.setText("History");
-        btnDoctorManagement.addActionListener(new java.awt.event.ActionListener() {
+        btnHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnHistory.setText("History");
+        btnHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDoctorManagementActionPerformed(evt);
+                btnHistoryActionPerformed(evt);
             }
         });
 
@@ -72,27 +74,27 @@ public class PatientFrame extends javax.swing.JFrame {
             .addGroup(funcitonPaneLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnDoctorManagement)
-                    .addComponent(btnHospitalManagement)
-                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnHistory)
+                    .addComponent(btnAppointment)
+                    .addComponent(btnPatientProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnHospitalManagement});
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAppointment, btnHistory, btnPatientProfile});
 
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
                 .addGap(93, 93, 93)
-                .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPatientProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
-                .addComponent(btnHospitalManagement)
+                .addComponent(btnAppointment)
                 .addGap(41, 41, 41)
-                .addComponent(btnDoctorManagement)
+                .addComponent(btnHistory)
                 .addContainerGap(305, Short.MAX_VALUE))
         );
 
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnHospitalManagement});
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAppointment, btnHistory, btnPatientProfile});
 
         splitPane.setLeftComponent(funcitonPane);
 
@@ -123,23 +125,23 @@ public class PatientFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAuthManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthManagementActionPerformed
+    private void btnPatientProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientProfileActionPerformed
         
         PatientFrame patientFrame = new PatientFrame();
         splitPane.setRightComponent(patientFrame);
-    }//GEN-LAST:event_btnAuthManagementActionPerformed
+    }//GEN-LAST:event_btnPatientProfileActionPerformed
 
-    private void btnHospitalManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalManagementActionPerformed
+    private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
 
-        PatientAppointmentPane patientAppointmentPane = new PatientAppointmentPane();
+        PatientAppointmentPane patientAppointmentPane = new PatientAppointmentPane(userName);
         splitPane.setRightComponent(patientAppointmentPane);
-    }//GEN-LAST:event_btnHospitalManagementActionPerformed
+    }//GEN-LAST:event_btnAppointmentActionPerformed
 
-    private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed
+    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
     
         PatientHistoryPane patientHistoryPane = new PatientHistoryPane();
         splitPane.setRightComponent(patientHistoryPane);
-    }//GEN-LAST:event_btnDoctorManagementActionPerformed
+    }//GEN-LAST:event_btnHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,9 +184,9 @@ public class PatientFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAuthManagement;
-    private javax.swing.JButton btnDoctorManagement;
-    private javax.swing.JButton btnHospitalManagement;
+    private javax.swing.JButton btnAppointment;
+    private javax.swing.JButton btnHistory;
+    private javax.swing.JButton btnPatientProfile;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
     private javax.swing.JSplitPane splitPane;

@@ -8,10 +8,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 import model.Encounter;
-import model.Hospital;
-import tool.GsonUtils;
+import tool.EncounterSerialGenerator;
 import tool.JsonFileUitls;
 
 /**
@@ -21,8 +19,8 @@ import tool.JsonFileUitls;
 public class EncounterDao {
     
     public static final String EncounterRecordJson = "../database/EncounterRecord.json";
-    // public File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
-
+    EncounterSerialGenerator serialGenerator = EncounterSerialGenerator.getInstance();
+    
     /**
      * search userId by username
      * @param zipcode
@@ -34,14 +32,19 @@ public class EncounterDao {
         return JsonFileUitls.readJsonFileToModel(file, Encounter.class);
     }
     
-    public void insertNewEncounterRecord(Encounter encounter) {
+    public boolean insertNewEncounterRecord(Encounter encounter) {
+        encounter.setEid(serialGenerator.next());
         
         File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
         List<Encounter> allEncounters = queryALlEncounterRecord();
+        
+        if(allEncounters.contains(encounter)) return false;
         allEncounters.add(encounter);
         
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
+        
+        return true;
     }
 }

@@ -4,17 +4,30 @@
  */
 package ui;
 
+import dao.CommunityDao;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Community;
+import model.NearDoctorModel;
+import model.Patient;
+
 /**
  *
  * @author limingxia
  */
 public class CommunityManagementPane extends javax.swing.JPanel {
-
+    
+    private CommunityDao communityDao = new CommunityDao();
+    
+    public List<Community> communitys;
     /**
      * Creates new form AuthManagementPane
      */
     public CommunityManagementPane() {
+        communitys = communityDao.queryAllCommunityList();
         initComponents();
+        populateTable(communitys);
     }
 
     /**
@@ -26,19 +39,204 @@ public class CommunityManagementPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtSearchArea = new javax.swing.JTextField();
+        btnBrowseDoctors = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbCommunity = new javax.swing.JTable();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnRefesh = new javax.swing.JButton();
+
+        txtSearchArea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchAreaActionPerformed(evt);
+            }
+        });
+
+        btnBrowseDoctors.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        btnBrowseDoctors.setText("search");
+        btnBrowseDoctors.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBrowseDoctorsActionPerformed(evt);
+            }
+        });
+
+        tbCommunity.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Name", "City", "Zip Code", "Address"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbCommunity.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(tbCommunity);
+        tbCommunity.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/refresh.png"))); // NOI18N
+        btnRefesh.setText("Refresh");
+        btnRefesh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefeshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBrowseDoctors)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 504, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBrowseDoctors, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtSearchAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchAreaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchAreaActionPerformed
+
+    private void btnBrowseDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseDoctorsActionPerformed
+// TODO
+//        // Patients are able to look for a doctor under the near hospitals
+//        Patient patient = patientDao.findPatientInfoByUid(userId);
+//        String zipcode = patient.getZipcode();
+//
+//        // search hospital
+//        List<Hospital> hospitalList = hospitalDao.findHospitalByZipcode(zipcode);
+//
+//        nearDoctorList = new ArrayList<>();
+//        hospitalList.stream().forEach(o -> {
+//            o.getDoctorDirectory().stream().forEach(m -> {
+//
+//                Doctor doctor = doctorDao.findDoctorByDid(m);
+//
+//                NearDoctorModel nearDoctorModel = new NearDoctorModel();
+//                nearDoctorModel.setHospital(o.gethName());
+//                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
+//                nearDoctorModel.setName(doctor.getdName());
+//                nearDoctorModel.setDepartment(doctor.getDepartment());
+//
+//                nearDoctorList.add(nearDoctorModel);
+//            });
+//        });
+
+//        populateTable();
+    }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        int selectedRowIndex = tbCommunity.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please Select a Community to Edit.");
+            return;
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
+        Community selectedCommunity = (Community) model.getValueAt(selectedRowIndex, 0);
+
+        EditCommunity editCommunity = new EditCommunity(selectedCommunity);
+        editCommunity.setLocationRelativeTo(null);
+        editCommunity.setVisible(true);
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        
+        // TODO 
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        // TODO add your handling code here:
+        communitys = communityDao.queryAllCommunityList();
+        populateTable(communitys);
+    }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void populateTable(List<Community> communityList) {
+        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
+        model.setRowCount(0);
+
+        for (Community community : communityList) {
+
+            Object[] row = new Object[4];
+            row[0] = community;
+            row[1] = community.getCity();
+            row[2] = community.getZipcode();
+            row[3] = community.getAddress();
+
+            model.addRow(row);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBrowseDoctors;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnRefesh;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbCommunity;
+    private javax.swing.JTextField txtSearchArea;
     // End of variables declaration//GEN-END:variables
 }

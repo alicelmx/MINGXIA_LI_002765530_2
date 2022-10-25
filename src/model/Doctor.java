@@ -4,6 +4,9 @@
  */
 package model;
 
+import java.util.List;
+import java.util.Objects;
+
 /**
  *
  * @author limingxia
@@ -14,10 +17,8 @@ public class Doctor extends Person {
     private String dName;
     private String department;
     private Integer level;
-    private String hid; // belong to which hospital
-    // TODO 看病记录
-    // 可预约时间
-    private String availableTime;
+    private String hName; // belong to which hospital
+    private List<String> availableTime;
     
     public String getDid() {
         return did;
@@ -52,19 +53,19 @@ public class Doctor extends Person {
     }
 
     
-    public String getHid() {
-        return hid;
+    public String gethName() {
+        return hName;
     }
 
-    public void setHid(String hid) {
-        this.hid = hid;
+    public void sethName(String hName) {
+        this.hName = hName;
     }
 
-    public String getAvailableTime() {
+    public List<String> getAvailableTime() {
         return availableTime;
     }
 
-    public void setAvailableTime(String availableTime) {
+    public void setAvailableTime(List<String> availableTime) {
         this.availableTime = availableTime;
     }
 
@@ -72,4 +73,25 @@ public class Doctor extends Person {
     public String toString() {
         return getdName();
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Doctor)) {
+            return false;
+        }
+
+        Doctor doctor = (Doctor) obj;
+
+        return Objects.equals(did, doctor.getDid())
+                && Objects.equals(dName, doctor.getdName())
+                && Objects.equals(department, doctor.getDepartment())
+                && Objects.equals(level, doctor.getLevel())
+                && Objects.equals(hName, doctor.gethName())
+                && Objects.equals(availableTime, doctor.getAvailableTime());
+    }
+
 }

@@ -161,7 +161,6 @@ public class HomePageFrame extends javax.swing.JFrame {
 
     private void btnRoleAsPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoleAsPatientActionPerformed
         
-        // rule: only patient and doctor could create accounts by themselves.
         LoginFrame loginFrame = new LoginFrame(RoleEnum.PATIENT.getIndex());
         loginFrame.setLocationRelativeTo(null);
         loginFrame.setVisible(true);
@@ -170,23 +169,34 @@ public class HomePageFrame extends javax.swing.JFrame {
 
     private void btnRoleAsDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoleAsDoctorActionPerformed
         
-//        LoginFrame loginFrame = new LoginFrame(isPatient);
-//        loginFrame.setVisible(true);
-//        this.dispose();
+        LoginFrame loginFrame = new LoginFrame(RoleEnum.DOCTOR.getIndex());
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRoleAsDoctorActionPerformed
 
     private void btnRoleAsSysAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoleAsSysAdminActionPerformed
-//new BillGeneration().setVisible(true);
-//this.dispose();// TODO add your handling code here:
+
+        LoginFrame loginFrame = new LoginFrame(RoleEnum.SYSTEM_ADMIN.getIndex());
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnRoleAsSysAdminActionPerformed
 
     private void btnHospitalAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalAdminActionPerformed
-        //new UpdatePatient().setVisible(true);
-        //this.dispose();// TODO add your handling code here:
+        
+        LoginFrame loginFrame = new LoginFrame(RoleEnum.HOSPITAL_ADMIN.getIndex());
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnHospitalAdminActionPerformed
 
     private void btnCommunityAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityAdminActionPerformed
-        // TODO add your handling code here:
+        
+        LoginFrame loginFrame = new LoginFrame(RoleEnum.COMMUNITY_ADMIN.getIndex());
+        loginFrame.setLocationRelativeTo(null);
+        loginFrame.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCommunityAdminActionPerformed
 
     /**

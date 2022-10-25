@@ -1,19 +1,14 @@
 
 [
     {
-        "uid": "202210190001",
-        "username": "Mingxia Li",
-        "password": "123456"
+        "userName": "sysadmin",
+        "password": "sysadmin123",
+        "roleType": "0"
     },
     {
-        "uid": "202210190002",
-        "username": "Yi Xu",
-        "password": "123456"
-    },
-    {
-        "uid": "02148010001",
-        "username": "Dr. Chen",
-        "password": "123456"
+        "userName": "communityadmin",
+        "password": "communityadmin123",
+        "roleType": "1"
     }
 ]
 

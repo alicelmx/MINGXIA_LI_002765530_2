@@ -4,21 +4,23 @@
  */
 package model;
 
-import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author limingxia
  */
 public class Hospital {
-    
+
     private String hid;
     private String hName;
+    private String phone;
     private String city;
     private String community;
-    private String zipcode;
-    private List<String> doctorDirectory;
-    private List<String> patientDirectory;
+    private String zipCode;
+    private String intro;
+//    private List<Doctor> doctorDirectory;
+//    private PatientDirectory patientDirectory;
 
     public String getHid() {
         return hid;
@@ -26,6 +28,14 @@ public class Hospital {
 
     public void setHid(String hid) {
         this.hid = hid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String gethName() {
@@ -52,33 +62,47 @@ public class Hospital {
         this.community = community;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public String getIntro() {
+        return intro;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 
-    
-    
-
-    public List<String> getDoctorDirectory() {
-        return doctorDirectory;
+    public String getZipCode() {
+        return zipCode;
     }
 
-    public void setDoctorDirectory(List<String> doctorDirectory) {
-        this.doctorDirectory = doctorDirectory;
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
     }
 
-    public List<String> getPatientDirectory() {
-        return patientDirectory;
+    @Override
+    public String toString() {
+        return gethName();
     }
 
-    public void setPatientDirectory(List<String> patientDirectory) {
-        this.patientDirectory = patientDirectory;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Hospital)) {
+            return false;
+        }
+
+        Hospital hospital = (Hospital) obj;
+
+        return Objects.equals(hid, hospital.getHid())
+                && Objects.equals(hName, hospital.gethName())
+                && Objects.equals(phone, hospital.getPhone())
+                && Objects.equals(city, hospital.getCity())
+                && Objects.equals(community, hospital.getCommunity())
+                && Objects.equals(zipCode, hospital.getZipCode())
+                && Objects.equals(intro, hospital.getIntro())
+                ;
     }
-    
-    
-    
+
 }

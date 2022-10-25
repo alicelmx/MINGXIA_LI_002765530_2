@@ -5,13 +5,14 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
  * @author limingxia
  */
 public class EncounterHistory {
-    
+
     private ArrayList<Encounter> encounterHistory;
 
     public ArrayList<Encounter> getEncounterHistory() {
@@ -21,6 +22,20 @@ public class EncounterHistory {
     public void setEncounterHistory(ArrayList<Encounter> encounterHistory) {
         this.encounterHistory = encounterHistory;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof EncounterHistory)) {
+            return false;
+        }
+
+        EncounterHistory e = (EncounterHistory) obj;
+
+        return Objects.equals(encounterHistory, e.getEncounterHistory());
+    }
+
 }

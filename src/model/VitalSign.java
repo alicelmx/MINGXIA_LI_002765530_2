@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  * 
  * @author limingxia
@@ -47,5 +49,23 @@ public class VitalSign {
         this.bodyTemperature = bodyTemperature;
     }
     
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof VitalSign)) {
+            return false;
+        }
+
+        VitalSign vitalSign = (VitalSign) obj;
+
+        return Objects.equals(bloodPressure, vitalSign.getBloodPressure())
+                && Objects.equals(bodyTemperature, vitalSign.getBodyTemperature())
+                && Objects.equals(pulseRate, vitalSign.getPulseRate())
+                && Objects.equals(respirationRate, vitalSign.getRespirationRate());   
+    }
+
     
 }

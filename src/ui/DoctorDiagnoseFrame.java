@@ -7,10 +7,10 @@ package ui;
 import dao.DoctorDao;
 import dao.EncounterDao;
 import dao.HospitalDao;
+import javax.swing.JOptionPane;
 import model.AppointmentModel;
 import model.Doctor;
 import model.Encounter;
-import model.Hospital;
 import model.VitalSign;
 import tool.DateUtils;
 
@@ -18,36 +18,26 @@ import tool.DateUtils;
  *
  * @author limingxia
  */
-public class DiagnoseFrame extends javax.swing.JFrame {
+public class DoctorDiagnoseFrame extends javax.swing.JFrame {
 
     private DoctorDao doctorDao = new DoctorDao();
     private HospitalDao hospitalDao = new HospitalDao();
     private EncounterDao encounterDao = new EncounterDao();
 
     public AppointmentModel selectedAppointment;
-    public String pName;
-    public String dName;
-    public String deptment;
-    public String hName;
-
+    public Doctor doctor;
     /**
      * Creates new form DiagnoseFrame
      */
-    public DiagnoseFrame() {
+    public DoctorDiagnoseFrame() {
         initComponents();
     }
 
-    DiagnoseFrame(AppointmentModel selectedAppointment, String pName, String dName) {
+    DoctorDiagnoseFrame(AppointmentModel selectedAppointment) {
 
-        // initalize data
         this.selectedAppointment = selectedAppointment;
-        this.pName = pName;
-        this.dName = dName;
 
-        Doctor doctor = doctorDao.findDoctorByDid(this.selectedAppointment.getDid());
-        this.deptment = doctor.getDepartment();
-        Hospital hospital = hospitalDao.queryHospitalByHID(doctor.getHid());
-        this.hName = hospital.gethName();
+        doctor = doctorDao.findDoctorByDName(this.selectedAppointment.getdName());
 
         initComponents();
     }
@@ -87,7 +77,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         txtPatientName = new javax.swing.JTextField();
         txtDoctorName = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblAppointmentID.setText("AppointmentID:");
 
@@ -165,11 +155,11 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         txtAppointmentID.setText(this.selectedAppointment.getAid());
 
-        txtDeptment.setText(this.deptment);
+        txtDeptment.setText(doctor.getDepartment());
 
-        txtPatientName.setText(this.pName);
+        txtPatientName.setText(selectedAppointment.getpName());
 
-        txtDoctorName.setText(this.dName);
+        txtDoctorName.setText(selectedAppointment.getdName());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -315,21 +305,22 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         vitalSign.setRespirationRate(Double.parseDouble(txtRespirationRate.getText()));
 
         Encounter encounter = new Encounter();
-        // TODO eid generate rule apply singleton
-        encounter.setEid("1111");
         encounter.setDatetime(DateUtils.getCurrentTime());
         encounter.setDeptment(txtDeptment.getText());
         encounter.setPrescription(txtPrescription.getText());
         encounter.setRemark(txtaRemark.getText());
         encounter.setVitalSign(vitalSign);
         encounter.setdName(txtDoctorName.getText());
-        encounter.sethName(hName);
+        encounter.sethName(doctor.gethName());
         encounter.setpName(txtPatientName.getText());
 
-        // update EncounterRecord.json
         encounterDao.insertNewEncounterRecord(encounter);
-
-        // update patient maybe
+        // TODO 更新预约状态，修改预约查询
+        
+        JOptionPane.showMessageDialog(this, "Save Record Successfully!");
+        
+        this.dispose();
+        
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -358,22 +349,21 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorDiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorDiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorDiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DoctorDiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DiagnoseFrame diagnoseFrame = new DiagnoseFrame();
-                diagnoseFrame.setLocationRelativeTo(null);
-                diagnoseFrame.setVisible(true);
+                new DoctorDiagnoseFrame().setVisible(true);
             }
         });
     }

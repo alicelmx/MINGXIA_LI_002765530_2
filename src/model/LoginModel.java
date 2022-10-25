@@ -4,30 +4,32 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author limingxia
  */
 public class LoginModel {
     
-    private String uid; // unique
-    private String username; // unique
+    private Integer roleType; 
+    private String userName; // unique
     private String password;
 
-    public String getUid() {
-        return uid;
+    public Integer getRoleType() {
+        return roleType;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setRoleType(Integer roleType) {
+        this.roleType = roleType;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -37,5 +39,24 @@ public class LoginModel {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof LoginModel)) {
+            return false;
+        }
+
+        LoginModel loginModel = (LoginModel) obj;
+
+        return Objects.equals(roleType, loginModel.getRoleType())
+                && Objects.equals(userName, loginModel.getUserName())
+                && Objects.equals(password, loginModel.getPassword());
+                
+    }
+
     
 }

@@ -6,72 +6,82 @@ package dao;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import static dao.LoginDao.loginInfoJson;
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
-import model.LoginModel;
 import model.Patient;
-import org.apache.commons.io.FileUtils;
-import tool.GsonUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import tool.JsonFileUitls;
-import tool.SerialGenerator;
+import tool.PatientSerialGenerator;
 
 /**
  *
  * @author limingxia
  */
 public class PatientDao {
-    
-    SerialGenerator serialGenerator = SerialGenerator.getInstance();
-    
+
+    PatientSerialGenerator serialGenerator = PatientSerialGenerator.getInstance();
+
     public static final String patientInfoJson = "../database/PatientInfo.json";
-    
+
     /**
      * search userId by username
+     *
      * @param uid
-     * @return 
+     * @return
      */
     public Patient findPatientInfoByUid(String uid) {
-        
+
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
-        List<Patient> resList = patientModelList.stream().filter(s->s.getPid().equalsIgnoreCase(uid)).collect(Collectors.toList());
-
+        List<Patient> resList = patientModelList.stream().filter(s -> s.getPid().equalsIgnoreCase(uid)).collect(Collectors.toList());
+        
+        if(ObjectUtils.isEmpty(resList)) return null;
+        
         return resList.get(0);
     }
     
-    public List<Patient> queryAllPatientModel() {
+    public Patient findPatientInfoByUName(String userName) {
+
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
+        List<Patient> resList = patientModelList.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).collect(Collectors.toList());
         
+        if(ObjectUtils.isEmpty(resList)) return null;
+        
+        return resList.get(0);
+    }
+
+    public List<Patient> queryAllPatientModel() {
+
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         return JsonFileUitls.readJsonFileToModel(file, Patient.class);
     }
-    
-    public void insertNewPatient(Patient patient) {
-        // TODO 待测试
+
+    public boolean insertNewPatient(Patient patient) {
         patient.setPid(serialGenerator.next());
-        
+
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> allEncounters = queryAllPatientModel();
-        allEncounters.add(patient);
         
+        if(allEncounters.contains(patient)) return false;
+        
+        allEncounters.add(patient);
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
+        
+        return true;
     }
 
     public void deletePatient(Patient patient) {
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> allEncounters = queryAllPatientModel();
         allEncounters.remove(patient);
-        
+
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
     }
-   
-    
+
 }

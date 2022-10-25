@@ -2,7 +2,7 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -311,17 +311,17 @@
     </Component>
     <Component class="javax.swing.JTextField" name="txtDeptment">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDeptment.setText(this.deptment);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDeptment.setText(doctor.getDepartment());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtPatientName">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtPatientName.setText(this.pName);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtPatientName.setText(selectedAppointment.getpName());"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDoctorName">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDoctorName.setText(this.dName);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDoctorName.setText(selectedAppointment.getdName());"/>
       </AuxValues>
     </Component>
   </SubComponents>

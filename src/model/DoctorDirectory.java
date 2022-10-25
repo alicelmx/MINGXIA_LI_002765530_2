@@ -4,26 +4,47 @@
  */
 package model;
 
-import dao.DoctorDao;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
  * @author limingxia
  */
 public class DoctorDirectory {
-                
-    private ArrayList<Doctor> doctorList;
 
-    public ArrayList<Doctor> getDoctorList() {
+    private List<Doctor> doctorList = new ArrayList<>();
+
+    public List<Doctor> getDoctorList() {
         return doctorList;
     }
 
     public void setDoctorList(ArrayList<Doctor> doctorList) {
         this.doctorList = doctorList;
     }
-    
-    
-    
+
+    public void addDoctor(Doctor doctor) {
+        doctorList.add(doctor);
+    }
+
+    public void removeDoctor(Doctor doctor) {
+        doctorList.remove(doctor);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof DoctorDirectory)) {
+            return false;
+        }
+
+        DoctorDirectory doctorDirectory = (DoctorDirectory) obj;
+
+        return Objects.equals(doctorList, doctorDirectory.getDoctorList());
+    }
+
 }

@@ -4,6 +4,7 @@
  */
 package tool;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -24,6 +25,9 @@ import java.util.Locale;
  */
 public class DateUtils {
 
+    public static final String SERIAL_PATTERN = "yyyyMMddHHmm";
+    public static final String AMERICA_PATTERN = "yyyy/MM/dd";
+    public static final String BIRTHDAY_PATTERN = "yyyy/MM/dd";
     public static final String FULL_TIME_PATTERN = "yyyyMMddHHmmss";
     public static final String FULL_TIME_SPLIT_PATTERN = "yyyy-MM-dd HH:mm";
     public static final String MONTH_TIME_SPLIT_PATTERN = "yyyy-MM";
@@ -42,8 +46,16 @@ public class DateUtils {
     }
 
     public static String getDateFormat(Date date, String dateFormatType) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatType, Locale.CHINA);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormatType);
         return simpleDateFormat.format(date);
+    }
+
+    public static String getSerialDate() {
+        return getDateFormat(new Date(), SERIAL_PATTERN);
+    }
+    
+    public static String getAmericaDate(Date date, String pattern) {
+        return getDateFormat(date,pattern);
     }
 
     public static String formatCSTTime(String date, String format) throws ParseException {
@@ -52,14 +64,25 @@ public class DateUtils {
         return DateUtils.getDateFormat(usDate, format);
     }
 
+    public static Date formatBirthday(String date) {
+        SimpleDateFormat formatter = new SimpleDateFormat(BIRTHDAY_PATTERN);
+        Date birth = null;
+        try {
+            birth = formatter.parse(date);
+        } catch (Exception e) {
+            return birth;
+        }
+        return birth;
+    }
+
     public static String formatInstant(Instant instant, String format) {
         LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
         return localDateTime.format(DateTimeFormatter.ofPattern(format));
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public static String getCurrentTime() {
         return getDateFormat(new Date(), FULL_TIME_SPLIT_PATTERN);
@@ -70,7 +93,6 @@ public class DateUtils {
     }
 
     private static String pattern = "yyyy-MM-dd";
-
 
     public static Date parseDate(Object str) {
         if (str == null) {
@@ -104,7 +126,6 @@ public class DateUtils {
         SimpleDateFormat formatter = new SimpleDateFormat(formart);
         return formatter.format(date);
     }
-
 
     public static long getDays(String lastDate, String firstDate) {
         if (lastDate == null || lastDate.equals("")) {
@@ -330,7 +351,6 @@ public class DateUtils {
         return new SimpleDateFormat("yy.MM.dd").format(cal.getTime());
     }
 
-
     public static int getYear() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.YEAR);
@@ -431,6 +451,40 @@ public class DateUtils {
 
     public static boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
+
+    public static Date plusDaytoDate(Date date, int day) {
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+               calendar.add(Calendar.DATE, day);
+        return calendar.getTime();
+    }
+    public static List<String> getDateViaWeek(List<String> availableTime) {
+        List<String> res = new ArrayList<>();
+        
+        Date now = new Date();
+        for(int i=1;i<=7;i++) {
+            Date day = plusDaytoDate(now, i);
+            String week = getWeekOfDate(day);
+            if(availableTime.contains(week)) {
+                res.add(getAmericaDate(day, AMERICA_PATTERN));
+            }
+        }
+        
+        return res;
+    }
+
+    public static String getWeekOfDate(Date dt) {
+        String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0) {
+            w = 0;
+        }
+
+        return weekDays[w];
     }
 
 }

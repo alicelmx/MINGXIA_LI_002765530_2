@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.Objects;
+
 /**
  *
  * @author limingxia
@@ -84,5 +86,26 @@ public class Person {
         this.dateOfBirth = dateOfBirth;
     }
     
-    
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Person)) {
+            return false;
+        }
+
+        Person person = (Person) obj;
+
+        return Objects.equals(dateOfBirth, person.getDateOfBirth())
+                && Objects.equals(email, person.getEmail())
+                && Objects.equals(firstName, person.getFirstName())
+                && Objects.equals(gender, person.getGender())
+                && Objects.equals(lastName, person.getLastName())
+                && Objects.equals(marritialStatus, person.getMarritialStatus())
+                && Objects.equals(phoneNum, person.getPhoneNum())
+                && Objects.equals(username, person.getUsername());
+    }
+
 }
