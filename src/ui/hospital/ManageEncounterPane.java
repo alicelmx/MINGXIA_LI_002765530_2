@@ -2,20 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.patient;
+package ui.hospital;
 
-import dao.CommunityDao;
 import dao.EncounterDao;
-import dao.PatientDao;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Community;
 import model.Encounter;
 import model.EncounterHistory;
-import model.Patient;
+import model.Hospital;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,26 +20,22 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author limingxia
  */
-public class EncounterHistoryPane extends javax.swing.JPanel {
+public class ManageEncounterPane extends javax.swing.JPanel {
 
-    private CommunityDao communityDao = new CommunityDao();
-    private PatientDao patientDao = new PatientDao();
-    private EncounterDao encounterDao = new EncounterDao();
-
-    public List<Community> communitys;
     public EncounterHistory encounterHistory = new EncounterHistory();
+    public Hospital currHospital;
 
     /**
      * Creates new form AuthManagementPane
      */
-    public EncounterHistoryPane() {
+    public ManageEncounterPane() {
         initComponents();
     }
 
-    public EncounterHistoryPane(Patient patient) {
-        // TODO 这块有点不合理，因为名字可能会有重复，应该pid or did
-        String patientName = patient.getFirstName() + " " + patient.getLastName();
-        encounterHistory.setEncounterHistory(encounterDao.queryEncounterByPName(patientName));
+    public ManageEncounterPane(Hospital currHospital) {
+
+        this.currHospital = currHospital;
+        encounterHistory.setEncounterHistory(EncounterDao.queryEncounterByHName(this.currHospital.gethName()));
 
         initComponents();
 
@@ -181,7 +174,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
         Encounter encounter = (Encounter) model.getValueAt(selectedRowIndex, 0);
 
-        ViewEncounterFrame encounterDetailFrame = new ViewEncounterFrame(encounter);
+        EditEncounterDetailFrame encounterDetailFrame = new EditEncounterDetailFrame(encounter);
         encounterDetailFrame.setLocationRelativeTo(null);
         encounterDetailFrame.setVisible(true);
 

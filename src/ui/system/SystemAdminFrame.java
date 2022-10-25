@@ -5,9 +5,6 @@
 package ui.system;
 
 import ui.DoctorManagementPane;
-import ui.PatientManagementPane;
-import ui.community.CommunityManagementPane;
-import ui.hospital.HospitalManagementPane;
 
 /**
  *
@@ -141,20 +138,20 @@ public class SystemAdminFrame extends javax.swing.JFrame {
 
     private void btnHospitalManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalManagementActionPerformed
 
-        HospitalManagementPane hospitalManagementPane = new HospitalManagementPane();
+        ManageHospitalPane hospitalManagementPane = new ManageHospitalPane();
         splitPane.setRightComponent(hospitalManagementPane);
     }//GEN-LAST:event_btnHospitalManagementActionPerformed
 
     private void btnPatientManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientManagementActionPerformed
 
-        PatientManagementPane patientManagementPane = new PatientManagementPane();
-        splitPane.setRightComponent(patientManagementPane);
+//        PatientManagementPane patientManagementPane = new PatientManagementPane();
+//        splitPane.setRightComponent(patientManagementPane);
     }//GEN-LAST:event_btnPatientManagementActionPerformed
 
     private void btnCommunityManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityManagementActionPerformed
 
-        CommunityManagementPane communityManagementPane = new CommunityManagementPane();
-        splitPane.setRightComponent(communityManagementPane);
+//        ManageCommunityPane communityManagementPane = new ManageCommunityPane();
+//        splitPane.setRightComponent(communityManagementPane);
     }//GEN-LAST:event_btnCommunityManagementActionPerformed
 
     private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed

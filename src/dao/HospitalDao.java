@@ -7,15 +7,10 @@ package dao;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import model.Hospital;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import tool.GsonUtils;
 import tool.HospitalSerialGenerator;
 import tool.JsonFileUitls;
 
@@ -26,9 +21,10 @@ import tool.JsonFileUitls;
 public class HospitalDao {
 
     public static final String hopitalInfoJson = "../database/HospitalInfo.json";
+
     HospitalSerialGenerator serialGenerator = HospitalSerialGenerator.getInstance();
 
-    public File file = new File(HospitalDao.class.getResource(hopitalInfoJson).getFile());
+    public static File file = new File(HospitalDao.class.getResource(hopitalInfoJson).getFile());
 
     /**
      * search userId by username
@@ -36,7 +32,7 @@ public class HospitalDao {
      * @param zipcode
      * @return
      */
-    public List<Hospital> findHospitalByZipcode(String zipcode) {
+    public List<Hospital> queryHospitalByZipcode(String zipcode) {
 
         List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
 
@@ -63,14 +59,16 @@ public class HospitalDao {
 
         File file = new File(getClass().getResource(hopitalInfoJson).getFile());
         List<Hospital> hospitalList = queryHospitalList();
-        
-        if(hospitalList.contains(hospital)) return false;
+
+        if (hospitalList.contains(hospital)) {
+            return false;
+        }
         hospitalList.add(hospital);
 
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(hospitalList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-        
+
         return true;
     }
 
@@ -88,6 +86,13 @@ public class HospitalDao {
         return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
     }
 
+    public static Hospital queryHospitalByAdminName(String haName) {
+        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
+        List<Hospital> resList = hospitalModelList.stream().filter(s -> s.getHospitalAdminUserName().equalsIgnoreCase(haName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
+    }
+
     public void updateHospital(Hospital newHospital, Hospital oldHospital) {
 
         File file = new File(getClass().getResource(hopitalInfoJson).getFile());
@@ -97,6 +102,6 @@ public class HospitalDao {
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(hospitalList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-        
+
     }
 }

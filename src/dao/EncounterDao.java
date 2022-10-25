@@ -19,38 +19,48 @@ import tool.JsonFileUitls;
  * @author limingxia
  */
 public class EncounterDao {
-    
-    public static final String EncounterRecordJson = "../database/EncounterRecord.json";
-    EncounterSerialGenerator serialGenerator = EncounterSerialGenerator.getInstance();
 
-    public List<Encounter> queryALlEncounterRecord() {
-        
+    public static final String EncounterRecordJson = "../database/EncounterRecord.json";
+    static EncounterSerialGenerator serialGenerator = EncounterSerialGenerator.getInstance();
+
+    public static List<Encounter> queryALlEncounterRecord() {
+
         File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
         return JsonFileUitls.readJsonFileToModel(file, Encounter.class);
     }
-    
-    public boolean insertNewEncounterRecord(Encounter encounter) {
+
+    public static boolean insertNewEncounterRecord(Encounter encounter) {
         encounter.setEid(serialGenerator.next());
-        
+
         File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
         List<Encounter> allEncounters = queryALlEncounterRecord();
-        
-        if(allEncounters.contains(encounter)) return false;
+
+        if (allEncounters.contains(encounter)) {
+            return false;
+        }
         allEncounters.add(encounter);
-        
+
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-        
+
         return true;
     }
 
-    public List<Encounter> queryEncounterByPName(String patientName) {
+    public static List<Encounter> queryEncounterByPName(String patientName) {
         File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
         List<Encounter> allEncounters = JsonFileUitls.readJsonFileToModel(file, Encounter.class);
         List<Encounter> res = allEncounters.stream().filter(s -> s.getpName().equalsIgnoreCase(patientName)).collect(Collectors.toList());
-        
-        return ObjectUtils.isEmpty(res) ? null : res;        
+
+        return ObjectUtils.isEmpty(res) ? null : res;
+    }
+
+    public static List<Encounter> queryEncounterByHName(String patientName) {
+        File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
+        List<Encounter> allEncounters = JsonFileUitls.readJsonFileToModel(file, Encounter.class);
+        List<Encounter> res = allEncounters.stream().filter(s -> s.getpName().equalsIgnoreCase(patientName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(res) ? null : res;
     }
 
 //    public List<Encounter> searchByKeyword(String keywords) {

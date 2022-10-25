@@ -35,20 +35,24 @@ public class PatientDao {
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
         List<Patient> resList = patientModelList.stream().filter(s -> s.getPid().equalsIgnoreCase(uid)).collect(Collectors.toList());
-        
-        if(ObjectUtils.isEmpty(resList)) return null;
-        
+
+        if (ObjectUtils.isEmpty(resList)) {
+            return null;
+        }
+
         return resList.get(0);
     }
-    
-    public Patient findPatientInfoByUName(String userName) {
+
+    public Patient queryPatientByUName(String userName) {
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
         List<Patient> resList = patientModelList.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).collect(Collectors.toList());
-        
-        if(ObjectUtils.isEmpty(resList)) return null;
-        
+
+        if (ObjectUtils.isEmpty(resList)) {
+            return null;
+        }
+
         return resList.get(0);
     }
 
@@ -63,14 +67,16 @@ public class PatientDao {
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> allEncounters = queryAllPatientModel();
-        
-        if(allEncounters.contains(patient)) return false;
-        
+
+        if (allEncounters.contains(patient)) {
+            return false;
+        }
+
         allEncounters.add(patient);
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-        
+
         return true;
     }
 
@@ -82,6 +88,14 @@ public class PatientDao {
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
+    }
+
+    public static Patient queryPatientByPName(String pName) {
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
+        List<Patient> resList = patientModelList.stream().filter(s -> (s.getFirstName() + " " + s.getLastName()).equalsIgnoreCase(pName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
     }
 
 }

@@ -12,14 +12,14 @@ import java.util.Objects;
  * @author limingxia
  */
 public class Doctor extends Person {
-    
+
     private String did;
     private String dName;
     private String department;
-    private Integer level;
+    private String level;
     private String hName; // belong to which hospital
     private List<String> availableTime;
-    
+
     public String getDid() {
         return did;
     }
@@ -44,15 +44,14 @@ public class Doctor extends Person {
         this.department = department;
     }
 
-    public Integer getLevel() {
+    public String getLevel() {
         return level;
     }
 
-    public void setLevel(Integer level) {
+    public void setLevel(String level) {
         this.level = level;
     }
 
-    
     public String gethName() {
         return hName;
     }
@@ -73,7 +72,7 @@ public class Doctor extends Person {
     public String toString() {
         return getdName();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

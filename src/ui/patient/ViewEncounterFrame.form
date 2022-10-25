@@ -36,10 +36,8 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="262" max="-2" attributes="0"/>
-                      <Component id="btnEmpty" linkSize="1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Component id="btnSave1" linkSize="1" min="-2" pref="117" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="340" max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" pref="117" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
@@ -55,19 +53,16 @@
                       <Component id="lblAppointmentID2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="BasicInfoPane" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Component id="VitalSignPane" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-              <Component id="DiagnoseInfoPane" min="-2" pref="139" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+              <Component id="DiagnoseInfoPane" min="-2" pref="177" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnEmpty" linkSize="2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="btnSave1" linkSize="2" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnBack" min="-2" pref="37" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -76,26 +71,15 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblAppointmentID2">
     </Component>
-    <Component class="javax.swing.JButton" name="btnEmpty">
+    <Component class="javax.swing.JButton" name="btnBack">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/assets/RepeatHS.png"/>
+          <Image iconType="3" name="/assets/NavBack.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Clear"/>
+        <Property name="text" type="java.lang.String" value="Back"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEmptyActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnSave1">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/assets/about.png"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Save"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSave1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBackActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="BasicInfoPane">
@@ -122,7 +106,7 @@
                           <Component id="txtDoctorName" min="-2" pref="218" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Component id="lblAppointmentID" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbEncounterID" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="txtAppointmentID" min="-2" pref="218" max="-2" attributes="0"/>
                       </Group>
@@ -150,7 +134,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblAppointmentID" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbEncounterID" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtAppointmentID" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblAppointmentID4" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDeptment" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -172,9 +156,9 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblAppointmentID">
+        <Component class="javax.swing.JLabel" name="lbEncounterID">
           <Properties>
-            <Property name="text" type="java.lang.String" value="AppointmentID:"/>
+            <Property name="text" type="java.lang.String" value="Datetime:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblAppointmentID4">
@@ -197,7 +181,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDoctorName.setText(selectedAppointment.getdName());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDoctorName.setText(selectedEncounter.getdName());"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPatientName">
@@ -205,15 +189,18 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtPatientName.setText(selectedAppointment.getpName());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtPatientName.setText(selectedEncounter.getpName());"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDeptment">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDeptmentActionPerformed"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDeptment.setText(doctor.getDepartment());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDeptment.setText(this.selectedEncounter.getDeptment());"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAppointmentID">
@@ -221,7 +208,7 @@
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtAppointmentID.setText(this.selectedAppointment.getAid());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtAppointmentID.setText(selectedEncounter.getDatetime());"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -309,10 +296,15 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBloodPressureActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtBloodPressure.setText(bp);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String bp = String.valueOf((selectedEncounter.getVitalSign().getBloodPressure()));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPulseRate">
           <Properties>
@@ -324,10 +316,15 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPulseRateActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtPulseRate.setText(tp);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String tp = String.valueOf((selectedEncounter.getVitalSign().getPulseRate()));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblRespirationRate">
           <Properties>
@@ -339,10 +336,15 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtRespirationRateActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtRespirationRate.setText(rr);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String rr = String.valueOf((selectedEncounter.getVitalSign().getRespirationRate()));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblBodyTemperature">
           <Properties>
@@ -354,10 +356,15 @@
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
               <Format format="#0.00" subtype="-1" type="0"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBodyTemperatureActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="txtBodyTemperature.setText(bt);"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="String bt = String.valueOf((selectedEncounter.getVitalSign().getBodyTemperature()));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="imgDiagnose">
           <Properties>
@@ -408,9 +415,9 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="lblVitalSign2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="44" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="58" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -422,9 +429,15 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrescription">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrescriptionActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtPrescription.setText(selectedEncounter.getPrescription());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblVitalSign2">
           <Properties>
@@ -442,7 +455,11 @@
               <Properties>
                 <Property name="columns" type="int" value="20"/>
                 <Property name="rows" type="int" value="5"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtaRemark.setText(selectedEncounter.getRemark());"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

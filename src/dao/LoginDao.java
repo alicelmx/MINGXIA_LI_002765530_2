@@ -26,58 +26,76 @@ public class LoginDao {
      * @param selectRoleIdx the value of selectRoleIdx
      * @return LoginModel
      */
-    public LoginModel findLoginUserByName(String name, int selectRoleIdx) {
+    public static LoginModel findLoginUserByName(String name, int selectRoleIdx) {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
         List<LoginModel> loginModelList = JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
-        if(ObjectUtils.isEmpty(loginModelList)) {
+        if (ObjectUtils.isEmpty(loginModelList)) {
             return null;
         }
         List<LoginModel> resList = loginModelList.stream().filter(
                 s -> s.getUserName().equalsIgnoreCase(name)
                 && s.getRoleType().equals(selectRoleIdx)
         ).collect(Collectors.toList());
-        if(ObjectUtils.isEmpty(resList)) {
+        if (ObjectUtils.isEmpty(resList)) {
             return null;
         }
         return resList.get(0);
     }
 
-    public List<LoginModel> queryAllLoginModel() {
+    public static List<LoginModel> queryAllLoginModel() {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
         return JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
     }
 
-    public boolean insertNewUser(LoginModel newPatientLoginModel) {
+    public static boolean insertNewUser(LoginModel newPatientLoginModel) {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
         List<LoginModel> allEncounters = queryAllLoginModel();
-        if(allEncounters.contains(newPatientLoginModel)) return false;
+        if (allEncounters.contains(newPatientLoginModel)) {
+            return false;
+        }
         allEncounters.add(newPatientLoginModel);
 
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-        
+
         return true;
     }
 
-    public LoginModel queryByUserName(String userName) {
+    public static LoginModel queryByUserName(String userName) {
         File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
         List<LoginModel> loginModelList = JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
-        if(ObjectUtils.isEmpty(loginModelList)) {
+        if (ObjectUtils.isEmpty(loginModelList)) {
             return null;
         }
-        
+
         List<LoginModel> resList = loginModelList.stream().filter(
                 s -> s.getUserName().equalsIgnoreCase(userName)
         ).collect(Collectors.toList());
-        
-        if(ObjectUtils.isEmpty(resList)) {
+
+        if (ObjectUtils.isEmpty(resList)) {
             return null;
         }
-        
+
         return resList.get(0);
+    }
+
+    public static boolean deleteOldUser(LoginModel oldLoginModel) {
+
+        File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
+        List<LoginModel> loginModels = queryAllLoginModel();
+        if (!loginModels.contains(oldLoginModel)) {
+            return false;
+        }
+        loginModels.remove(oldLoginModel);
+
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(loginModels);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 }

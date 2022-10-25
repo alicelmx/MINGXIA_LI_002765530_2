@@ -2,35 +2,44 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.community;
+package ui.hospital;
 
-import ui.community.EditCommunity;
-import dao.CommunityDao;
+import dao.DoctorDao;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Community;
-import model.NearDoctorModel;
-import model.Patient;
+import model.Doctor;
+import model.DoctorDirectory;
+import model.Hospital;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author limingxia
  */
-public class CommunityManagementPane extends javax.swing.JPanel {
-    
-    private CommunityDao communityDao = new CommunityDao();
-    
-    public List<Community> communitys;
+public class ManageDoctorPane extends javax.swing.JPanel {
+
+    public DoctorDirectory doctorDirectory = new DoctorDirectory();
+    public String currHospitalName;
+
     /**
      * Creates new form AuthManagementPane
      */
-    public CommunityManagementPane() {
-        communitys = communityDao.queryAllCommunityList();
+    public ManageDoctorPane() {
         initComponents();
-        populateTable(communitys);
+    }
+
+    public ManageDoctorPane(Hospital currentHospital) {
+        currHospitalName = currentHospital.gethName();
+        List<Doctor> doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+        initComponents();
+
+        doctorDirectory.setDoctorList(doctorList);
+        populateTable(doctorDirectory.getDoctorList());
+
     }
 
     @Override
@@ -49,17 +58,17 @@ public class CommunityManagementPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtSearchArea = new javax.swing.JTextField();
+        txtKeyword = new javax.swing.JTextField();
         btnBrowseDoctors = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCommunity = new javax.swing.JTable();
+        tbDoctor = new javax.swing.JTable();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
 
-        txtSearchArea.addActionListener(new java.awt.event.ActionListener() {
+        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchAreaActionPerformed(evt);
+                txtKeywordActionPerformed(evt);
             }
         });
 
@@ -71,7 +80,7 @@ public class CommunityManagementPane extends javax.swing.JPanel {
             }
         });
 
-        tbCommunity.setModel(new javax.swing.table.DefaultTableModel(
+        tbDoctor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -79,7 +88,7 @@ public class CommunityManagementPane extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Name", "City", "Zip Code", "Address"
+                "Name", "Department", "Phone", "Level"
             }
         ) {
             Class[] types = new Class [] {
@@ -97,9 +106,9 @@ public class CommunityManagementPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbCommunity.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(tbCommunity);
-        tbCommunity.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tbDoctor.setColumnSelectionAllowed(true);
+        jScrollPane1.setViewportView(tbDoctor);
+        tbDoctor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
@@ -135,7 +144,7 @@ public class CommunityManagementPane extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnBrowseDoctors)))
                     .addGroup(layout.createSequentialGroup()
@@ -152,7 +161,7 @@ public class CommunityManagementPane extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowseDoctors, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
@@ -160,81 +169,96 @@ public class CommunityManagementPane extends javax.swing.JPanel {
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSearchAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchAreaActionPerformed
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchAreaActionPerformed
+    }//GEN-LAST:event_txtKeywordActionPerformed
 
     private void btnBrowseDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseDoctorsActionPerformed
-// TODO
-//        // Patients are able to look for a doctor under the near hospitals
-//        Patient patient = patientDao.findPatientInfoByUid(userId);
-//        String zipcode = patient.getZipcode();
-//
-//        // search hospital
-//        List<Hospital> hospitalList = hospitalDao.findHospitalByZipcode(zipcode);
-//
-//        nearDoctorList = new ArrayList<>();
-//        hospitalList.stream().forEach(o -> {
-//            o.getDoctorDirectory().stream().forEach(m -> {
-//
-//                Doctor doctor = doctorDao.findDoctorByDid(m);
-//
-//                NearDoctorModel nearDoctorModel = new NearDoctorModel();
-//                nearDoctorModel.setHospital(o.gethName());
-//                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
-//                nearDoctorModel.setName(doctor.getdName());
-//                nearDoctorModel.setDepartment(doctor.getDepartment());
-//
-//                nearDoctorList.add(nearDoctorModel);
-//            });
-//        });
+        String keyword = txtKeyword.getText();
+        if (StringUtils.isBlank(keyword)) {
+            JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
+            return;
+        }
 
-//        populateTable();
+        List<Doctor> searchResult = doctorDirectory.searchByKeyword(keyword);
+
+        populateTable(searchResult);
     }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectedRowIndex = tbCommunity.getSelectedRow();
+        int selectedRowIndex = tbDoctor.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Community to Edit.");
+            JOptionPane.showMessageDialog(this, "Please Select a Doctor to Edit.");
             return;
         }
-        
-        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
-        Community selectedCommunity = (Community) model.getValueAt(selectedRowIndex, 0);
 
-        EditCommunity editCommunity = new EditCommunity(selectedCommunity);
-        editCommunity.setLocationRelativeTo(null);
-        editCommunity.setVisible(true);
+        DefaultTableModel model = (DefaultTableModel) tbDoctor.getModel();
+        Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
+
+        EditDoctorInfoFrame editDoctorInfoFrame = new EditDoctorInfoFrame(selectedDoctor);
+        editDoctorInfoFrame.setLocationRelativeTo(null);
+        editDoctorInfoFrame.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        
-        // TODO 
-        
+
+        // TODO 待测试
+        int option = JOptionPane.showConfirmDialog(this, "Do You Want to Delete ?", "", JOptionPane.DEFAULT_OPTION);
+//        if (x == 3) {
+//            cdframe.getContentPane().add(cdframe.panel());
+//            cdframe.repaint();
+//            cdframe.revalidate();
+//        } else {
+//            cdframe.dispose();
+//            JOptionPane.showMessageDialog(null, "Nooope!");
+//        }
+
+        int selectedRowIndex = tbDoctor.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please Select a Doctor to Delete.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tbDoctor.getModel();
+        Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
+        if (DoctorDao.deleteDoctor(selectedDoctor)) {
+            JOptionPane.showMessageDialog(this, "Delete Successfully!");
+            return;
+        } else {
+            JOptionPane.showMessageDialog(this, "Fail to Delete!");
+            return;
+        }
+
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-        // TODO add your handling code here:
-        communitys = communityDao.queryAllCommunityList();
-        populateTable(communitys);
+
+        List<Doctor> doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+        doctorDirectory.setDoctorList(doctorList);
+        populateTable(doctorDirectory.getDoctorList());
     }//GEN-LAST:event_btnRefeshActionPerformed
 
-    private void populateTable(List<Community> communityList) {
-        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
+    private void populateTable(List<Doctor> doctors) {
+        if (ObjectUtils.isEmpty(doctors)) {
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tbDoctor.getModel();
         model.setRowCount(0);
 
-        for (Community community : communityList) {
+        for (Doctor doctor : doctors) {
 
             Object[] row = new Object[4];
-            row[0] = community;
-            row[1] = community.getCity();
-            row[2] = community.getZipcode();
-            row[3] = community.getAddress();
+            row[0] = doctor;
+            row[1] = doctor.getDepartment();
+            row[2] = doctor.getPhoneNum();
+            row[3] = doctor.getLevel();
 
             model.addRow(row);
         }
@@ -246,7 +270,7 @@ public class CommunityManagementPane extends javax.swing.JPanel {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbCommunity;
-    private javax.swing.JTextField txtSearchArea;
+    private javax.swing.JTable tbDoctor;
+    private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
 }

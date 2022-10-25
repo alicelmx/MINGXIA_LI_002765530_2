@@ -119,7 +119,7 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
 
     private void btnSearchCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCommunityActionPerformed
            
-        CommunityManagementPane cmp = new CommunityManagementPane();
+        ManageCommunityPane cmp = new ManageCommunityPane();
         splitPane.setRightComponent(cmp);
     }//GEN-LAST:event_btnSearchCommunityActionPerformed
 

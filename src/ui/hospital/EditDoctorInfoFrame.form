@@ -2,9 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup1">
-    </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup2">
+    <Component class="javax.swing.ButtonGroup" name="btngrpSex">
     </Component>
   </NonVisualComponents>
   <Properties>
@@ -56,13 +54,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="BasicInfoPane" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="102" attributes="0">
                       <Component id="LoginPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="HospitalPane" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="BasicInfoPane" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
@@ -188,8 +186,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFirstName">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtFirstName.setText(selectedDoctor.getFirstName());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JTextField" name="txtLastName">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtLastName.setText(selectedDoctor.getLastName());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblGender">
           <Properties>
@@ -199,18 +203,27 @@
         <Component class="javax.swing.JRadioButton" name="rbtnMale">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup1"/>
+              <ComponentRef name="btngrpSex"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Male"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE)){&#xa;    rbtnMale.setSelected(true);&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbtnFemale">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup1"/>
+              <ComponentRef name="btngrpSex"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Female"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnFemaleActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE)){&#xa;    rbtnFemale.setSelected(true);&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDateOfBirth">
           <Properties>
@@ -218,14 +231,20 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDataOfBirth">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDataOfBirth.setText(selectedDoctor.getDateOfBirth());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbtnPreferNotToSay">
           <Properties>
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="buttonGroup1"/>
+              <ComponentRef name="btngrpSex"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Prefer not to say"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY)){&#xa;    rbtnPreferNotToSay.setSelected(true);&#xa;}"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMaritialStatus">
           <Properties>
@@ -252,6 +271,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chooseMaritialStatusActionPerformed"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getMarritialStatus().equals(enumvalue.MaritialStatusEnum.SINGLE.getIndex())) {&#xa;    chooseMaritialStatus.setSelectedIndex(enumvalue.MaritialStatusEnum.SINGLE.getIndex());&#xa;} else if(selectedDoctor.getMarritialStatus().equals(enumvalue.MaritialStatusEnum.MARRIED.getIndex())) {&#xa;    chooseMaritialStatus.setSelectedIndex(enumvalue.MaritialStatusEnum.MARRIED.getIndex());&#xa;} else if(selectedDoctor.getMarritialStatus().equals(enumvalue.MaritialStatusEnum.DIVORCED.getIndex())) {&#xa;    chooseMaritialStatus.setSelectedIndex(enumvalue.MaritialStatusEnum.DIVORCED.getIndex());&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -261,6 +281,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMobilePhone">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtMobilePhone.setText(selectedDoctor.getPhoneNum());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEmail">
           <Properties>
@@ -268,6 +291,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEmail">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtEmail.setText(selectedDoctor.getEmail());"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
@@ -351,6 +377,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtUserName">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtConfirmPassword">
         </Component>
@@ -362,7 +391,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Hospital Info">
+            <TitledBorder title="Work Info">
               <Font PropertyName="font" name="Tahoma" size="16" style="1"/>
               <Color PropertyName="color" blue="99" green="99" red="0" type="rgb"/>
             </TitledBorder>
@@ -379,14 +408,12 @@
                       <Component id="lblAvailableTime" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="lblLevel" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDepartment" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblHosptialName" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="cbbLevel" max="32767" attributes="0"/>
-                              <Component id="cbbHospital" alignment="1" max="32767" attributes="0"/>
                               <Component id="cbbDepartment" alignment="1" pref="247" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
@@ -418,12 +445,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblHosptialName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbHospital" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblDepartment" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbbDepartment" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
@@ -461,11 +483,6 @@
             <Property name="text" type="java.lang.String" value="Department:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblHosptialName">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Name:"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblLevel">
           <Properties>
             <Property name="text" type="java.lang.String" value="Level:"/>
@@ -484,6 +501,7 @@
                 <StringItem index="6" value="Neurology"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbDepartmentActionPerformed"/>
@@ -497,29 +515,29 @@
             <Property name="text" type="java.lang.String" value="Available Time:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbbHospital">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbHospitalActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="hospitalList.forEach(o -&gt; {&#xa;    cbbHospital.addItem(o.gethName());&#xa;});"/>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JCheckBox" name="ckbTues">
           <Properties>
             <Property name="text" type="java.lang.String" value="Tues."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Tuesday&quot;)) {&#xa;        ckbTues.setSelected(true);&#xa;}&#xa;});"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="ckbMon">
           <Properties>
             <Property name="text" type="java.lang.String" value="Mon."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Monday&quot;)) {&#xa;        ckbMon.setSelected(true);&#xa;}&#xa;});"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="ckbWed">
           <Properties>
             <Property name="text" type="java.lang.String" value="Wed."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Wednesday&quot;)) {&#xa;        ckbWed.setSelected(true);&#xa;}&#xa;});"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="ckbThurs">
           <Properties>
@@ -540,6 +558,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbLevelActionPerformed"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="String level = selectedDoctor.getLevel();&#xa;if(level.equalsIgnoreCase(&quot;Junior&quot;)) {&#xa;    cbbLevel.setSelectedIndex(0);&#xa;} else if(level.equalsIgnoreCase(&quot;Intermediate&quot;)) {&#xa;    cbbLevel.setSelectedIndex(1);&#xa;} else if(level.equalsIgnoreCase(&quot;Senior&quot;)) {&#xa;    cbbLevel.setSelectedIndex(2);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>

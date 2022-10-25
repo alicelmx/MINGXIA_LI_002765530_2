@@ -11,10 +11,10 @@ import java.util.Objects;
  * @author limingxia
  */
 public class Patient extends Person {
-    
+
     private String pid;
     private String city;
-    private String community; 
+    private String community;
     private String zipcode;
     private String house;
     private EncounterHistory encounterHistory;
@@ -67,11 +67,15 @@ public class Patient extends Person {
         this.encounterHistory = encounterHistory;
     }
 
+    public String fullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     @Override
     public String toString() {
         return getPid();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -83,14 +87,14 @@ public class Patient extends Person {
         }
 
         Patient patient = (Patient) obj;
-        
+
         return Objects.equals(pid, patient.getPid())
                 && Objects.equals(city, patient.getCity())
                 && Objects.equals(community, patient.getCommunity())
                 && Objects.equals(zipcode, patient.getZipcode())
                 && Objects.equals(house, patient.getHouse())
                 && Objects.equals(encounterHistory, patient.getEncounterHistory());
-                
+
     }
 
 }

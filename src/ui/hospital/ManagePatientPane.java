@@ -2,9 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.patient;
+package ui.hospital;
 
-import dao.CommunityDao;
 import dao.EncounterDao;
 import dao.PatientDao;
 import java.awt.Graphics;
@@ -12,10 +11,11 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Community;
+import model.Doctor;
 import model.Encounter;
-import model.EncounterHistory;
+import model.Hospital;
 import model.Patient;
+import model.PatientDirectory;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -23,30 +23,25 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author limingxia
  */
-public class EncounterHistoryPane extends javax.swing.JPanel {
+public class ManagePatientPane extends javax.swing.JPanel {
 
-    private CommunityDao communityDao = new CommunityDao();
-    private PatientDao patientDao = new PatientDao();
-    private EncounterDao encounterDao = new EncounterDao();
-
-    public List<Community> communitys;
-    public EncounterHistory encounterHistory = new EncounterHistory();
+    PatientDirectory patientDirectory;
+    public String currHospitalName;
 
     /**
      * Creates new form AuthManagementPane
      */
-    public EncounterHistoryPane() {
+    public ManagePatientPane() {
         initComponents();
     }
 
-    public EncounterHistoryPane(Patient patient) {
-        // TODO 这块有点不合理，因为名字可能会有重复，应该pid or did
-        String patientName = patient.getFirstName() + " " + patient.getLastName();
-        encounterHistory.setEncounterHistory(encounterDao.queryEncounterByPName(patientName));
+    public ManagePatientPane(Hospital currentHospital) {
+        currHospitalName = currentHospital.gethName();
+        getPatientDirectory();
 
         initComponents();
 
-        populateTable(encounterHistory.getEncounterHistory());
+        populateTable(patientDirectory.getPatientList());
 
     }
 
@@ -66,15 +61,16 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtKeywords = new javax.swing.JTextField();
+        txtKeyword = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbEncounterHistory = new javax.swing.JTable();
-        btnView = new javax.swing.JButton();
+        tbPatient = new javax.swing.JTable();
+        btnEdit = new javax.swing.JButton();
+        btnRefesh = new javax.swing.JButton();
 
-        txtKeywords.addActionListener(new java.awt.event.ActionListener() {
+        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKeywordsActionPerformed(evt);
+                txtKeywordActionPerformed(evt);
             }
         });
 
@@ -86,7 +82,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
             }
         });
 
-        tbEncounterHistory.setModel(new javax.swing.table.DefaultTableModel(
+        tbPatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -94,14 +90,14 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Date", "Hospital", "Doctor", "Department"
+                "PatientID", "Name", "Phone", "DateOfBirth"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -112,13 +108,21 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbEncounterHistory);
+        jScrollPane1.setViewportView(tbPatient);
 
-        btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/view.png"))); // NOI18N
-        btnView.setText("View");
-        btnView.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnViewActionPerformed(evt);
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/refresh.png"))); // NOI18N
+        btnRefesh.setText("Refresh");
+        btnRefesh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefeshActionPerformed(evt);
             }
         });
 
@@ -129,13 +133,16 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnSearch))))
+                            .addComponent(btnSearch)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 61, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,74 +151,93 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordsActionPerformed
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtKeywordsActionPerformed
+    }//GEN-LAST:event_txtKeywordActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        String keywords = txtKeywords.getText();
-        if (StringUtils.isBlank(keywords)) {
+        String keyword = txtKeyword.getText();
+        if (StringUtils.isBlank(keyword)) {
             JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
             return;
         }
 
-        List<Encounter> searchResult = encounterHistory.searchByKeyword(keywords);
+        List<Patient> searchResult = patientDirectory.searchByKeyword(keyword);
 
         populateTable(searchResult);
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-
-        int selectedRowIndex = tbEncounterHistory.getSelectedRow();
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        int selectedRowIndex = tbPatient.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Encounter to View.");
+            JOptionPane.showMessageDialog(this, "Please Select a Doctor to Edit.");
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
-        Encounter encounter = (Encounter) model.getValueAt(selectedRowIndex, 0);
+        DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
+        Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
 
-        ViewEncounterFrame encounterDetailFrame = new ViewEncounterFrame(encounter);
-        encounterDetailFrame.setLocationRelativeTo(null);
-        encounterDetailFrame.setVisible(true);
+        EditDoctorInfoFrame editDoctorInfoFrame = new EditDoctorInfoFrame(selectedDoctor);
+        editDoctorInfoFrame.setLocationRelativeTo(null);
+        editDoctorInfoFrame.setVisible(true);
+    }//GEN-LAST:event_btnEditActionPerformed
 
-    }//GEN-LAST:event_btnViewActionPerformed
+    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-    private void populateTable(List<Encounter> encounters) {
-        if (ObjectUtils.isEmpty(encounters)) {
+        getPatientDirectory();
+        populateTable(patientDirectory.getPatientList());
+    }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void populateTable(List<Patient> patients) {
+        if (ObjectUtils.isEmpty(patients)) {
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
         model.setRowCount(0);
 
-        for (Encounter encounter : encounters) {
+        for (Patient patient : patients) {
 
             Object[] row = new Object[4];
-            row[0] = encounter;
-            row[1] = encounter.gethName();
-            row[2] = encounter.getdName();
-            row[3] = encounter.getDeptment();
+            row[0] = patient;
+            row[1] = patient.fullName();
+            row[2] = patient.getPhoneNum();
+            row[3] = patient.getDateOfBirth();
 
             model.addRow(row);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnView;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbEncounterHistory;
-    private javax.swing.JTextField txtKeywords;
+    private javax.swing.JTable tbPatient;
+    private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
+
+    private void getPatientDirectory() {
+        patientDirectory = new PatientDirectory();
+
+        List<Encounter> encounters = EncounterDao.queryEncounterByHName(this.currHospitalName);
+        encounters.forEach(e -> {
+            Patient p = PatientDao.queryPatientByPName(e.getpName());
+            if (!patientDirectory.containPatient(p)) {
+                patientDirectory.addPatient(p);
+            }
+        });
+    }
 }

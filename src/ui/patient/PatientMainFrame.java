@@ -26,7 +26,7 @@ public class PatientMainFrame extends javax.swing.JFrame {
 
     public PatientMainFrame(String userName) {
         this.userName = userName;
-        patient = patientDao.findPatientInfoByUName(userName);
+        patient = patientDao.queryPatientByUName(userName);
         
         initComponents();
     }

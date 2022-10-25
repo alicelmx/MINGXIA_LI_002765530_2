@@ -2,27 +2,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.hospital;
+package ui.system;
 
 import dao.HospitalDao;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Hospital;
-import ui.AddHospitalFrame;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  *
  * @author limingxia
  */
-public class HospitalManagementPane extends javax.swing.JPanel {
-    
-        private HospitalDao hospitalDao = new HospitalDao();
-        List<Hospital> hospitals;
+public class ManageHospitalPane extends javax.swing.JPanel {
+
+    private HospitalDao hospitalDao = new HospitalDao();
+    List<Hospital> hospitals;
 
     /**
      * Creates new form AuthManagementPane
      */
-    public HospitalManagementPane() {
+    public ManageHospitalPane() {
         hospitals = hospitalDao.queryHospitalList();
         initComponents();
         populateTable(hospitals);
@@ -178,20 +178,19 @@ public class HospitalManagementPane extends javax.swing.JPanel {
         //
         //        nearDoctorList = new ArrayList<>();
         //        hospitalList.stream().forEach(o -> {
-            //            o.getDoctorDirectory().stream().forEach(m -> {
-                //
-                //                Doctor doctor = doctorDao.findDoctorByDid(m);
-                //
-                //                NearDoctorModel nearDoctorModel = new NearDoctorModel();
-                //                nearDoctorModel.setHospital(o.gethName());
-                //                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
-                //                nearDoctorModel.setName(doctor.getdName());
-                //                nearDoctorModel.setDepartment(doctor.getDepartment());
-                //
-                //                nearDoctorList.add(nearDoctorModel);
-                //            });
+        //            o.getDoctorDirectory().stream().forEach(m -> {
+        //
+        //                Doctor doctor = doctorDao.findDoctorByDid(m);
+        //
+        //                NearDoctorModel nearDoctorModel = new NearDoctorModel();
+        //                nearDoctorModel.setHospital(o.gethName());
+        //                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
+        //                nearDoctorModel.setName(doctor.getdName());
+        //                nearDoctorModel.setDepartment(doctor.getDepartment());
+        //
+        //                nearDoctorList.add(nearDoctorModel);
+        //            });
         //        });
-
         //        populateTable();
     }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
 
@@ -208,7 +207,7 @@ public class HospitalManagementPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-       
+
         AddHospitalFrame addHospitalFrame = new AddHospitalFrame();
         addHospitalFrame.setLocationRelativeTo(null);
         addHospitalFrame.setVisible(true);
@@ -221,6 +220,10 @@ public class HospitalManagementPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void populateTable(List<Hospital> hospitalList) {
+        if (ObjectUtils.isEmpty(hospitalList)) {
+            return;
+        }
+
         DefaultTableModel model = (DefaultTableModel) tbHospital.getModel();
         model.setRowCount(0);
 
@@ -234,7 +237,7 @@ public class HospitalManagementPane extends javax.swing.JPanel {
             model.addRow(row);
         }
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBrowseDoctors;

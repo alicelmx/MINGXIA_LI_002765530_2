@@ -5,20 +5,16 @@
 package ui;
 
 import ui.system.SystemAdminFrame;
-import ui.patient.PatientRegisterFrame;
 import ui.community.CommunityAdminFrame;
 import ui.doctor.DoctorRegisterFrame;
 import ui.doctor.DoctorMainFrame;
-import ui.hospital.HospitalAdminFrame;
+import ui.hospital.HospitalAdminMainFrame;
 import ui.patient.PatientMainFrame;
 import dao.DoctorDao;
 import dao.LoginDao;
 import dao.PatientDao;
 import enumvalue.RoleEnum;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import model.LoginModel;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -202,7 +198,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 break;
 
             case 2: // Hospital Admin
-                HospitalAdminFrame hospitalAdminFrame = new HospitalAdminFrame();
+                HospitalAdminMainFrame hospitalAdminFrame = new HospitalAdminMainFrame(userName);
                 hospitalAdminFrame.setLocationRelativeTo(null);
                 hospitalAdminFrame.setVisible(true);
                 break;
@@ -222,7 +218,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
                 break;
         }
-
 
     }//GEN-LAST:event_btnLoginActionPerformed
 

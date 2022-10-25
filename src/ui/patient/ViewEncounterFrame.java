@@ -2,42 +2,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui.doctor;
+package ui.patient;
 
 import dao.AppointmentDao;
 import dao.DoctorDao;
 import dao.EncounterDao;
 import dao.HospitalDao;
-import javax.swing.JOptionPane;
-import model.AppointmentModel;
 import model.Doctor;
 import model.Encounter;
-import model.VitalSign;
-import tool.DateUtils;
 
 /**
  *
  * @author limingxia
  */
-public class DiagnoseFrame extends javax.swing.JFrame {
+public class ViewEncounterFrame extends javax.swing.JFrame {
 
     private DoctorDao doctorDao = new DoctorDao();
     private HospitalDao hospitalDao = new HospitalDao();
     private EncounterDao encounterDao = new EncounterDao();
     private AppointmentDao appointmentDao = new AppointmentDao();
 
-    public AppointmentModel selectedAppointment;
     public Doctor doctor;
+    Encounter selectedEncounter;
+
     /**
      * Creates new form DiagnoseFrame
      */
-    public DiagnoseFrame() {
+    public ViewEncounterFrame() {
         initComponents();
     }
 
-    DiagnoseFrame(AppointmentModel selectedAppointment) {
-        this.selectedAppointment = selectedAppointment;
-        doctor = doctorDao.findDoctorByDName(this.selectedAppointment.getdName());
+    public ViewEncounterFrame(Encounter selectedEncounter) {
+        this.selectedEncounter = selectedEncounter;
 
         initComponents();
     }
@@ -52,10 +48,9 @@ public class DiagnoseFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         lblAppointmentID2 = new javax.swing.JLabel();
-        btnEmpty = new javax.swing.JButton();
-        btnSave1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         BasicInfoPane = new javax.swing.JPanel();
-        lblAppointmentID = new javax.swing.JLabel();
+        lbEncounterID = new javax.swing.JLabel();
         lblAppointmentID4 = new javax.swing.JLabel();
         lblAppointmentID1 = new javax.swing.JLabel();
         lblAppointmentID3 = new javax.swing.JLabel();
@@ -82,25 +77,17 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        btnEmpty.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
-        btnEmpty.setText("Clear");
-        btnEmpty.addActionListener(new java.awt.event.ActionListener() {
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/NavBack.png"))); // NOI18N
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEmptyActionPerformed(evt);
-            }
-        });
-
-        btnSave1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
-        btnSave1.setText("Save");
-        btnSave1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave1ActionPerformed(evt);
+                btnBackActionPerformed(evt);
             }
         });
 
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
-        lblAppointmentID.setText("AppointmentID:");
+        lbEncounterID.setText("Datetime:");
 
         lblAppointmentID4.setText("Deptment:");
 
@@ -108,16 +95,21 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblAppointmentID3.setText("Doctor Name:");
 
-        txtDoctorName.setText(selectedAppointment.getdName());
+        txtDoctorName.setText(selectedEncounter.getdName());
         txtDoctorName.setEnabled(false);
 
-        txtPatientName.setText(selectedAppointment.getpName());
+        txtPatientName.setText(selectedEncounter.getpName());
         txtPatientName.setEnabled(false);
 
-        txtDeptment.setText(doctor.getDepartment());
+        txtDeptment.setText(this.selectedEncounter.getDeptment());
         txtDeptment.setEnabled(false);
+        txtDeptment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDeptmentActionPerformed(evt);
+            }
+        });
 
-        txtAppointmentID.setText(this.selectedAppointment.getAid());
+        txtAppointmentID.setText(selectedEncounter.getDatetime());
         txtAppointmentID.setEnabled(false);
 
         javax.swing.GroupLayout BasicInfoPaneLayout = new javax.swing.GroupLayout(BasicInfoPane);
@@ -132,7 +124,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addComponent(txtDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                        .addComponent(lblAppointmentID)
+                        .addComponent(lbEncounterID)
                         .addGap(30, 30, 30)
                         .addComponent(txtAppointmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -153,7 +145,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
             .addGroup(BasicInfoPaneLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAppointmentID)
+                    .addComponent(lbEncounterID)
                     .addComponent(txtAppointmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAppointmentID4)
                     .addComponent(txtDeptment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -172,7 +164,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblBloodPressure.setText("Blood Pressure:");
 
+        String bp = String.valueOf((selectedEncounter.getVitalSign().getBloodPressure()));
         txtBloodPressure.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtBloodPressure.setEnabled(false);
+        txtBloodPressure.setText(bp);
         txtBloodPressure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBloodPressureActionPerformed(evt);
@@ -181,7 +176,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblPulseRate.setText("Pulse Rate:");
 
+        String tp = String.valueOf((selectedEncounter.getVitalSign().getPulseRate()));
         txtPulseRate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtPulseRate.setEnabled(false);
+        txtPulseRate.setText(tp);
         txtPulseRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPulseRateActionPerformed(evt);
@@ -190,7 +188,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblRespirationRate.setText("Respiration Rate:");
 
+        String rr = String.valueOf((selectedEncounter.getVitalSign().getRespirationRate()));
         txtRespirationRate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtRespirationRate.setEnabled(false);
+        txtRespirationRate.setText(rr);
         txtRespirationRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtRespirationRateActionPerformed(evt);
@@ -199,7 +200,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblBodyTemperature.setText("Body Temperature:");
 
+        String bt = String.valueOf((selectedEncounter.getVitalSign().getBodyTemperature()));
         txtBodyTemperature.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        txtBodyTemperature.setEnabled(false);
+        txtBodyTemperature.setText(bt);
         txtBodyTemperature.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBodyTemperatureActionPerformed(evt);
@@ -260,6 +264,8 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblVitalSign1.setText("Prescription:");
 
+        txtPrescription.setText(selectedEncounter.getPrescription());
+        txtPrescription.setEnabled(false);
         txtPrescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrescriptionActionPerformed(evt);
@@ -268,8 +274,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblVitalSign2.setText("remark:");
 
+        txtaRemark.setText(selectedEncounter.getRemark());
         txtaRemark.setColumns(20);
         txtaRemark.setRows(5);
+        txtaRemark.setEnabled(false);
         jScrollPane1.setViewportView(txtaRemark);
 
         javax.swing.GroupLayout DiagnoseInfoPaneLayout = new javax.swing.GroupLayout(DiagnoseInfoPane);
@@ -296,8 +304,8 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(DiagnoseInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblVitalSign2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(83, 83, 83))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -315,15 +323,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                             .addComponent(DiagnoseInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(VitalSignPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(262, 262, 262)
-                        .addComponent(btnEmpty)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(340, 340, 340)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnEmpty, btnSave1});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -332,20 +335,16 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                         .addGap(220, 220, 220)
                         .addComponent(lblAppointmentID2))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(45, 45, 45)
                         .addComponent(BasicInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(25, 25, 25)
                         .addComponent(VitalSignPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(17, 17, 17)
-                .addComponent(DiagnoseInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(DiagnoseInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEmpty, btnSave1});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -370,37 +369,13 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPulseRateActionPerformed
 
-    private void btnEmptyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEmptyActionPerformed
-
-    private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
-        // TODO add your handling code here:
-        VitalSign vitalSign = new VitalSign();
-        vitalSign.setBloodPressure(Double.parseDouble(txtBloodPressure.getText()));
-        vitalSign.setBodyTemperature(Double.parseDouble(txtBodyTemperature.getText()));
-        vitalSign.setPulseRate(Double.parseDouble(txtPulseRate.getText()));
-        vitalSign.setRespirationRate(Double.parseDouble(txtRespirationRate.getText()));
-
-        Encounter e = new Encounter();
-        e.setDatetime(DateUtils.getCurrentTime());
-        e.setDeptment(txtDeptment.getText());
-        e.setPrescription(txtPrescription.getText());
-        e.setRemark(txtaRemark.getText());
-        e.setVitalSign(vitalSign);
-        e.setdName(txtDoctorName.getText());
-        e.sethName(doctor.gethName());
-        e.setpName(txtPatientName.getText());
-
-        encounterDao.insertNewEncounterRecord(e);
-        
-        // updata appointment status
-        appointmentDao.updateAppointmentStatus(selectedAppointment);
-        
-        JOptionPane.showMessageDialog(this, "Save Record Successfully!");
-        
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnSave1ActionPerformed
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void txtDeptmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDeptmentActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDeptmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -419,14 +394,26 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewEncounterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewEncounterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewEncounterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DiagnoseFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ViewEncounterFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -435,7 +422,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DiagnoseFrame().setVisible(true);
+                new ViewEncounterFrame().setVisible(true);
             }
         });
     }
@@ -444,11 +431,10 @@ public class DiagnoseFrame extends javax.swing.JFrame {
     private javax.swing.JPanel BasicInfoPane;
     private javax.swing.JPanel DiagnoseInfoPane;
     private javax.swing.JPanel VitalSignPane;
-    private javax.swing.JButton btnEmpty;
-    private javax.swing.JButton btnSave1;
+    private javax.swing.JButton btnBack;
     private javax.swing.JLabel imgDiagnose;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAppointmentID;
+    private javax.swing.JLabel lbEncounterID;
     private javax.swing.JLabel lblAppointmentID1;
     private javax.swing.JLabel lblAppointmentID2;
     private javax.swing.JLabel lblAppointmentID3;

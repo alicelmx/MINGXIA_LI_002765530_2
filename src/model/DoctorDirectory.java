@@ -7,6 +7,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -20,7 +21,7 @@ public class DoctorDirectory {
         return doctorList;
     }
 
-    public void setDoctorList(ArrayList<Doctor> doctorList) {
+    public void setDoctorList(List<Doctor> doctorList) {
         this.doctorList = doctorList;
     }
 
@@ -45,6 +46,18 @@ public class DoctorDirectory {
         DoctorDirectory doctorDirectory = (DoctorDirectory) obj;
 
         return Objects.equals(doctorList, doctorDirectory.getDoctorList());
+    }
+
+    public List<Doctor> searchByKeyword(String keyword) {
+
+        List<Doctor> res = getDoctorList().stream().filter(
+                s -> s.getdName().equalsIgnoreCase(keyword)
+                || s.getDepartment().equalsIgnoreCase(keyword)
+                || s.getPhoneNum().equalsIgnoreCase(keyword)
+                || s.getLevel().equals(keyword)
+        ).collect(Collectors.toList());
+
+        return res;
     }
 
 }

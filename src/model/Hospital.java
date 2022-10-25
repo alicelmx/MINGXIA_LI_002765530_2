@@ -19,6 +19,7 @@ public class Hospital {
     private String community;
     private String zipCode;
     private String intro;
+    private String hospitalAdminUserName;
 //    private List<Doctor> doctorDirectory;
 //    private PatientDirectory patientDirectory;
 
@@ -78,6 +79,14 @@ public class Hospital {
         this.zipCode = zipCode;
     }
 
+    public String getHospitalAdminUserName() {
+        return hospitalAdminUserName;
+    }
+
+    public void setHospitalAdminUserName(String hospitalAdminUserName) {
+        this.hospitalAdminUserName = hospitalAdminUserName;
+    }
+
     @Override
     public String toString() {
         return gethName();
@@ -101,8 +110,8 @@ public class Hospital {
                 && Objects.equals(city, hospital.getCity())
                 && Objects.equals(community, hospital.getCommunity())
                 && Objects.equals(zipCode, hospital.getZipCode())
-                && Objects.equals(intro, hospital.getIntro())
-                ;
+                && Objects.equals(hospitalAdminUserName, hospital.getHospitalAdminUserName())
+                && Objects.equals(intro, hospital.getIntro());
     }
 
 }

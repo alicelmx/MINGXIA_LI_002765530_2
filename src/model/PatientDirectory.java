@@ -16,10 +16,6 @@ public class PatientDirectory {
 
     private List<Patient> patientList;
 
-    public PatientDirectory(List<Patient> patientList) {
-        this.patientList = patientList;
-    }
-
     public List<Patient> getPatientList() {
         return patientList;
     }
@@ -32,16 +28,21 @@ public class PatientDirectory {
         this.patientList.remove(selectedPatient);
     }
 
-    // TODO 筛选关键字有待确定
+    public void addPatient(Patient patient) {
+        this.patientList.add(patient);
+    }
+
+    public boolean containPatient(Patient patient) {
+        return this.patientList.contains(patient);
+    }
+
     public List<Patient> searchByKeyword(String keyword) {
         return this.patientList.stream()
                 .filter(
                         s -> String.valueOf(s.getPid()).equalsIgnoreCase(keyword)
-                        || (s.getFirstName() + " " + s.getLastName()).equalsIgnoreCase(keyword)
+                        || s.fullName().equalsIgnoreCase(keyword)
                         || s.getPhoneNum().equalsIgnoreCase(keyword)
-                        || s.getEmail().equalsIgnoreCase(keyword)
-                        || s.getCity().equalsIgnoreCase(keyword)
-                        || s.getCommunity().equalsIgnoreCase(keyword)
+                        || s.getDateOfBirth().equalsIgnoreCase(keyword)
                 ).collect(Collectors.toList());
     }
 
@@ -58,7 +59,7 @@ public class PatientDirectory {
         PatientDirectory patientDirectory = (PatientDirectory) obj;
 
         return Objects.equals(patientList, patientDirectory.getPatientList());
-               
+
     }
 
 }
