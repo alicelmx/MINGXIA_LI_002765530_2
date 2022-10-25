@@ -1,4 +1,4 @@
-package ui;
+package ui.patient;
 
 import dao.CommunityDao;
 import dao.LoginDao;
@@ -13,6 +13,7 @@ import model.Patient;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 import tool.DateUtils;
+import ui.LoginFrame;
 
 /**
  *
@@ -268,10 +269,10 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reset.png"))); // NOI18N
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
         btnClear.setText("Clear");
 
-        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/modify.png"))); // NOI18N
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

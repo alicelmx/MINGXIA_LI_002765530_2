@@ -38,7 +38,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="LoginPanel" max="32767" attributes="0"/>
-                          <Component id="HospitalPane" pref="0" max="32767" attributes="0"/>
+                          <Component id="HospitalPane" pref="408" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -124,7 +124,6 @@
                           <Component id="lblFirstName" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="txtFirstName" min="-2" pref="279" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -144,13 +143,13 @@
                       <Component id="txtLastName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblGender" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="rbtnMale" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="rbtnFemale" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="rbtnPreferNotToSay" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="lblGender" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -444,12 +443,12 @@
                       </Group>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="ckbThurs" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="ckbFri" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ckbSat" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="ckbThurs" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="7" max="32767" attributes="0"/>
               </Group>

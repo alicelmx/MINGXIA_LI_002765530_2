@@ -5,7 +5,9 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -13,13 +15,13 @@ import java.util.Objects;
  */
 public class EncounterHistory {
 
-    private ArrayList<Encounter> encounterHistory;
+    private List<Encounter> encounterHistory;
 
-    public ArrayList<Encounter> getEncounterHistory() {
+    public List<Encounter> getEncounterHistory() {
         return encounterHistory;
     }
 
-    public void setEncounterHistory(ArrayList<Encounter> encounterHistory) {
+    public void setEncounterHistory(List<Encounter> encounterHistory) {
         this.encounterHistory = encounterHistory;
     }
 
@@ -36,6 +38,18 @@ public class EncounterHistory {
         EncounterHistory e = (EncounterHistory) obj;
 
         return Objects.equals(encounterHistory, e.getEncounterHistory());
+    }
+
+    public List<Encounter> searchByKeyword(String keyword) {
+        
+        List<Encounter> res = encounterHistory.stream().filter(
+                s -> s.getDatetime().equalsIgnoreCase(keyword) || 
+                        s.getdName().equalsIgnoreCase(keyword) || 
+                                s.gethName().equalsIgnoreCase(keyword) || 
+                                        s.getDeptment().equalsIgnoreCase(keyword)
+        ).collect(Collectors.toList());
+        
+       return res;
     }
 
 }

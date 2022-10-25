@@ -2,7 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package ui.system;
+
+import ui.DoctorManagementPane;
+import ui.PatientManagementPane;
+import ui.community.CommunityManagementPane;
+import ui.hospital.HospitalManagementPane;
 
 /**
  *

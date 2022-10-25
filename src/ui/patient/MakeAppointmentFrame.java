@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package ui.patient;
 
 import dao.AppointmentDao;
 import dao.DoctorDao;
@@ -19,7 +19,7 @@ import tool.DateUtils;
 public class MakeAppointmentFrame extends javax.swing.JFrame {
     
     public NearDoctorModel doctor;
-    public String userName;
+    public String patientName;
     public List<String> availableDate;
     
     private AppointmentDao appointmentDao = new AppointmentDao();
@@ -32,9 +32,9 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    MakeAppointmentFrame(NearDoctorModel selectedDoctor, String userName) {
+    MakeAppointmentFrame(NearDoctorModel selectedDoctor, String patientName) {
         this.doctor = selectedDoctor;
-        this.userName = userName;
+        this.patientName = patientName;
         availableDate = DateUtils.getDateViaWeek(this.doctor.getAvailableTime());
         
         initComponents();
@@ -167,7 +167,8 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         String appDate = (String)cbcAvailableTime.getSelectedItem(); // default
         appointmentModel.setDatetime(appDate);
         appointmentModel.setdName(doctor.getName());
-        appointmentModel.setpName(userName);
+        appointmentModel.setpName(patientName);
+        appointmentModel.setStatus(0);
         
         appointmentDao.insertNewAppointment(appointmentModel);
         

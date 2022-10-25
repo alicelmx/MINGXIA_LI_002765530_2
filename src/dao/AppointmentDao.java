@@ -75,4 +75,23 @@ public class AppointmentDao {
 
         return resList;
     }
+
+    public boolean updateAppointmentStatus(AppointmentModel appointmentModel) {
+
+        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
+        List<AppointmentModel> appointmentModels = queryAllAppointment();
+        
+        if(!appointmentModels.contains(appointmentModel)) return false;
+        // delete first
+        appointmentModels.remove(appointmentModel);
+        // insert new one
+        appointmentModel.setStatus(1);
+        appointmentModels.add(appointmentModel);
+
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(appointmentModels);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+        
+        return true;
+    }
 }

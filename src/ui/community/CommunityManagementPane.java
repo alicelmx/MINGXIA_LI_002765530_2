@@ -2,10 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
+package ui.community;
 
+import ui.community.EditCommunity;
 import dao.CommunityDao;
+import java.awt.Graphics;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Community;
@@ -28,6 +31,13 @@ public class CommunityManagementPane extends javax.swing.JPanel {
         communitys = communityDao.queryAllCommunityList();
         initComponents();
         populateTable(communitys);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon(this.getClass().getResource("/assets/grey_line_bg.jpg"));
+        img.paintIcon(this, g, 0, 0);
     }
 
     /**

@@ -94,6 +94,13 @@ public class Encounter {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return getDatetime();
+    }
+    
+    
     
     @Override
     public boolean equals(Object obj) {

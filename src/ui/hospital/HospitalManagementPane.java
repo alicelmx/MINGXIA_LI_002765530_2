@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
+package ui.hospital;
 
 import dao.HospitalDao;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Hospital;
+import ui.AddHospitalFrame;
 
 /**
  *

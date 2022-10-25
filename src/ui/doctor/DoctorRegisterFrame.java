@@ -1,4 +1,4 @@
-package ui;
+package ui.doctor;
 
 import dao.DoctorDao;
 import dao.HospitalDao;
@@ -16,6 +16,7 @@ import model.LoginModel;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 import tool.DateUtils;
+import ui.LoginFrame;
 
 /**
  *
@@ -151,8 +152,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(lblFirstName)
                         .addGap(18, 18, 18)
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0))))
+                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         BasicInfoPaneLayout.setVerticalGroup(
             BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -166,12 +166,12 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
                     .addComponent(lblLastName)
                     .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGender)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(rbtnMale)
                         .addComponent(rbtnFemale)
-                        .addComponent(rbtnPreferNotToSay)))
+                        .addComponent(rbtnPreferNotToSay))
+                    .addComponent(lblGender))
                 .addGap(17, 17, 17)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblDateOfBirth)
@@ -348,11 +348,11 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
                         .addComponent(ckbMon)
                         .addComponent(ckbWed)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(HospitalPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ckbThurs)
+                .addGroup(HospitalPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(HospitalPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ckbFri)
-                        .addComponent(ckbSat)))
+                        .addComponent(ckbSat))
+                    .addComponent(ckbThurs))
                 .addContainerGap(7, Short.MAX_VALUE))
         );
 
@@ -384,7 +384,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(HospitalPane, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                            .addComponent(HospitalPane, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(308, 308, 308)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)

@@ -4,11 +4,21 @@
  */
 package ui;
 
+import ui.system.SystemAdminFrame;
+import ui.patient.PatientRegisterFrame;
+import ui.community.CommunityAdminFrame;
+import ui.doctor.DoctorRegisterFrame;
+import ui.doctor.DoctorMainFrame;
+import ui.hospital.HospitalAdminFrame;
+import ui.patient.PatientMainFrame;
 import dao.DoctorDao;
 import dao.LoginDao;
 import dao.PatientDao;
 import enumvalue.RoleEnum;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import model.LoginModel;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +35,6 @@ public class LoginFrame extends javax.swing.JFrame {
     private DoctorDao doctorDao = new DoctorDao();
     private PatientDao patientDao = new PatientDao();
 
-
     /**
      * Creates new form LoginFrame
      */
@@ -33,7 +42,7 @@ public class LoginFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    LoginFrame(int selectRoleIdx) {
+    public LoginFrame(int selectRoleIdx) {
 
         this.selectRoleIdx = selectRoleIdx;
         initComponents();
@@ -101,22 +110,21 @@ public class LoginFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblUsername)
-                            .addComponent(lblPassword))
-                        .addGap(33, 33, 33)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnRegister)
-                        .addGap(45, 45, 45)
-                        .addComponent(btnLogin)
-                        .addGap(121, 121, 121))))
+                    .addComponent(lblUsername)
+                    .addComponent(lblPassword))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addComponent(btnRegister)
+                .addGap(45, 45, 45)
+                .addComponent(btnLogin)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnLogin, btnRegister});
@@ -124,7 +132,7 @@ public class LoginFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addContainerGap(65, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUsername)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -132,11 +140,11 @@ public class LoginFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblPassword)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLogin))
-                .addGap(51, 51, 51))
+                .addGap(58, 58, 58))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {txtPassword, txtUsername});
@@ -166,7 +174,7 @@ public class LoginFrame extends javax.swing.JFrame {
         }
 
         LoginModel loginModel = loginDao.findLoginUserByName(userName, selectRoleIdx);
-        if(ObjectUtils.isEmpty(loginModel)) {
+        if (ObjectUtils.isEmpty(loginModel)) {
             JOptionPane.showMessageDialog(this, "Non-existent User, Please Register or Check Info!");
             return;
         }
@@ -183,7 +191,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 systemAdminFrame.setLocationRelativeTo(null);
                 systemAdminFrame.setVisible(true);
                 this.dispose();
-                
+
                 break;
             case 1: // Community Admin
                 CommunityAdminFrame communityAdminFrame = new CommunityAdminFrame();
@@ -200,14 +208,14 @@ public class LoginFrame extends javax.swing.JFrame {
                 break;
 
             case 3: // Doctor
-                DoctorFrame doctorFrame = new DoctorFrame(userName);
+                DoctorMainFrame doctorFrame = new DoctorMainFrame(userName);
                 doctorFrame.setLocationRelativeTo(null);
                 doctorFrame.setVisible(true);
                 this.dispose();
 
                 break;
             case 4: // Patient
-                PatientFrame patientFrame = new PatientFrame(userName);
+                PatientMainFrame patientFrame = new PatientMainFrame(userName);
                 patientFrame.setLocationRelativeTo(null);
                 patientFrame.setVisible(true);
                 this.dispose();
@@ -239,7 +247,7 @@ public class LoginFrame extends javax.swing.JFrame {
             this.dispose();
 
         } else {
-            PatientRegisterFrame patientRegisterFrame = new PatientRegisterFrame();
+            DoctorRegisterFrame patientRegisterFrame = new DoctorRegisterFrame();
             patientRegisterFrame.setLocationRelativeTo(null);
             patientRegisterFrame.setVisible(true);
             this.dispose();
