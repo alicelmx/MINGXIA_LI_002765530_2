@@ -7,7 +7,7 @@ import enumvalue.GenderEnum;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Community;
-import model.LoginModel;
+import model.Login;
 import model.Patient;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
@@ -435,7 +435,7 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         String houseNo = txtHouse.getText();
 
         // 两张表一起写
-        LoginModel newPatientLoginModel = new LoginModel();
+        Login newPatientLoginModel = new Login();
         // 和Patient表中一致
         newPatientLoginModel.setRoleType(enumvalue.RoleEnum.PATIENT.getIndex());
         newPatientLoginModel.setUserName(userName);

@@ -10,19 +10,21 @@ import java.util.List;
  *
  * @author limingxia
  */
-public class NearDoctorModel {
-    
-    private String name;
+public class NearDoctor {
+
+    private String dName;
+    private String did;
     private String hospital;
+    private String hid;
     private String department;
     private List<String> availableTime;
 
-    public String getName() {
-        return name;
+    public String getdName() {
+        return dName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setdName(String dName) {
+        this.dName = dName;
     }
 
     public String getHospital() {
@@ -51,6 +53,6 @@ public class NearDoctorModel {
 
     @Override
     public String toString() {
-        return name;
+        return dName;
     }
 }

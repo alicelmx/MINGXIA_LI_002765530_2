@@ -7,7 +7,6 @@ package ui.patient;
 import dao.DoctorDao;
 import dao.HospitalDao;
 import java.awt.Graphics;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
@@ -15,7 +14,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Doctor;
 import model.Hospital;
-import model.NearDoctorModel;
 import model.Patient;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class SearchDoctorPane extends javax.swing.JPanel {
 
-    public List<NearDoctorModel> nearDoctorList;
+    public List<Doctor> doctorList;
     public Patient patient;
 
     /**
@@ -37,16 +35,18 @@ public class SearchDoctorPane extends javax.swing.JPanel {
     }
 
     public SearchDoctorPane(Patient patient) {
+
         this.patient = patient;
-        queryAllNearDoctor();
+        doctorList = DoctorDao.queryAllDoctor();
 
         initComponents();
 
-        populateTable(nearDoctorList);
+        populateTable(doctorList);
     }
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
         ImageIcon img = new ImageIcon(this.getClass().getResource("/assets/grey_line_bg.jpg"));
         img.paintIcon(this, g, 0, 0);
@@ -66,6 +66,7 @@ public class SearchDoctorPane extends javax.swing.JPanel {
         tbNearDoctors = new javax.swing.JTable();
         txtKeyword = new javax.swing.JTextField();
         btnMakeAppointment1 = new javax.swing.JButton();
+        btnAppointmentHistory = new javax.swing.JButton();
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
         btnSearch.setText("search");
@@ -77,20 +78,20 @@ public class SearchDoctorPane extends javax.swing.JPanel {
 
         tbNearDoctors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Hospital", "Department", "Available Time"
+                "Name", "Hospital", "Department", "Date", "Community", "Zip Code"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -117,33 +118,51 @@ public class SearchDoctorPane extends javax.swing.JPanel {
             }
         });
 
+        btnAppointmentHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnAppointmentHistory.setText("Appointment History");
+        btnAppointmentHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointmentHistoryActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMakeAppointment1, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addComponent(btnAppointmentHistory)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnMakeAppointment1))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch))))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(btnMakeAppointment1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMakeAppointment1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAppointmentHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnMakeAppointment1, btnSearch});
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -154,10 +173,13 @@ public class SearchDoctorPane extends javax.swing.JPanel {
             return;
         }
 
-        List<NearDoctorModel> searchResult = nearDoctorList.stream().filter(d
-                -> d.getName().equalsIgnoreCase(keyword)
+        List<Doctor> searchResult = doctorList.stream().filter(d
+                -> d.getdName().equalsIgnoreCase(keyword)
                 || d.getDepartment().equalsIgnoreCase(keyword)
-                || d.getHospital().equalsIgnoreCase(keyword)
+                || d.gethName().equalsIgnoreCase(keyword)
+                || d.getAvailableTime().contains(keyword)
+                || d.getCommunity().equalsIgnoreCase(keyword)
+                || d.getZipCode().equalsIgnoreCase(keyword)
         ).collect(Collectors.toList());
 
         populateTable(searchResult);
@@ -175,15 +197,21 @@ public class SearchDoctorPane extends javax.swing.JPanel {
             return;
         }
         DefaultTableModel model = (DefaultTableModel) tbNearDoctors.getModel();
-        NearDoctorModel seletedNearDoctorModel = (NearDoctorModel) model.getValueAt(selectedRowIndex, 0);
-        String hospitalName = (String) model.getValueAt(selectedRowIndex, 1);
+        Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
 
-        MakeAppointmentFrame makeAppointmentFrame = new MakeAppointmentFrame(seletedNearDoctorModel, patient.getFullName());
+        MakeAppointmentFrame makeAppointmentFrame = new MakeAppointmentFrame(selectedDoctor, patient);
         makeAppointmentFrame.setLocationRelativeTo(null);
         makeAppointmentFrame.setVisible(true);
     }//GEN-LAST:event_btnMakeAppointment1ActionPerformed
 
-    private void populateTable(List<NearDoctorModel> doctorModels) {
+    private void btnAppointmentHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentHistoryActionPerformed
+
+        AppointmentHistoryFrame appointmentHistoryFrame = new AppointmentHistoryFrame(patient);
+        appointmentHistoryFrame.setLocationRelativeTo(null);
+        appointmentHistoryFrame.setVisible(true);
+    }//GEN-LAST:event_btnAppointmentHistoryActionPerformed
+
+    private void populateTable(List<Doctor> doctorModels) {
 
         DefaultTableModel model = (DefaultTableModel) tbNearDoctors.getModel();
         model.setRowCount(0);
@@ -191,19 +219,24 @@ public class SearchDoctorPane extends javax.swing.JPanel {
         if (ObjectUtils.isEmpty(doctorModels)) {
             return;
         }
-        for (NearDoctorModel doctor : doctorModels) {
+        for (Doctor doctor : doctorModels) {
+            Hospital hospital = HospitalDao.queryHospitalByHID(doctor.getHid());
 
-            Object[] row = new Object[4];
+            Object[] row = new Object[6];
             row[0] = doctor;
-            row[1] = doctor.getHospital();
+            row[1] = doctor.gethName();
             row[2] = doctor.getDepartment();
             row[3] = doctor.getAvailableTime();
+            // hospital attr
+            row[4] = hospital.getCommunity();
+            row[5] = hospital.getZipCode();
 
             model.addRow(row);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAppointmentHistory;
     private javax.swing.JButton btnMakeAppointment1;
     private javax.swing.JButton btnSearch;
     private javax.swing.JScrollPane jScrollPane1;
@@ -211,28 +244,30 @@ public class SearchDoctorPane extends javax.swing.JPanel {
     private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
 
-    private void queryAllNearDoctor() {
-        List<Hospital> hospitalList = HospitalDao.findHospitalByCommunity(patient.getCommunity());
-        if (ObjectUtils.isEmpty(hospitalList)) {
-            return;
-        }
+    private void queryAllDoctor() {
+        // TODO 这块是不是写错了
+        //        List<Hospital> hospitalList = HospitalDao.findHospitalByCommunity(patient.getCommunity());
+        //        if (ObjectUtils.isEmpty(hospitalList)) {
+        //            return;
+        //        }
+        doctorList = DoctorDao.queryAllDoctor();
 
-        nearDoctorList = new ArrayList<>();
-
-        List<Doctor> doctors = DoctorDao.queryAllDoctor();
-        doctors.stream().forEach(doctor -> {
-            hospitalList.stream().forEach(hospital -> {
-                if (doctor.gethName().equals(hospital.gethName())) {
-                    NearDoctorModel nearDoctorModel = new NearDoctorModel();
-
-                    nearDoctorModel.setHospital(hospital.gethName());
-                    nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
-                    nearDoctorModel.setName(doctor.getdName());
-                    nearDoctorModel.setDepartment(doctor.getDepartment());
-
-                    nearDoctorList.add(nearDoctorModel);
-                }
-            });
-        });
+//        doctorList = new ArrayList<>();
+//
+//        List<Doctor> doctors = DoctorDao.queryAllDoctor();
+//        doctors.stream().forEach(doctor -> {
+//            hospitalList.stream().forEach(hospital -> {
+//                if (doctor.gethName().equals(hospital.gethName())) {
+//                    NearDoctor nearDoctorModel = new NearDoctor();
+//
+//                    nearDoctorModel.setHospital(hospital.gethName());
+//                    nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
+//                    nearDoctorModel.setdName(doctor.getdName());
+//                    nearDoctorModel.setDepartment(doctor.getDepartment());
+//
+//                    doctorList.add(nearDoctorModel);
+//                }
+//            });
+//        });
     }
 }

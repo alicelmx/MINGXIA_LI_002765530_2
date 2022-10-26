@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author limingxia
  */
-public class LoginModel {
+public class Login {
     
     private Integer roleType; 
     private String userName; // unique
@@ -46,11 +46,11 @@ public class LoginModel {
             return true;
         }
 
-        if (!(obj instanceof LoginModel)) {
+        if (!(obj instanceof Login)) {
             return false;
         }
 
-        LoginModel loginModel = (LoginModel) obj;
+        Login loginModel = (Login) obj;
 
         return Objects.equals(roleType, loginModel.getRoleType())
                 && Objects.equals(userName, loginModel.getUserName())

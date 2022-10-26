@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import model.Doctor;
 import model.Hospital;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 import tool.DateUtils;
@@ -21,7 +21,7 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
 
     public List<Hospital> hospitalList;
     public Doctor selectedDoctor;
-    public LoginModel curLoginModel;
+    public Login curLoginModel;
 
     public EditDoctorInfoFrame() {
         initComponents();
@@ -572,7 +572,7 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
 
         String level = (String) cbbDepartment.getSelectedItem();
 
-        LoginModel newDoLoginModel = new LoginModel();
+        Login newDoLoginModel = new Login();
         newDoLoginModel.setRoleType(enumvalue.RoleEnum.DOCTOR.getIndex());
         newDoLoginModel.setUserName(userName);
         newDoLoginModel.setPassword(password);

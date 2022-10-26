@@ -31,7 +31,8 @@ public class PatientMainFrame extends javax.swing.JFrame {
 
         initComponents();
 
-        btnPatientProfile.doClick();
+        // patient tend to use appointment func first
+        btnAppointment.doClick();
     }
 
     /**

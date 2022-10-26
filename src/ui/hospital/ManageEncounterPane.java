@@ -41,7 +41,7 @@ public class ManageEncounterPane extends javax.swing.JPanel {
     public ManageEncounterPane(Hospital currHospital) {
 
         this.currHospital = currHospital;
-        encounterList = EncounterDao.queryEncounterByHName(this.currHospital.gethName());
+        encounterList = EncounterDao.queryEncounterByHID(this.currHospital.getHid());
 
         initComponents();
 

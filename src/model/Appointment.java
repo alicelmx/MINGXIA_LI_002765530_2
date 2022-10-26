@@ -10,12 +10,17 @@ import java.util.Objects;
  *
  * @author limingxia
  */
-public class AppointmentModel {
-    
+public class Appointment {
+
     private String aid;
     private String pName;
+    private String pid;
     private String dName;
+    private String did;
     private String datetime;
+    private String hid;
+    private String hName;
+    private String department;
     private int status; // 0 未进行 1已结束（已结束的预约看不到）
 
     public String getAid() {
@@ -26,7 +31,6 @@ public class AppointmentModel {
         this.aid = aid;
     }
 
-    
     public String getpName() {
         return pName;
     }
@@ -59,29 +63,73 @@ public class AppointmentModel {
         this.status = status;
     }
 
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
+    }
+
+    public String getDid() {
+        return did;
+    }
+
+    public void setDid(String did) {
+        this.did = did;
+    }
+
+    public String getHid() {
+        return hid;
+    }
+
+    public void setHid(String hid) {
+        this.hid = hid;
+    }
+
+    public String gethName() {
+        return hName;
+    }
+
+    public void sethName(String hName) {
+        this.hName = hName;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     @Override
     public String toString() {
-        return this.aid;
+        return getDatetime();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
 
-        if (!(obj instanceof AppointmentModel)) {
+        if (!(obj instanceof Appointment)) {
             return false;
         }
 
-        AppointmentModel appointmentModel = (AppointmentModel) obj;
+        Appointment appointmentModel = (Appointment) obj;
 
         return Objects.equals(aid, appointmentModel.getAid())
                 && Objects.equals(dName, appointmentModel.getdName())
                 && Objects.equals(pName, appointmentModel.getpName())
                 && Objects.equals(datetime, appointmentModel.getDatetime())
-                && Objects.equals(status, appointmentModel.getStatus());
+                && Objects.equals(status, appointmentModel.getStatus())
+                && Objects.equals(pid, appointmentModel.getPid())
+                && Objects.equals(did, appointmentModel.getDid())
+                && Objects.equals(hid, appointmentModel.getHid())
+                && Objects.equals(hName, appointmentModel.gethName())
+                && Objects.equals(department, appointmentModel.getDepartment());
     }
 
-    
 }

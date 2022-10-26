@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import model.Community;
 import model.Hospital;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 
@@ -373,7 +373,7 @@ public class EditHospitalFrame extends javax.swing.JFrame {
             return;
         }
 
-        LoginModel newHospitalAdmin = new LoginModel();
+        Login newHospitalAdmin = new Login();
         newHospitalAdmin.setUserName(userName);
         newHospitalAdmin.setPassword(password);
         newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());

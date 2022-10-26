@@ -7,7 +7,7 @@ package ui;
 import dao.LoginDao;
 import enumvalue.RoleEnum;
 import javax.swing.JOptionPane;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import ui.community.CommunityAdminFrame;
@@ -176,7 +176,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         }
 
-        LoginModel loginModel = LoginDao.queryByUNameAndRoleId(userName, selectRoleIdx);
+        Login loginModel = LoginDao.queryByUNameAndRoleId(userName, selectRoleIdx);
         if (ObjectUtils.isEmpty(loginModel)) {
             JOptionPane.showMessageDialog(this, "Non-existent User, Please Register or Check Info!");
             return;

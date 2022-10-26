@@ -20,7 +20,7 @@ import tool.JsonFileUitls;
  */
 public class CommunityDao {
 
-    public static final String communityListJson = "../database/CommunityList.json";
+    public static String communityListJson = "../database/CommunityList.json";
 
     static CommunitySerialGenerator serialGenerator = CommunitySerialGenerator.getInstance();
 
@@ -70,14 +70,6 @@ public class CommunityDao {
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(communityList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-    }
-
-    public static Community queryCommunitybByCName(String community) {
-        File file = new File(CommunityDao.class.getResource(communityListJson).getFile());
-        List<Community> communityList = JsonFileUitls.readJsonFileToModel(file, Community.class);
-        List<Community> res = communityList.stream().filter(s -> s.getcName().equalsIgnoreCase(community)).collect(Collectors.toList());
-
-        return ObjectUtils.isEmpty(res) ? null : res.get(0);
     }
 
     public static Community queryCommunitybByCAdminUser(String userName) {

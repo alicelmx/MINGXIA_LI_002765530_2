@@ -20,7 +20,7 @@ import tool.JsonFileUitls;
  */
 public class EncounterDao {
 
-    public static final String EncounterRecordJson = "../database/EncounterRecord.json";
+    public static String EncounterRecordJson = "../database/EncounterRecord.json";
     static EncounterSerialGenerator serialGenerator = EncounterSerialGenerator.getInstance();
 
     public static List<Encounter> queryALlEncounterRecord() {
@@ -47,33 +47,19 @@ public class EncounterDao {
         return true;
     }
 
-    public static List<Encounter> queryEncounterByPName(String patientName) {
+    public static List<Encounter> queryEncounterByPID(String patientID) {
         File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
         List<Encounter> allEncounters = JsonFileUitls.readJsonFileToModel(file, Encounter.class);
-        List<Encounter> res = allEncounters.stream().filter(s -> s.getpName().equalsIgnoreCase(patientName)).collect(Collectors.toList());
+        List<Encounter> res = allEncounters.stream().filter(s -> s.getPid().equalsIgnoreCase(patientID)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(res) ? null : res;
     }
 
-    public static List<Encounter> queryEncounterByHName(String patientName) {
+    public static List<Encounter> queryEncounterByHID(String HospitalID) {
         File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
         List<Encounter> allEncounters = JsonFileUitls.readJsonFileToModel(file, Encounter.class);
-        List<Encounter> res = allEncounters.stream().filter(s -> s.getpName().equalsIgnoreCase(patientName)).collect(Collectors.toList());
+        List<Encounter> res = allEncounters.stream().filter(s -> s.getHid().equalsIgnoreCase(HospitalID)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(res) ? null : res;
     }
-
-//    public List<Encounter> searchByKeyword(String keywords) {
-//        
-//        File file = new File(EncounterDao.class.getResource(EncounterRecordJson).getFile());
-//        List<Encounter> allEncounters = JsonFileUitls.readJsonFileToModel(file, Encounter.class);
-//        List<Encounter> res = allEncounters.stream().filter(
-//                s -> s.getDatetime().equalsIgnoreCase(keywords) || 
-//                        s -> s.getp().equalsIgnoreCase(keywords) || 
-//                                s -> s.getDatetime().equalsIgnoreCase(keywords) || 
-//                                        s -> s.getDatetime().equalsIgnoreCase(keywords)
-//        ).collect(Collectors.toList());
-//        
-//        return ObjectUtils.isEmpty(res) ? null : res;    
-//    }
 }

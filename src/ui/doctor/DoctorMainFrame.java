@@ -80,6 +80,7 @@ public class DoctorMainFrame extends javax.swing.JFrame {
             }
         });
 
+        lblLogout.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblLogout.setForeground(new java.awt.Color(255, 255, 255));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N

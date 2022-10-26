@@ -79,18 +79,18 @@ public class DoctorDao {
         return resList.get(0);
     }
 
-    public static Doctor findDoctorByDName(String dName) {
+    public static Doctor findDoctorByDId(String dId) {
         File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
-        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getFullName().equalsIgnoreCase(dName)).collect(Collectors.toList());
+        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getDid().equalsIgnoreCase(dId)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(doctorModelList) ? null : resList.get(0);
     }
 
-    public static List<Doctor> queryAllDoctorOfHospital(String hName) {
+    public static List<Doctor> queryAllDoctorOfHospital(String hId) {
         File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
-        List<Doctor> resList = doctorModelList.stream().filter(s -> s.gethName().equalsIgnoreCase(hName)).collect(Collectors.toList());
+        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getHid().equalsIgnoreCase(hId)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(doctorModelList) ? null : resList;
     }

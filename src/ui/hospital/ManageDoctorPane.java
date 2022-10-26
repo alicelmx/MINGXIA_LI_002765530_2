@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Doctor;
 import model.DoctorDirectory;
 import model.Hospital;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import ui.doctor.DoctorRegisterFrame;
@@ -26,7 +26,7 @@ import ui.doctor.DoctorRegisterFrame;
 public class ManageDoctorPane extends javax.swing.JPanel {
 
     public DoctorDirectory doctorDirectory = new DoctorDirectory();
-    public String currHospitalName;
+    public String currHospitalID;
     public List<Doctor> doctorList;
 
     /**
@@ -38,8 +38,8 @@ public class ManageDoctorPane extends javax.swing.JPanel {
     }
 
     public ManageDoctorPane(Hospital currentHospital) {
-        currHospitalName = currentHospital.gethName();
-        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+        currHospitalID = currentHospital.getHid();
+        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalID);
 
         initComponents();
 
@@ -247,7 +247,7 @@ public class ManageDoctorPane extends javax.swing.JPanel {
             return;
         }
         // Delete Login Model
-        LoginModel curLoginModel = LoginDao.queryByUserName(selectedDoctor.getUsername());
+        Login curLoginModel = LoginDao.queryByUserName(selectedDoctor.getUsername());
         if (ObjectUtils.isNotEmpty(curLoginModel)) {
             if (!LoginDao.deleteOldUser(curLoginModel)) {
                 JOptionPane.showMessageDialog(this, "Fail to Delete!");
@@ -260,12 +260,12 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        if (StringUtils.isBlank(currHospitalName)) {
+        if (StringUtils.isBlank(currHospitalID)) {
             doctorList = DoctorDao.queryAllDoctor();
             return;
         }
 
-        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalID);
         populateTable(doctorList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 

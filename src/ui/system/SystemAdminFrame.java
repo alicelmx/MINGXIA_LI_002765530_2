@@ -156,7 +156,7 @@ public class SystemAdminFrame extends javax.swing.JFrame {
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
                 .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(10, 10, 10)
                 .addComponent(btnCommunity)
                 .addGap(18, 18, 18)
                 .addComponent(btnManageDoctor)
@@ -170,7 +170,7 @@ public class SystemAdminFrame extends javax.swing.JFrame {
                 .addComponent(btnAppointment)
                 .addGap(18, 18, 18)
                 .addComponent(btnAppointment1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
                 .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 

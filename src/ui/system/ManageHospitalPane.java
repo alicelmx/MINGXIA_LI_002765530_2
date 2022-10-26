@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Community;
 import model.Hospital;
 import model.HospitalDirectory;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -235,7 +235,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
         }
 
         // Delete Login Model
-        LoginModel curLoginModel = LoginDao.queryByUserName(selectedHospital.getHospitalAdminUserName());
+        Login curLoginModel = LoginDao.queryByUserName(selectedHospital.getHospitalAdminUserName());
         if (ObjectUtils.isNotEmpty(curLoginModel)) {
             if (!LoginDao.deleteOldUser(curLoginModel)) {
                 JOptionPane.showMessageDialog(this, "Fail to Delete!");

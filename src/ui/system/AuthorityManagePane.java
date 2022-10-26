@@ -6,7 +6,7 @@ package ui.system;
 
 import dao.LoginDao;
 import javax.swing.JOptionPane;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -169,13 +169,13 @@ public class AuthorityManagePane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Fill in all the Blanks!");
             return;
         }
-        LoginModel existedLoginModel = LoginDao.queryByUNameAndRoleId(userName, roleIdx);
+        Login existedLoginModel = LoginDao.queryByUNameAndRoleId(userName, roleIdx);
         if (ObjectUtils.isEmpty(existedLoginModel)) {
             JOptionPane.showMessageDialog(this, "Non-existent Username, Cannot Modify Password!");
             return;
         }
 
-        LoginModel newDoLoginModel = new LoginModel();
+        Login newDoLoginModel = new Login();
         newDoLoginModel.setRoleType(roleIdx);
         newDoLoginModel.setUserName(userName);
         newDoLoginModel.setPassword(password);

@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EncounterHistoryPane extends javax.swing.JPanel {
 
-    public List<Community> communitys;
+    public List<Community> communityList;
     public EncounterHistory encounterHistory = new EncounterHistory();
 
     /**
@@ -35,7 +35,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
 
     public EncounterHistoryPane(Patient patient) {
         // TODO 这块有点不合理，因为名字可能会有重复，应该pid or did
-        encounterHistory.setEncounterHistory(EncounterDao.queryEncounterByPName(patient.getFullName()));
+        encounterHistory.setEncounterHistory(EncounterDao.queryEncounterByPID(patient.getPid()));
 
         initComponents();
 

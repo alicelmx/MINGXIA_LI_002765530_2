@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.AppointmentModel;
+import model.Appointment;
 import model.Doctor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,7 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ViewPatientListPane extends javax.swing.JPanel {
 
     public Doctor currentDoctor;
-    public List<AppointmentModel> appointmentList;
+    public List<Appointment> appointmentList;
 
     /**
      * Creates new form DoctorDiagnosePane
@@ -37,7 +37,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
 
         initComponents();
 
-        appointmentList = AppointmentDao.queryAppointmentByDName(currentDoctor.getdName());
+        appointmentList = AppointmentDao.queryAppointmentByDId(currentDoctor.getDid());
         populateTable(appointmentList);
     }
 
@@ -174,7 +174,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
         }
 
         DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
-        AppointmentModel selectedAppointment = (AppointmentModel) model.getValueAt(selectedRowIndex, 0);
+        Appointment selectedAppointment = (Appointment) model.getValueAt(selectedRowIndex, 0);
 
         DiagnoseFrame diagnoseFrame = new DiagnoseFrame(selectedAppointment);
         diagnoseFrame.setLocationRelativeTo(null);
@@ -192,7 +192,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
             return;
         }
 
-        List<AppointmentModel> searchResult = appointmentList.stream().filter(app
+        List<Appointment> searchResult = appointmentList.stream().filter(app
                 -> app.getdName().equalsIgnoreCase(keyword)
                 || app.getDatetime().equalsIgnoreCase(keyword)
                 || app.getpName().equalsIgnoreCase(keyword)
@@ -204,7 +204,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
         // after update, query database
-        List<AppointmentModel> appointmentModels = AppointmentDao.queryAppointmentByDName(currentDoctor.getdName());
+        List<Appointment> appointmentModels = AppointmentDao.queryAppointmentByDId(currentDoctor.getDid());
         populateTable(appointmentModels);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
@@ -217,7 +217,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     private javax.swing.JTextField txtKeywords;
     // End of variables declaration//GEN-END:variables
 
-    private void populateTable(List<AppointmentModel> appointmentModels) {
+    private void populateTable(List<Appointment> appointmentModels) {
 
         DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
         model.setRowCount(0);
@@ -226,7 +226,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
             return;
         }
 
-        for (AppointmentModel appointmentModel : appointmentModels) {
+        for (Appointment appointmentModel : appointmentModels) {
 
             Object[] row = new Object[3];
             row[0] = appointmentModel;

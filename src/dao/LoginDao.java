@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import tool.JsonFileUitls;
 
@@ -21,19 +21,14 @@ public class LoginDao {
 
     public static final String loginInfoJson = "../database/LoginInfo.json";
 
-    /**
-     * @param name the value of name
-     * @param selectRoleIdx the value of selectRoleIdx
-     * @return LoginModel
-     */
-    public static LoginModel queryByUNameAndRoleId(String name, int selectRoleIdx) {
+    public static Login queryByUNameAndRoleId(String name, int selectRoleIdx) {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
-        List<LoginModel> loginModelList = JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
+        List<Login> loginModelList = JsonFileUitls.readJsonFileToModel(file, Login.class);
         if (ObjectUtils.isEmpty(loginModelList)) {
             return null;
         }
-        List<LoginModel> resList = loginModelList.stream().filter(
+        List<Login> resList = loginModelList.stream().filter(
                 s -> s.getUserName().equalsIgnoreCase(name)
                 && s.getRoleType().equals(selectRoleIdx)
         ).collect(Collectors.toList());
@@ -43,16 +38,16 @@ public class LoginDao {
         return resList.get(0);
     }
 
-    public static List<LoginModel> queryAllLoginModel() {
+    public static List<Login> queryAllLoginModel() {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
-        return JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
+        return JsonFileUitls.readJsonFileToModel(file, Login.class);
     }
 
-    public static boolean insertNewUser(LoginModel newPatientLoginModel) {
+    public static boolean insertNewUser(Login newPatientLoginModel) {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
-        List<LoginModel> allEncounters = queryAllLoginModel();
+        List<Login> allEncounters = queryAllLoginModel();
         if (allEncounters.contains(newPatientLoginModel)) {
             return false;
         }
@@ -65,24 +60,24 @@ public class LoginDao {
         return true;
     }
 
-    public static LoginModel queryByUserName(String userName) {
+    public static Login queryByUserName(String userName) {
         File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
-        List<LoginModel> loginModelList = JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
+        List<Login> loginModelList = JsonFileUitls.readJsonFileToModel(file, Login.class);
         if (ObjectUtils.isEmpty(loginModelList)) {
             return null;
         }
 
-        List<LoginModel> resList = loginModelList.stream().filter(
+        List<Login> resList = loginModelList.stream().filter(
                 s -> s.getUserName().equalsIgnoreCase(userName)
         ).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
     }
 
-    public static boolean deleteOldUser(LoginModel oldLoginModel) {
+    public static boolean deleteOldUser(Login oldLoginModel) {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
-        List<LoginModel> loginModels = queryAllLoginModel();
+        List<Login> loginModels = queryAllLoginModel();
         if (!loginModels.contains(oldLoginModel)) {
             return false;
         }
@@ -97,15 +92,15 @@ public class LoginDao {
 
     public static boolean deleteOldUserByUserName(String userName) {
         File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
-        List<LoginModel> loginModels = queryAllLoginModel();
+        List<Login> loginModels = queryAllLoginModel();
 
-        List<LoginModel> oldLoginModelList = loginModels.stream().filter(h
+        List<Login> oldLoginModelList = loginModels.stream().filter(h
                 -> h.getUserName().equalsIgnoreCase(userName)
         ).collect(Collectors.toList());
         if (ObjectUtils.isEmpty(oldLoginModelList)) {
             return false;
         }
-        LoginModel oldLoginModel = oldLoginModelList.get(0);
+        Login oldLoginModel = oldLoginModelList.get(0);
 
         loginModels.remove(oldLoginModel);
 

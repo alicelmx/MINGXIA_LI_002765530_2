@@ -8,7 +8,7 @@ import dao.AppointmentDao;
 import dao.DoctorDao;
 import dao.EncounterDao;
 import javax.swing.JOptionPane;
-import model.AppointmentModel;
+import model.Appointment;
 import model.Doctor;
 import model.Encounter;
 import model.VitalSign;
@@ -20,7 +20,7 @@ import tool.DateUtils;
  */
 public class DiagnoseFrame extends javax.swing.JFrame {
 
-    public AppointmentModel selectedAppointment;
+    public Appointment selectedAppointment;
     public Doctor doctor;
 
     /**
@@ -30,9 +30,9 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    DiagnoseFrame(AppointmentModel selectedAppointment) {
+    DiagnoseFrame(Appointment selectedAppointment) {
         this.selectedAppointment = selectedAppointment;
-        doctor = DoctorDao.findDoctorByDName(this.selectedAppointment.getdName());
+        doctor = DoctorDao.findDoctorByDId(this.selectedAppointment.getDid());
 
         initComponents();
     }

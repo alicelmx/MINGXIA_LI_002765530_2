@@ -28,8 +28,8 @@ public class ManagePatientPane extends javax.swing.JPanel {
 
     public PatientDirectory patientDirectory = new PatientDirectory();
     public List<Patient> patientList;
-    public String currHospitalName;
-    public String curCommunityName;
+    public String currHospitalID;
+    public String curCommunityID;
 
     /**
      * Creates new form AuthManagementPane
@@ -44,7 +44,7 @@ public class ManagePatientPane extends javax.swing.JPanel {
     }
 
     public ManagePatientPane(Hospital currentHospital) {
-        currHospitalName = currentHospital.gethName();
+        currHospitalID = currentHospital.getHid();
         getPatientDirectory();
 
         initComponents();
@@ -54,7 +54,7 @@ public class ManagePatientPane extends javax.swing.JPanel {
     }
 
     public ManagePatientPane(Community curCommunity) {
-        curCommunityName = curCommunity.getcName();
+        curCommunityID = curCommunity.getCid();
 
         initComponents();
 
@@ -248,21 +248,21 @@ public class ManagePatientPane extends javax.swing.JPanel {
 
     private void getPatientDirectory() {
 
-        if (StringUtils.isBlank(currHospitalName)) {
+        if (StringUtils.isBlank(currHospitalID)) {
             patientList = PatientDao.queryAllPatientModel();
             patientDirectory.setPatientList(patientList);
-        } else if (StringUtils.isBlank(curCommunityName)) {
-            patientList = PatientDao.queryPatientByCName(curCommunityName);
+        } else if (StringUtils.isBlank(curCommunityID)) {
+            patientList = PatientDao.queryPatientByCName(curCommunityID);
             patientDirectory.setPatientList(patientList);
         } else {
             patientDirectory.clearAll();
 
-            List<Encounter> encounters = EncounterDao.queryEncounterByHName(this.currHospitalName);
+            List<Encounter> encounters = EncounterDao.queryEncounterByHID(this.currHospitalID);
             if (ObjectUtils.isEmpty(encounters)) {
                 return;
             }
             encounters.forEach(e -> {
-                Patient p = PatientDao.queryPatientByPName(e.getpName());
+                Patient p = PatientDao.queryPatientByPid(e.getPid());
                 if (!patientDirectory.containPatient(p)) {
                     patientDirectory.addPatient(p);
                 }

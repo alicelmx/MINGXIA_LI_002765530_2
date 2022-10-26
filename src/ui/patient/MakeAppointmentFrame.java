@@ -5,10 +5,13 @@
 package ui.patient;
 
 import dao.AppointmentDao;
+import java.awt.Image;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import model.AppointmentModel;
-import model.NearDoctorModel;
+import model.Appointment;
+import model.Doctor;
+import model.Patient;
 import tool.DateUtils;
 
 /**
@@ -17,8 +20,8 @@ import tool.DateUtils;
  */
 public class MakeAppointmentFrame extends javax.swing.JFrame {
 
-    public NearDoctorModel doctor;
-    public String patientName;
+    public Doctor doctor;
+    public Patient curPatient;
     public List<String> availableDate;
 
     /**
@@ -28,9 +31,9 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    MakeAppointmentFrame(NearDoctorModel selectedDoctor, String patientName) {
+    MakeAppointmentFrame(Doctor selectedDoctor, Patient patient) {
         this.doctor = selectedDoctor;
-        this.patientName = patientName;
+        this.curPatient = patient;
         availableDate = DateUtils.getDateViaWeek(this.doctor.getAvailableTime());
 
         initComponents();
@@ -45,37 +48,25 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblHospital = new javax.swing.JLabel();
-        lblDoctorNameTitle = new javax.swing.JLabel();
-        lblDepartment = new javax.swing.JLabel();
-        lblHospitalName = new javax.swing.JLabel();
-        lblDepartmentName = new javax.swing.JLabel();
-        lblDoctorName = new javax.swing.JLabel();
-        lblAppointmentTime = new javax.swing.JLabel();
         btnSubmitAppointment = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
+        lblIcon = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblAppointmentTime = new javax.swing.JLabel();
+        lblHospitalName = new javax.swing.JLabel();
         cbcAvailableTime = new javax.swing.JComboBox<>();
-        iconDoctor = new javax.swing.JLabel();
+        lblHospital = new javax.swing.JLabel();
+        lblDepartment = new javax.swing.JLabel();
+        lblDepartmentName = new javax.swing.JLabel();
+        lblDoctorName = new javax.swing.JLabel();
+        lblDoctorNameTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Make Appointment");
         setResizable(false);
 
-        lblHospital.setText("Hospital:");
-
-        lblDoctorNameTitle.setText("Doctor Name:");
-
-        lblDepartment.setText("Department：");
-
-        lblHospitalName.setText(doctor.getHospital());
-
-        lblDepartmentName.setText(doctor.getDepartment());
-
-        lblDoctorName.setText(doctor.getName());
-
-        lblAppointmentTime.setText("Appointment Time:");
-
-        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/modify.png"))); // NOI18N
-        btnSubmitAppointment.setText("Submit");
+        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
+        btnSubmitAppointment.setText("Save");
         btnSubmitAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitAppointmentActionPerformed(evt);
@@ -90,80 +81,129 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
             }
         });
 
+        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/assets/doctorAvatar.png"));// 创建照片对象
+        Image img = imageIcon.getImage();
+        img = img.getScaledInstance(120, 160, Image.SCALE_AREA_AVERAGING);
+        imageIcon.setImage(img);
+        lblIcon.setIcon(imageIcon);
+        lblIcon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
+        lblIcon.setPreferredSize(new java.awt.Dimension(120, 120));
+        lblIcon.setSize(new java.awt.Dimension(120, 120));
+        lblIcon.setText(null);
+
+        lblAppointmentTime.setText("Appointment Time:");
+
+        lblHospitalName.setText(doctor.gethName());
+
         availableDate.forEach(o -> {
             cbcAvailableTime.addItem(o);
         });
 
-        iconDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/doctor.jpeg"))); // NOI18N
+        lblHospital.setText("Hospital:");
+
+        lblDepartment.setText("Department:");
+
+        lblDepartmentName.setText(doctor.getDepartment());
+
+        lblDoctorName.setText(doctor.getdName());
+
+        lblDoctorNameTitle.setText("Doctor Name:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblHospital, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDepartment, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblDoctorNameTitle, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblAppointmentTime, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(20, 20, 20)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblHospitalName)
+                        .addComponent(lblDoctorName)
+                        .addComponent(cbcAvailableTime, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblDepartmentName)
+                        .addGap(52, 52, 52)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHospital)
+                    .addComponent(lblHospitalName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDepartmentName)
+                    .addComponent(lblDepartment))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDoctorNameTitle)
+                    .addComponent(lblDoctorName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAppointmentTime)
+                    .addComponent(cbcAvailableTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(51, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(iconDoctor)
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblHospital)
-                            .addComponent(lblDepartment)
-                            .addComponent(lblDoctorNameTitle)
-                            .addComponent(lblAppointmentTime))
-                        .addGap(34, 34, 34)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblDepartmentName)
-                            .addComponent(lblHospitalName)
-                            .addComponent(lblDoctorName)
-                            .addComponent(cbcAvailableTime, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(100, 100, 100)
-                        .addComponent(btnSubmitAppointment)
-                        .addGap(129, 129, 129))))
+                .addGap(128, 128, 128)
+                .addComponent(btnBack)
+                .addGap(47, 47, 47)
+                .addComponent(btnSubmitAppointment)
+                .addGap(135, 135, 135))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBack, btnSubmitAppointment});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addContainerGap(63, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(iconDoctor)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblHospital)
-                            .addComponent(lblHospitalName))
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblDepartmentName)
-                            .addComponent(lblDepartment))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblDoctorNameTitle)
-                            .addComponent(lblDoctorName))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblAppointmentTime)
-                            .addComponent(cbcAvailableTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                    .addComponent(lblIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(113, 113, 113))
+                .addGap(64, 64, 64))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnBack, btnSubmitAppointment});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppointmentActionPerformed
 
-        AppointmentModel appointmentModel = new AppointmentModel();
+        Appointment appointmentModel = new Appointment();
 
         String appDate = (String) cbcAvailableTime.getSelectedItem(); // default
         appointmentModel.setDatetime(appDate);
-        appointmentModel.setdName(doctor.getName());
-        appointmentModel.setpName(patientName);
+        appointmentModel.setdName(doctor.getdName());
+        appointmentModel.setpName(curPatient.getFullName());
+        appointmentModel.setDepartment(doctor.getDepartment());
+        appointmentModel.setDid(doctor.getDid());
+        appointmentModel.setHid(doctor.getHid());
+        appointmentModel.setPid(curPatient.getPid());
+        appointmentModel.sethName(doctor.gethName());
         appointmentModel.setStatus(0);
 
         AppointmentDao.insertNewAppointment(appointmentModel);
@@ -218,7 +258,7 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSubmitAppointment;
     private javax.swing.JComboBox<String> cbcAvailableTime;
-    private javax.swing.JLabel iconDoctor;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblAppointmentTime;
     private javax.swing.JLabel lblDepartment;
     private javax.swing.JLabel lblDepartmentName;
@@ -226,5 +266,6 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblDoctorNameTitle;
     private javax.swing.JLabel lblHospital;
     private javax.swing.JLabel lblHospitalName;
+    private javax.swing.JLabel lblIcon;
     // End of variables declaration//GEN-END:variables
 }

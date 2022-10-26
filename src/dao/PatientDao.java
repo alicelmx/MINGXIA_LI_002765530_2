@@ -30,7 +30,7 @@ public class PatientDao {
      * @param uid
      * @return
      */
-    public static Patient findPatientInfoByUid(String uid) {
+    public static Patient queryPatientByPid(String uid) {
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
@@ -88,14 +88,6 @@ public class PatientDao {
         Gson gson = new GsonBuilder().serializeNulls().create();
         String json = gson.toJson(allEncounters);
         JsonFileUitls.writeModeltoJsonfile(json, file);
-    }
-
-    public static Patient queryPatientByPName(String pName) {
-        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
-        List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
-        List<Patient> resList = patientModelList.stream().filter(s -> s.getFullName().equalsIgnoreCase(pName)).collect(Collectors.toList());
-
-        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
     }
 
     public static List<Patient> queryPatientByCName(String curCommunityName) {

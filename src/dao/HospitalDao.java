@@ -71,13 +71,6 @@ public class HospitalDao {
         return ObjectUtils.isEmpty(resList) ? null : resList;
     }
 
-    public static Hospital queryHospitalByHName(String hospitalName) {
-        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
-        List<Hospital> resList = hospitalModelList.stream().filter(s -> s.gethName().equalsIgnoreCase(hospitalName)).collect(Collectors.toList());
-
-        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
-    }
-
     public static Hospital queryHospitalByAdminName(String haName) {
         List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
         List<Hospital> resList = hospitalModelList.stream().filter(s -> s.getHospitalAdminUserName().equalsIgnoreCase(haName)).collect(Collectors.toList());

@@ -9,7 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import model.Doctor;
 import model.Hospital;
-import model.LoginModel;
+import model.Login;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 import tool.DateUtils;
@@ -259,7 +259,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         lblAvailableTime.setText("Available Time:");
 
         hospitalList.forEach(o -> {
-            cbbHospital.addItem(o.gethName());
+            cbbHospital.addItem(o.toString());
         });
         cbbHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -491,11 +491,8 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             return;
         }
 
-        String hospitalName = (String) cbbHospital.getSelectedItem();
-        if (StringUtils.isBlank(hospitalName)) {
-            JOptionPane.showMessageDialog(this, "Please Choose Hospital!");
-            return;
-        }
+        Hospital belongToHospital = (Hospital) cbbHospital.getSelectedItem();
+
         String department = (String) cbbDepartment.getSelectedItem();
         if (StringUtils.isBlank(department)) {
             JOptionPane.showMessageDialog(this, "Please Input Department!");
@@ -531,7 +528,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         // TODO 到底存的什么
         String level = (String) cbbLevel.getSelectedItem();
 
-        LoginModel newDoLoginModel = new LoginModel();
+        Login newDoLoginModel = new Login();
         newDoLoginModel.setRoleType(enumvalue.RoleEnum.DOCTOR.getIndex());
         newDoLoginModel.setUserName(userName);
         newDoLoginModel.setPassword(password);
@@ -539,7 +536,10 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         LoginDao.insertNewUser(newDoLoginModel);
 
         Doctor doctor = new Doctor();
-        doctor.sethName(hospitalName);
+        doctor.setHid(belongToHospital.getHid());
+        doctor.sethName(belongToHospital.gethName());
+        doctor.setCommunity(belongToHospital.getCommunity());
+        doctor.setZipCode(belongToHospital.getZipCode());
         doctor.setDateOfBirth(dateOfBirth);
         doctor.setDepartment(department);
         doctor.setEmail(email);
@@ -555,10 +555,6 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
 
         DoctorDao.insertNewDoctor(doctor);
 
-//        Hospital oldHospital = hospitalDao.queryHospitalByHName(hospitalName);
-//        Hospital newHospital = oldHospital;
-//        newHospital.getDoctorDirectory().addDoctor(doctor);
-//        hospitalDao.updateHospital(newHospital, oldHospital);
         JOptionPane.showMessageDialog(this, "Congrats! Register Successfully!", "", JOptionPane.PLAIN_MESSAGE);
 
         if (!fromHospitalAdmin) {

@@ -4,17 +4,39 @@
  */
 package ui.patient;
 
+import dao.AppointmentDao;
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Appointment;
+import model.Patient;
+import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
+
 /**
  *
  * @author limingxia
  */
 public class AppointmentHistoryFrame extends javax.swing.JFrame {
 
+    public List<Appointment> appointmentModelList;
+    public Patient patient;
+
     /**
      * Creates new form PatientAppointmentHistory
      */
     public AppointmentHistoryFrame() {
         initComponents();
+    }
+
+    AppointmentHistoryFrame(Patient patient) {
+        this.patient = patient;
+        appointmentModelList = AppointmentDao.queryAppointmentByPid(this.patient.getPid());
+
+        initComponents();
+
+        populateTable(appointmentModelList);
     }
 
     /**
@@ -26,22 +48,174 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSearch = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbAppointment = new javax.swing.JTable();
+        txtKeyword = new javax.swing.JTextField();
+        btnRefesh = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Appointment List");
         setResizable(false);
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        btnSearch.setText("search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        tbAppointment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Date", "Hospital", "Department", "Doctor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tbAppointment);
+
+        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKeywordActionPerformed(evt);
+            }
+        });
+
+        btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/refresh.png"))); // NOI18N
+        btnRefesh.setText("Refresh");
+        btnRefesh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefeshActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
+        btnDelete.setText("Cancel");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 401, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch))))
+                .addGap(0, 38, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDelete, btnRefesh});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDelete, btnRefesh});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+
+        String keyword = txtKeyword.getText();
+        if (StringUtils.isBlank(keyword)) {
+            JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
+            return;
+        }
+
+        List<Appointment> searchResult = appointmentModelList.stream().filter(a
+                -> a.getdName().equalsIgnoreCase(keyword)
+                || a.gethName().equalsIgnoreCase(keyword)
+                || a.getDepartment().equalsIgnoreCase(keyword)
+        ).collect(Collectors.toList());
+
+        populateTable(searchResult);
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKeywordActionPerformed
+
+    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+
+        appointmentModelList = AppointmentDao.queryAppointmentByPid(this.patient.getPid());
+        populateTable(appointmentModelList);
+    }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+
+        // TODO 待测试
+        int option = JOptionPane.showConfirmDialog(this, "Do You Want to Delete ?", "", JOptionPane.DEFAULT_OPTION);
+        //        if (x == 3) {
+        //            cdframe.getContentPane().add(cdframe.panel());
+        //            cdframe.repaint();
+        //            cdframe.revalidate();
+        //        } else {
+        //            cdframe.dispose();
+        //            JOptionPane.showMessageDialog(null, "Nooope!");
+        //        }
+
+        int selectedRowIndex = tbAppointment.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please Select a Doctor to Delete.");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
+        Appointment selectedAppointment = (Appointment) model.getValueAt(selectedRowIndex, 0);
+        if (!AppointmentDao.deleteAppointment(selectedAppointment)) {
+            JOptionPane.showMessageDialog(this, "Fail to Cancel!");
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Delete Successfully!");
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -85,6 +259,33 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
         });
     }
 
+    private void populateTable(List<Appointment> appointmentList) {
+
+        DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
+        model.setRowCount(0);
+
+        if (ObjectUtils.isEmpty(appointmentList)) {
+            return;
+        }
+
+        for (Appointment appointment : appointmentList) {
+
+            Object[] row = new Object[4];
+            row[0] = appointment;
+            row[1] = appointment.gethName();
+            row[2] = appointment.getDepartment();
+            row[3] = appointment.getdName();
+
+            model.addRow(row);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnRefesh;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tbAppointment;
+    private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
 }
