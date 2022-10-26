@@ -21,14 +21,19 @@ import ui.LoginFrame;
  */
 public class DoctorRegisterFrame extends javax.swing.JFrame {
 
-    private LoginDao loginDao = new LoginDao();
-    private DoctorDao doctorDao = new DoctorDao();
-    private HospitalDao hospitalDao = new HospitalDao();
-
     public List<Hospital> hospitalList;
+    public boolean fromHospitalAdmin = false;
 
     public DoctorRegisterFrame() {
-        hospitalList = hospitalDao.queryHospitalList();
+        hospitalList = HospitalDao.queryHospitalList();
+        initComponents();
+    }
+
+    public DoctorRegisterFrame(boolean fromHospitalAdmin) {
+
+        this.fromHospitalAdmin = fromHospitalAdmin;
+
+        hospitalList = HospitalDao.queryHospitalList();
         initComponents();
     }
 
@@ -79,7 +84,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Patient");
 
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
@@ -426,12 +431,12 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             return;
         }
         // userName must be unique
-        if (loginDao.queryByUserName(userName) != null) {
+        if (LoginDao.queryByUserName(userName) != null) {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
         String password = new String(txtPassword.getPassword());
-        String confirmPassword = new String(txtPassword.getPassword());
+        String confirmPassword = new String(txtConfirmPassword.getPassword());
         if (StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Password!");
             return;
@@ -523,14 +528,15 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             return;
         }
 
-        String level = (String) cbbDepartment.getSelectedItem();
+        // TODO 到底存的什么
+        String level = (String) cbbLevel.getSelectedItem();
 
         LoginModel newDoLoginModel = new LoginModel();
         newDoLoginModel.setRoleType(enumvalue.RoleEnum.DOCTOR.getIndex());
         newDoLoginModel.setUserName(userName);
         newDoLoginModel.setPassword(password);
 
-        loginDao.insertNewUser(newDoLoginModel);
+        LoginDao.insertNewUser(newDoLoginModel);
 
         Doctor doctor = new Doctor();
         doctor.sethName(hospitalName);
@@ -547,7 +553,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         doctor.setdName(firstName + " " + lastName);
         doctor.setAvailableTime(availTime);
 
-        doctorDao.insertNewDoctor(doctor);
+        DoctorDao.insertNewDoctor(doctor);
 
 //        Hospital oldHospital = hospitalDao.queryHospitalByHName(hospitalName);
 //        Hospital newHospital = oldHospital;
@@ -555,10 +561,11 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
 //        hospitalDao.updateHospital(newHospital, oldHospital);
         JOptionPane.showMessageDialog(this, "Congrats! Register Successfully!", "", JOptionPane.PLAIN_MESSAGE);
 
-        LoginFrame loginFrame = new LoginFrame(enumvalue.RoleEnum.PATIENT.getIndex());
-        loginFrame.setLocationRelativeTo(null);
-        loginFrame.setVisible(true);
-
+        if (!fromHospitalAdmin) {
+            LoginFrame loginFrame = new LoginFrame(enumvalue.RoleEnum.PATIENT.getIndex());
+            loginFrame.setLocationRelativeTo(null);
+            loginFrame.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 

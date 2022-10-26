@@ -9,7 +9,6 @@ import dao.LoginDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Community;
 import model.Hospital;
 import model.HospitalDirectory;
 import model.LoginModel;
@@ -20,25 +19,16 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author limingxia
  */
-public class ManageHospitalPane extends javax.swing.JPanel {
+public class ManageAppointmentPane extends javax.swing.JPanel {
 
-    public String curCommunityName;
-    public List<Hospital> hospitals;
-    public HospitalDirectory hospitalDirectory = new HospitalDirectory();
+    List<Hospital> hospitals;
+    HospitalDirectory hospitalDirectory = new HospitalDirectory();
 
     /**
      * Creates new form AuthManagementPane
      */
-    public ManageHospitalPane() {
+    public ManageAppointmentPane() {
         hospitals = HospitalDao.queryHospitalList();
-
-        initComponents();
-        populateTable(hospitals);
-    }
-
-    public ManageHospitalPane(Community curCommunity) {
-        curCommunityName = curCommunity.getcName();
-        hospitals = HospitalDao.queryHospitalListByCommunity(curCommunityName);
 
         initComponents();
         populateTable(hospitals);
@@ -197,13 +187,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        if (StringUtils.isBlank(curCommunityName)) {
-            hospitals = HospitalDao.queryHospitalListByCommunity(curCommunityName);
-
-        } else {
-            hospitals = HospitalDao.queryHospitalList();
-        }
-
+        hospitals = HospitalDao.queryHospitalList();
         populateTable(hospitals);
     }//GEN-LAST:event_btnRefeshActionPerformed
 

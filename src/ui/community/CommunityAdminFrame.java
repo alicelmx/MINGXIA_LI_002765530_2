@@ -4,21 +4,32 @@
  */
 package ui.community;
 
+import dao.CommunityDao;
+import model.Community;
+import ui.HomePageFrame;
+import ui.hospital.ManagePatientPane;
+import ui.system.ManageHospitalPane;
+
 /**
  *
  * @author limingxia
  */
 public class CommunityAdminFrame extends javax.swing.JFrame {
 
+    public Community curCommunity;
+
     /**
      * Creates new form SystemAdminFrame
      */
     public CommunityAdminFrame() {
         initComponents();
+
     }
 
-    CommunityAdminFrame(String uid, String userName) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public CommunityAdminFrame(String userName) {
+        curCommunity = CommunityDao.queryCommunitybByCAdminUser(userName);
+
+        initComponents();
     }
 
     /**
@@ -32,27 +43,45 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
 
         splitPane = new javax.swing.JSplitPane();
         funcitonPane = new javax.swing.JPanel();
-        btnAddCommunity = new javax.swing.JButton();
-        btnSearchCommunity = new javax.swing.JButton();
+        lblLogout = new javax.swing.JLabel();
+        btnPatient = new javax.swing.JButton();
+        btnHospital = new javax.swing.JButton();
+        btnProfile = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnAddCommunity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
-        btnAddCommunity.setText("Add");
-        btnAddCommunity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCommunityActionPerformed(evt);
+        lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
+        lblLogout.setText("Logout");
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
             }
         });
 
-        btnSearchCommunity.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
-        btnSearchCommunity.setText("Search");
-        btnSearchCommunity.addActionListener(new java.awt.event.ActionListener() {
+        btnPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnPatient.setText("Patient");
+        btnPatient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchCommunityActionPerformed(evt);
+                btnPatientActionPerformed(evt);
+            }
+        });
+
+        btnHospital.setText("Hospital ");
+        btnHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHospitalActionPerformed(evt);
+            }
+        });
+
+        btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
+        btnProfile.setText("Profile");
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
             }
         });
 
@@ -61,26 +90,34 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnSearchCommunity)
-                    .addComponent(btnAddCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnHospital)
+                        .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(funcitonPaneLayout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(lblLogout))
+                            .addGroup(funcitonPaneLayout.createSequentialGroup()
+                                .addGap(47, 47, 47)
+                                .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(funcitonPaneLayout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(btnPatient)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
-
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAddCommunity, btnSearchCommunity});
-
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(btnAddCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(btnSearchCommunity)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addGap(132, 132, 132)
+                .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(btnHospital)
+                .addGap(40, 40, 40)
+                .addComponent(btnPatient)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                .addComponent(lblLogout)
+                .addGap(15, 15, 15))
         );
-
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddCommunity, btnSearchCommunity});
 
         splitPane.setLeftComponent(funcitonPane);
 
@@ -111,17 +148,32 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCommunityActionPerformed
-        
-        AddCommunityPane addCommunityPane = new AddCommunityPane();
-        splitPane.setRightComponent(addCommunityPane);
-    }//GEN-LAST:event_btnAddCommunityActionPerformed
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
 
-    private void btnSearchCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCommunityActionPerformed
-           
-        ManageCommunityPane cmp = new ManageCommunityPane();
-        splitPane.setRightComponent(cmp);
-    }//GEN-LAST:event_btnSearchCommunityActionPerformed
+        HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.setLocationRelativeTo(null);
+        homePageFrame.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void btnPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientActionPerformed
+
+        ManagePatientPane managePatientPane = new ManagePatientPane(curCommunity);
+        splitPane.setRightComponent(managePatientPane);
+    }//GEN-LAST:event_btnPatientActionPerformed
+
+    private void btnHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalActionPerformed
+
+        ManageHospitalPane hospitalManagementPane = new ManageHospitalPane(curCommunity);
+        splitPane.setRightComponent(hospitalManagementPane);
+    }//GEN-LAST:event_btnHospitalActionPerformed
+
+    private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
+
+//        ManageDoctorPane doctorManagementPane = new ManageDoctorPane(curCommunity);
+//        splitPane.setRightComponent(doctorManagementPane);
+    }//GEN-LAST:event_btnProfileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -168,10 +220,12 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCommunity;
-    private javax.swing.JButton btnSearchCommunity;
+    private javax.swing.JButton btnHospital;
+    private javax.swing.JButton btnPatient;
+    private javax.swing.JButton btnProfile;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
+    private javax.swing.JLabel lblLogout;
     private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 }

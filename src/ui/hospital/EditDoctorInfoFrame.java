@@ -1,7 +1,6 @@
 package ui.hospital;
 
 import dao.DoctorDao;
-import dao.HospitalDao;
 import dao.LoginDao;
 import enumvalue.GenderEnum;
 import java.util.ArrayList;
@@ -19,10 +18,6 @@ import tool.DateUtils;
  * @author Sajeeb
  */
 public class EditDoctorInfoFrame extends javax.swing.JFrame {
-
-    private LoginDao loginDao = new LoginDao();
-    private DoctorDao doctorDao = new DoctorDao();
-    private HospitalDao hospitalDao = new HospitalDao();
 
     public List<Hospital> hospitalList;
     public Doctor selectedDoctor;
@@ -84,7 +79,7 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Patient");
 
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
@@ -101,13 +96,13 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
 
         btngrpSex.add(rbtnMale);
         rbtnMale.setText("Male");
-        if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE)){
+        if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE.getIndex())){
             rbtnMale.setSelected(true);
         }
 
         btngrpSex.add(rbtnFemale);
         rbtnFemale.setText("Female");
-        if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE)){
+        if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE.getIndex())){
             rbtnFemale.setSelected(true);
         }
         rbtnFemale.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +117,7 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
 
         btngrpSex.add(rbtnPreferNotToSay);
         rbtnPreferNotToSay.setText("Prefer not to say");
-        if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY)){
+        if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY.getIndex())){
             rbtnPreferNotToSay.setSelected(true);
         }
 
@@ -232,6 +227,7 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
 
         lblUserName.setText("UserName:");
 
+        txtUserName.setText(selectedDoctor.getUsername());
         txtUserName.setEnabled(false);
 
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
@@ -312,6 +308,11 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
         });
 
         ckbThurs.setText("Thurs.");
+        selectedDoctor.getAvailableTime().forEach( time -> {
+            if(time.equals("Thursday")) {
+                ckbThurs.setSelected(true);
+            }
+        });
 
         cbbLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Junior", "Intermediate", "Senior" }));
         String level = selectedDoctor.getLevel();
@@ -329,8 +330,18 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
         });
 
         ckbFri.setText("Fri.");
+        selectedDoctor.getAvailableTime().forEach( time -> {
+            if(time.equals("Friday")) {
+                ckbFri.setSelected(true);
+            }
+        });
 
         ckbSat.setText("Sat.");
+        selectedDoctor.getAvailableTime().forEach( time -> {
+            if(time.equals("Saturday")) {
+                ckbSat.setSelected(true);
+            }
+        });
         ckbSat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ckbSatActionPerformed(evt);
@@ -470,13 +481,9 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
             return;
         }
-        // userName must be unique
-        if (LoginDao.queryByUserName(userName) != null) {
-            JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
-            return;
-        }
+
         String password = new String(txtPassword.getPassword());
-        String confirmPassword = new String(txtPassword.getPassword());
+        String confirmPassword = new String(txtConfirmPassword.getPassword());
         if (StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Password!");
             return;
@@ -598,7 +605,7 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
         }
-        if (DoctorDao.insertNewDoctor(doctor)) {
+        if (!DoctorDao.insertNewDoctor(doctor)) {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
         }
@@ -678,6 +685,21 @@ public class EditDoctorInfoFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void clearAllBlanket() {
+        txtFirstName.setText("");
+        txtLastName.setText("");
         btngrpSex.clearSelection();
+        txtDataOfBirth.setText("");
+        txtMobilePhone.setText("");
+        txtEmail.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+        txtConfirmPassword.setText("");
+        ckbMon.setSelected(false);
+        ckbTues.setSelected(false);
+        ckbWed.setSelected(false);
+        ckbThurs.setSelected(false);
+        ckbFri.setSelected(false);
+        ckbSat.setSelected(false);
+
     }
 }

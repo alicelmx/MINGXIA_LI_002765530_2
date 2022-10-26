@@ -31,7 +31,7 @@ public class CommonComponent extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnRegister = new javax.swing.JButton();
-        btnLogin = new javax.swing.JButton();
+        btnNew = new javax.swing.JButton();
         btnView = new javax.swing.JButton();
         btnEmpty = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -77,11 +77,11 @@ public class CommonComponent extends javax.swing.JPanel {
             }
         });
 
-        btnLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
-        btnLogin.setText("Lgoin");
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnNew.setText("New");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnNewActionPerformed(evt);
             }
         });
 
@@ -153,8 +153,8 @@ public class CommonComponent extends javax.swing.JPanel {
                     .addGap(279, 279, 279)
                     .addComponent(btnRegister)
                     .addGap(45, 45, 45)
-                    .addComponent(btnLogin)
-                    .addContainerGap(297, Short.MAX_VALUE)))
+                    .addComponent(btnNew)
+                    .addContainerGap(302, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,7 +184,7 @@ public class CommonComponent extends javax.swing.JPanel {
                     .addGap(282, 282, 282)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addContainerGap(283, Short.MAX_VALUE)))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -200,18 +200,18 @@ public class CommonComponent extends javax.swing.JPanel {
         //
         //        nearDoctorList = new ArrayList<>();
         //        hospitalList.stream().forEach(o -> {
-            //            o.getDoctorDirectory().stream().forEach(m -> {
-                //
-                //                Doctor doctor = doctorDao.findDoctorByDid(m);
-                //
-                //                NearDoctorModel nearDoctorModel = new NearDoctorModel();
-                //                nearDoctorModel.setHospital(o.gethName());
-                //                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
-                //                nearDoctorModel.setName(doctor.getdName());
-                //                nearDoctorModel.setDepartment(doctor.getDepartment());
-                //
-                //                nearDoctorList.add(nearDoctorModel);
-                //            });
+        //            o.getDoctorDirectory().stream().forEach(m -> {
+        //
+        //                Doctor doctor = doctorDao.findDoctorByDid(m);
+        //
+        //                NearDoctorModel nearDoctorModel = new NearDoctorModel();
+        //                nearDoctorModel.setHospital(o.gethName());
+        //                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
+        //                nearDoctorModel.setName(doctor.getdName());
+        //                nearDoctorModel.setDepartment(doctor.getDepartment());
+        //
+        //                nearDoctorList.add(nearDoctorModel);
+        //            });
         //        });
 
         //        populateTable();
@@ -226,7 +226,6 @@ public class CommonComponent extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
         // TODO
-
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
@@ -246,14 +245,12 @@ public class CommonComponent extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        
+
     }//GEN-LAST:event_btnRegisterActionPerformed
 
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
 
-       
-
-    }//GEN-LAST:event_btnLoginActionPerformed
+    }//GEN-LAST:event_btnNewActionPerformed
 
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         // TODO add your handling code here:
@@ -271,14 +268,13 @@ public class CommonComponent extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBackActionPerformed
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnBrowseDoctors;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnEmpty;
-    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnRegister;
     private javax.swing.JButton btnSave;

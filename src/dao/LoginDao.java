@@ -26,7 +26,7 @@ public class LoginDao {
      * @param selectRoleIdx the value of selectRoleIdx
      * @return LoginModel
      */
-    public static LoginModel findLoginUserByName(String name, int selectRoleIdx) {
+    public static LoginModel queryByUNameAndRoleId(String name, int selectRoleIdx) {
 
         File file = new File(LoginDao.class.getResource(loginInfoJson).getPath());
         List<LoginModel> loginModelList = JsonFileUitls.readJsonFileToModel(file, LoginModel.class);
@@ -76,11 +76,7 @@ public class LoginDao {
                 s -> s.getUserName().equalsIgnoreCase(userName)
         ).collect(Collectors.toList());
 
-        if (ObjectUtils.isEmpty(resList)) {
-            return null;
-        }
-
-        return resList.get(0);
+        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
     }
 
     public static boolean deleteOldUser(LoginModel oldLoginModel) {
@@ -90,6 +86,27 @@ public class LoginDao {
         if (!loginModels.contains(oldLoginModel)) {
             return false;
         }
+        loginModels.remove(oldLoginModel);
+
+        Gson gson = new GsonBuilder().serializeNulls().create();
+        String json = gson.toJson(loginModels);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
+    }
+
+    public static boolean deleteOldUserByUserName(String userName) {
+        File file = new File(LoginDao.class.getResource(loginInfoJson).getFile());
+        List<LoginModel> loginModels = queryAllLoginModel();
+
+        List<LoginModel> oldLoginModelList = loginModels.stream().filter(h
+                -> h.getUserName().equalsIgnoreCase(userName)
+        ).collect(Collectors.toList());
+        if (ObjectUtils.isEmpty(oldLoginModelList)) {
+            return false;
+        }
+        LoginModel oldLoginModel = oldLoginModelList.get(0);
+
         loginModels.remove(oldLoginModel);
 
         Gson gson = new GsonBuilder().serializeNulls().create();

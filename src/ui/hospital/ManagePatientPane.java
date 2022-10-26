@@ -11,6 +11,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.Community;
 import model.Doctor;
 import model.Encounter;
 import model.Hospital;
@@ -25,14 +26,21 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ManagePatientPane extends javax.swing.JPanel {
 
-    PatientDirectory patientDirectory;
+    public PatientDirectory patientDirectory = new PatientDirectory();
+    public List<Patient> patientList;
     public String currHospitalName;
+    public String curCommunityName;
 
     /**
      * Creates new form AuthManagementPane
      */
     public ManagePatientPane() {
+        getPatientDirectory();
+
         initComponents();
+
+        populateTable(patientDirectory.getPatientList());
+
     }
 
     public ManagePatientPane(Hospital currentHospital) {
@@ -43,6 +51,14 @@ public class ManagePatientPane extends javax.swing.JPanel {
 
         populateTable(patientDirectory.getPatientList());
 
+    }
+
+    public ManagePatientPane(Community curCommunity) {
+        curCommunityName = curCommunity.getcName();
+
+        initComponents();
+
+        populateTable(patientDirectory.getPatientList());
     }
 
     @Override
@@ -182,7 +198,7 @@ public class ManagePatientPane extends javax.swing.JPanel {
         int selectedRowIndex = tbPatient.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Doctor to Edit.");
+            JOptionPane.showMessageDialog(this, "Please Select a Patient to Edit.");
             return;
         }
 
@@ -201,18 +217,19 @@ public class ManagePatientPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRefeshActionPerformed
 
     private void populateTable(List<Patient> patients) {
-        if (ObjectUtils.isEmpty(patients)) {
-            return;
-        }
 
         DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
         model.setRowCount(0);
+
+        if (ObjectUtils.isEmpty(patients)) {
+            return;
+        }
 
         for (Patient patient : patients) {
 
             Object[] row = new Object[4];
             row[0] = patient;
-            row[1] = patient.fullName();
+            row[1] = patient.getFullName();
             row[2] = patient.getPhoneNum();
             row[3] = patient.getDateOfBirth();
 
@@ -230,14 +247,26 @@ public class ManagePatientPane extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void getPatientDirectory() {
-        patientDirectory = new PatientDirectory();
 
-        List<Encounter> encounters = EncounterDao.queryEncounterByHName(this.currHospitalName);
-        encounters.forEach(e -> {
-            Patient p = PatientDao.queryPatientByPName(e.getpName());
-            if (!patientDirectory.containPatient(p)) {
-                patientDirectory.addPatient(p);
+        if (StringUtils.isBlank(currHospitalName)) {
+            patientList = PatientDao.queryAllPatientModel();
+            patientDirectory.setPatientList(patientList);
+        } else if (StringUtils.isBlank(curCommunityName)) {
+            patientList = PatientDao.queryPatientByCName(curCommunityName);
+            patientDirectory.setPatientList(patientList);
+        } else {
+            patientDirectory.clearAll();
+
+            List<Encounter> encounters = EncounterDao.queryEncounterByHName(this.currHospitalName);
+            if (ObjectUtils.isEmpty(encounters)) {
+                return;
             }
-        });
+            encounters.forEach(e -> {
+                Patient p = PatientDao.queryPatientByPName(e.getpName());
+                if (!patientDirectory.containPatient(p)) {
+                    patientDirectory.addPatient(p);
+                }
+            });
+        }
     }
 }

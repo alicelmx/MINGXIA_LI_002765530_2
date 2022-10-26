@@ -5,7 +5,6 @@
 package ui.patient;
 
 import dao.AppointmentDao;
-import dao.DoctorDao;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.AppointmentModel;
@@ -17,14 +16,11 @@ import tool.DateUtils;
  * @author limingxia
  */
 public class MakeAppointmentFrame extends javax.swing.JFrame {
-    
+
     public NearDoctorModel doctor;
     public String patientName;
     public List<String> availableDate;
-    
-    private AppointmentDao appointmentDao = new AppointmentDao();
-    private DoctorDao doctorDao = new DoctorDao();
-            
+
     /**
      * Creates new form AppointmentFrame
      */
@@ -36,7 +32,7 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         this.doctor = selectedDoctor;
         this.patientName = patientName;
         availableDate = DateUtils.getDateViaWeek(this.doctor.getAvailableTime());
-        
+
         initComponents();
     }
 
@@ -161,24 +157,25 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppointmentActionPerformed
-        
+
         AppointmentModel appointmentModel = new AppointmentModel();
-       
-        String appDate = (String)cbcAvailableTime.getSelectedItem(); // default
+
+        String appDate = (String) cbcAvailableTime.getSelectedItem(); // default
         appointmentModel.setDatetime(appDate);
         appointmentModel.setdName(doctor.getName());
         appointmentModel.setpName(patientName);
         appointmentModel.setStatus(0);
-        
-        appointmentDao.insertNewAppointment(appointmentModel);
-        
+
+        AppointmentDao.insertNewAppointment(appointmentModel);
+
         JOptionPane.showMessageDialog(this, "Successfully!");
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        // TODO add your handling code here:
+
+        this.dispose();
     }//GEN-LAST:event_btnBackActionPerformed
 
     /**

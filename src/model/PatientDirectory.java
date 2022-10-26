@@ -28,6 +28,10 @@ public class PatientDirectory {
         this.patientList.remove(selectedPatient);
     }
 
+    public void clearAll() {
+        this.patientList.clear();
+    }
+
     public void addPatient(Patient patient) {
         this.patientList.add(patient);
     }
@@ -40,7 +44,7 @@ public class PatientDirectory {
         return this.patientList.stream()
                 .filter(
                         s -> String.valueOf(s.getPid()).equalsIgnoreCase(keyword)
-                        || s.fullName().equalsIgnoreCase(keyword)
+                        || s.getFullName().equalsIgnoreCase(keyword)
                         || s.getPhoneNum().equalsIgnoreCase(keyword)
                         || s.getDateOfBirth().equalsIgnoreCase(keyword)
                 ).collect(Collectors.toList());

@@ -7,7 +7,6 @@ package ui.doctor;
 import dao.AppointmentDao;
 import dao.DoctorDao;
 import dao.EncounterDao;
-import dao.HospitalDao;
 import javax.swing.JOptionPane;
 import model.AppointmentModel;
 import model.Doctor;
@@ -21,13 +20,9 @@ import tool.DateUtils;
  */
 public class DiagnoseFrame extends javax.swing.JFrame {
 
-    private DoctorDao doctorDao = new DoctorDao();
-    private HospitalDao hospitalDao = new HospitalDao();
-    private EncounterDao encounterDao = new EncounterDao();
-    private AppointmentDao appointmentDao = new AppointmentDao();
-
     public AppointmentModel selectedAppointment;
     public Doctor doctor;
+
     /**
      * Creates new form DiagnoseFrame
      */
@@ -37,7 +32,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
     DiagnoseFrame(AppointmentModel selectedAppointment) {
         this.selectedAppointment = selectedAppointment;
-        doctor = doctorDao.findDoctorByDName(this.selectedAppointment.getdName());
+        doctor = DoctorDao.findDoctorByDName(this.selectedAppointment.getdName());
 
         initComponents();
     }
@@ -371,7 +366,14 @@ public class DiagnoseFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPulseRateActionPerformed
 
     private void btnEmptyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmptyActionPerformed
-        // TODO add your handling code here:
+
+        txtBloodPressure.setText("");
+        txtRespirationRate.setText("");
+        txtBodyTemperature.setText("");
+        txtPulseRate.setText("");
+
+        txtPrescription.setText("");
+        txtaRemark.setText("");
     }//GEN-LAST:event_btnEmptyActionPerformed
 
     private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
@@ -392,13 +394,13 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         e.sethName(doctor.gethName());
         e.setpName(txtPatientName.getText());
 
-        encounterDao.insertNewEncounterRecord(e);
-        
+        EncounterDao.insertNewEncounterRecord(e);
+
         // updata appointment status
-        appointmentDao.updateAppointmentStatus(selectedAppointment);
-        
+        AppointmentDao.updateAppointmentStatus(selectedAppointment);
+
         JOptionPane.showMessageDialog(this, "Save Record Successfully!");
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSave1ActionPerformed
 

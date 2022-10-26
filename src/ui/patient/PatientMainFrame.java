@@ -6,17 +6,17 @@ package ui.patient;
 
 import dao.PatientDao;
 import model.Patient;
+import ui.HomePageFrame;
 
 /**
  *
  * @author limingxia
  */
 public class PatientMainFrame extends javax.swing.JFrame {
+
     public String userName;
     public Patient patient;
-    
-    private PatientDao patientDao = new PatientDao();
-    
+
     /**
      * Creates new form SystemAdminFrame
      */
@@ -26,9 +26,11 @@ public class PatientMainFrame extends javax.swing.JFrame {
 
     public PatientMainFrame(String userName) {
         this.userName = userName;
-        patient = patientDao.queryPatientByUName(userName);
-        
+        patient = PatientDao.queryPatientByUName(userName);
+
         initComponents();
+
+        btnPatientProfile.doClick();
     }
 
     /**
@@ -45,6 +47,7 @@ public class PatientMainFrame extends javax.swing.JFrame {
         btnPatientProfile = new javax.swing.JButton();
         btnAppointment = new javax.swing.JButton();
         btnHistory = new javax.swing.JButton();
+        lblLogout = new javax.swing.JLabel();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -75,17 +78,31 @@ public class PatientMainFrame extends javax.swing.JFrame {
             }
         });
 
+        lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
+        lblLogout.setText("Logout");
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout funcitonPaneLayout = new javax.swing.GroupLayout(funcitonPane);
         funcitonPane.setLayout(funcitonPaneLayout);
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnHistory)
-                    .addComponent(btnAppointment)
-                    .addComponent(btnPatientProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(funcitonPaneLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnHistory)
+                            .addComponent(btnAppointment)
+                            .addComponent(btnPatientProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(funcitonPaneLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(lblLogout)))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAppointment, btnHistory, btnPatientProfile});
@@ -93,13 +110,15 @@ public class PatientMainFrame extends javax.swing.JFrame {
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
+                .addGap(147, 147, 147)
                 .addComponent(btnPatientProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38)
                 .addComponent(btnAppointment)
                 .addGap(41, 41, 41)
                 .addComponent(btnHistory)
-                .addContainerGap(305, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 219, Short.MAX_VALUE)
+                .addComponent(lblLogout)
+                .addGap(15, 15, 15))
         );
 
         funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAppointment, btnHistory, btnPatientProfile});
@@ -134,9 +153,9 @@ public class PatientMainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPatientProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientProfileActionPerformed
-        
-        PatientMainFrame patientFrame = new PatientMainFrame();
-        splitPane.setRightComponent(patientFrame);
+
+        SearchDoctorPane patientAppointmentPane = new SearchDoctorPane(patient);
+        splitPane.setRightComponent(patientAppointmentPane);
     }//GEN-LAST:event_btnPatientProfileActionPerformed
 
     private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
@@ -146,10 +165,19 @@ public class PatientMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAppointmentActionPerformed
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-    
+
         EncounterHistoryPane patientEncounterHistoryPane = new EncounterHistoryPane(patient);
         splitPane.setRightComponent(patientEncounterHistoryPane);
     }//GEN-LAST:event_btnHistoryActionPerformed
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+
+        HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.setLocationRelativeTo(null);
+        homePageFrame.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -207,6 +235,7 @@ public class PatientMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnPatientProfile;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
+    private javax.swing.JLabel lblLogout;
     private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 }

@@ -20,18 +20,14 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class AddHospitalFrame extends javax.swing.JFrame {
-    
-    private HospitalDao hospitalDao = new HospitalDao();
-    private LoginDao loginDao = new LoginDao();
-    private CommunityDao communityDao = new CommunityDao();
-    
+
     public List<Community> communityList;
-    
+
     /**
      * Creates new form AddHospitalFrame
      */
     public AddHospitalFrame() {
-        communityList = communityDao.queryAllCommunityList();
+        communityList = CommunityDao.queryAllCommunityList();
         initComponents();
     }
 
@@ -52,7 +48,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         cbbCommunity = new javax.swing.JComboBox<>();
         lblCommunity = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
-        btnSubmitAppointment = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         AddressInfoPane = new javax.swing.JPanel();
         lblName1 = new javax.swing.JLabel();
         lblCity1 = new javax.swing.JLabel();
@@ -129,7 +125,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reset.png"))); // NOI18N
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
         btnClear.setText(" Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,11 +133,11 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/modify.png"))); // NOI18N
-        btnSubmitAppointment.setText("Submit");
-        btnSubmitAppointment.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitAppointmentActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -258,7 +254,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                         .addGap(345, 345, 345)
                         .addComponent(btnClear)
                         .addGap(82, 82, 82)
-                        .addComponent(btnSubmitAppointment))
+                        .addComponent(btnSave))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -286,7 +282,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
         );
 
@@ -294,55 +290,56 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppointmentActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
         String cpassword = txtConfirmPassword.getText();
-        if(StringUtils.isBlank(userName) || StringUtils.isBlank(password) || StringUtils.isBlank(cpassword)) {
+        if (StringUtils.isBlank(userName) || StringUtils.isBlank(password) || StringUtils.isBlank(cpassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Username or Password!");
             return;
         }
-        if(!password.equals(cpassword)) {
+        if (!password.equals(cpassword)) {
             JOptionPane.showMessageDialog(this, "Inconsistant Password, Please Reinput!");
             return;
         }
         // userName must be unique
-        if(loginDao.queryByUserName(userName) != null) {
+        if (LoginDao.queryByUserName(userName) != null) {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
-        
+
         String hName = txtName.getText();
         String phone = txtPhone.getText();
         String intro = txaIntro.getText(); // optional
-        
-        if(StringUtils.isBlank(hName) || StringUtils.isBlank(phone)) {
+
+        if (StringUtils.isBlank(hName) || StringUtils.isBlank(phone)) {
             JOptionPane.showMessageDialog(this, "Please Input Name or Phone No!");
             return;
         }
-        if(!CheckUtils.checkPhoneNo(phone)) {
+        if (!CheckUtils.checkPhoneNo(phone)) {
             JOptionPane.showMessageDialog(this, "Please Check Phone No!");
             return;
         }
-            
+
         String city = txtCity.getText();
-        String community = (String)cbbCommunity.getSelectedItem();
+        String community = (String) cbbCommunity.getSelectedItem();
         String zipCode = txtZipCode.getText();
 
         if (StringUtils.isBlank(city) || StringUtils.isBlank(community) || StringUtils.isBlank(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
         }
-        
-        if(!CheckUtils.checkZipCode(zipCode)) {
+
+        if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         Hospital hospital = new Hospital();
         hospital.sethName(hName);
         hospital.setPhone(phone);
@@ -350,28 +347,28 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         hospital.setCity(city);
         hospital.setZipCode(zipCode);
         hospital.setCommunity(community);
-        
-        if(!hospitalDao.insertNewHospital(hospital)) {
+
+        if (!HospitalDao.insertNewHospital(hospital)) {
             JOptionPane.showMessageDialog(this, "Duplicate Hospital!");
             return;
         }
-        
+
         LoginModel newHospitalAdmin = new LoginModel();
         newHospitalAdmin.setUserName(userName);
         newHospitalAdmin.setPassword(password);
         newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());
-        
-        if(!loginDao.insertNewUser(newHospitalAdmin)) {
-            JOptionPane.showMessageDialog(this, "Duplicate LoginModel!");
+
+        if (!LoginDao.insertNewUser(newHospitalAdmin)) {
+            JOptionPane.showMessageDialog(this, "Fail to Save!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Successfully!");
 
         clearAllBlanket();
-        
+
         this.dispose();
-    }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
@@ -415,14 +412,14 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void clearAllBlanket() {
         txtName.setText("");
         txtPhone.setText("");
         txaIntro.setText("");
         txtCity.setText("");
         cbbCommunity.setSelectedIndex(0);
-        txtZipCode.setText(""); 
+        txtZipCode.setText("");
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");
@@ -434,7 +431,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel BasicInfoPane;
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnSubmitAppointment;
+    private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbbCommunity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

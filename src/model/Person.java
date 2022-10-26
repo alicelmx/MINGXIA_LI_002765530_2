@@ -11,11 +11,11 @@ import java.util.Objects;
  * @author limingxia
  */
 public class Person {
-    
+
     private String username;
     private String firstName;
     private String lastName;
-    private Integer gender; 
+    private Integer gender;
     private Integer marritialStatus;
     private String phoneNum;
     private String email;
@@ -61,7 +61,6 @@ public class Person {
         this.marritialStatus = marritialStatus;
     }
 
-    
     public String getPhoneNum() {
         return phoneNum;
     }
@@ -85,7 +84,11 @@ public class Person {
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
-    
+
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

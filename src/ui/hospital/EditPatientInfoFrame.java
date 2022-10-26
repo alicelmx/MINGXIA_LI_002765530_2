@@ -79,7 +79,7 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add Patient");
 
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
@@ -227,6 +227,7 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
 
         lblUserName.setText("UserName:");
 
+        txtUserName.setText(selectedDoctor.getUsername());
         txtUserName.setEnabled(false);
 
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
@@ -421,7 +422,7 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(HospitalPane, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)))
+                            .addComponent(HospitalPane, javax.swing.GroupLayout.PREFERRED_SIZE, 408, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(308, 308, 308)
                         .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -673,6 +674,9 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void clearAllBlanket() {
+
+        //TODO 这都没写呢
         btngrpSex.clearSelection();
+
     }
 }

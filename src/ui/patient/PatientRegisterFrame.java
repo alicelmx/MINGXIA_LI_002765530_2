@@ -4,7 +4,6 @@ import dao.CommunityDao;
 import dao.LoginDao;
 import dao.PatientDao;
 import enumvalue.GenderEnum;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Community;
@@ -21,14 +20,10 @@ import ui.LoginFrame;
  */
 public class PatientRegisterFrame extends javax.swing.JFrame {
 
-    private LoginDao loginDao = new LoginDao();
-    private PatientDao patientDao = new PatientDao();   
-    private CommunityDao communityDao = new CommunityDao();
-    
     public List<Community> communityList;
-            
+
     public PatientRegisterFrame() {
-        communityList = communityDao.queryAllCommunityList();
+        communityList = CommunityDao.queryAllCommunityList();
         initComponents();
     }
 
@@ -364,34 +359,34 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
         String userName = txtUserName.getText();
-        if(StringUtils.isBlank(userName)) {
+        if (StringUtils.isBlank(userName)) {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
             return;
         }
         // userName must be unique
-        if(loginDao.queryByUserName(userName) != null) {
+        if (LoginDao.queryByUserName(userName) != null) {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
         String password = new String(txtPassword.getPassword());
-        String confirmPassword = new String(txtPassword.getPassword());
-        if(StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)) {
+        String confirmPassword = new String(txtConfirmPassword.getPassword());
+        if (StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Password!");
             return;
         }
-        if(!password.equals(confirmPassword)) {
+        if (!password.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Inconsistent Password!");
             return;
         }
-        
+
         // name
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
-        if(StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName)) {
+        if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName)) {
             JOptionPane.showMessageDialog(this, "Please Input Name!");
             return;
         }
-        
+
         // gender
         int gender;
         if (rbtnPreferNotToSay.isSelected()) {
@@ -405,12 +400,12 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
             return;
         }
 
-        String dateOfBirth = txtDataOfBirth.getText(); 
-        if(StringUtils.isBlank(dateOfBirth)) {
+        String dateOfBirth = txtDataOfBirth.getText();
+        if (StringUtils.isBlank(dateOfBirth)) {
             JOptionPane.showMessageDialog(this, "Please Input Your Birthday!");
             return;
         }
-        if(DateUtils.formatBirthday(dateOfBirth) == null) {
+        if (DateUtils.formatBirthday(dateOfBirth) == null) {
             JOptionPane.showMessageDialog(this, "Invalid Date, Please Input as 2022/01/01!");
             return;
         }
@@ -418,23 +413,23 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         int selectedMaritialStatus = chooseMaritialStatus.getSelectedIndex();
 
         String mobilePhone = txtMobilePhone.getText();
-        if(!CheckUtils.checkPhoneNo(mobilePhone)) {
+        if (!CheckUtils.checkPhoneNo(mobilePhone)) {
             JOptionPane.showMessageDialog(this, "Please Check Phone!");
             return;
         }
-        
+
         String email = txtEmail.getText();
-        if(!CheckUtils.checkEmail(email)) {
+        if (!CheckUtils.checkEmail(email)) {
             JOptionPane.showMessageDialog(this, "Please Check Email!");
             return;
         }
-        
+
         String zipCode = txtZipCode.getText();
-        if(!CheckUtils.checkZipCode(zipCode)) {
+        if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         String city = txtCity.getText();
         String community = (String) cbbCommunity.getSelectedItem();
         String houseNo = txtHouse.getText();
@@ -446,7 +441,7 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         newPatientLoginModel.setUserName(userName);
         newPatientLoginModel.setPassword(password);
 
-        loginDao.insertNewUser(newPatientLoginModel);
+        LoginDao.insertNewUser(newPatientLoginModel);
 
         Patient patient = new Patient();
         patient.setUsername(userName);
@@ -462,7 +457,7 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         patient.setPhoneNum(mobilePhone);
         patient.setDateOfBirth(dateOfBirth);
 
-        patientDao.insertNewPatient(patient);
+        PatientDao.insertNewPatient(patient);
 
         JOptionPane.showMessageDialog(this, "Congrats! Register Successfully!", "", JOptionPane.PLAIN_MESSAGE);
 

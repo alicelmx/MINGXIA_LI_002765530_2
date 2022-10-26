@@ -5,8 +5,6 @@
 package ui.doctor;
 
 import dao.AppointmentDao;
-import dao.DoctorDao;
-import dao.PatientDao;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,10 +22,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ViewPatientListPane extends javax.swing.JPanel {
 
-    private AppointmentDao appointmentDao = new AppointmentDao();
-    private PatientDao patientDao = new PatientDao();
-    private DoctorDao doctorDao = new DoctorDao();
-
     public Doctor currentDoctor;
     public List<AppointmentModel> appointmentList;
 
@@ -43,8 +37,8 @@ public class ViewPatientListPane extends javax.swing.JPanel {
 
         initComponents();
 
-        List<AppointmentModel> appointmentModels = appointmentDao.queryAppointmentByDName(currentDoctor.getdName());
-        populateTable(appointmentModels);
+        appointmentList = AppointmentDao.queryAppointmentByDName(currentDoctor.getdName());
+        populateTable(appointmentList);
     }
 
     @Override
@@ -209,7 +203,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
         // after update, query database
-        List<AppointmentModel> appointmentModels = appointmentDao.queryAppointmentByDName(currentDoctor.getdName());
+        List<AppointmentModel> appointmentModels = AppointmentDao.queryAppointmentByDName(currentDoctor.getdName());
         populateTable(appointmentModels);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
@@ -223,12 +217,13 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void populateTable(List<AppointmentModel> appointmentModels) {
-        if (ObjectUtils.isEmpty(appointmentModels)) {
-            return;
-        }
 
         DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
         model.setRowCount(0);
+
+        if (ObjectUtils.isEmpty(appointmentModels)) {
+            return;
+        }
 
         for (AppointmentModel appointmentModel : appointmentModels) {
 

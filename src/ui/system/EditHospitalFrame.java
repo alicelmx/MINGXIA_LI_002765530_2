@@ -2,11 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui;
+package ui.system;
 
+import dao.CommunityDao;
 import dao.HospitalDao;
+import dao.LoginDao;
+import java.util.List;
 import javax.swing.JOptionPane;
+import model.Community;
 import model.Hospital;
+import model.LoginModel;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 
@@ -15,12 +20,19 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class EditHospitalFrame extends javax.swing.JFrame {
-    
-    private HospitalDao hospitalDao = new HospitalDao();
-    /**
-     * Creates new form AddHospitalFrame
-     */
+
+    public List<Community> communityList;
+    public Hospital selectedHospital;
+
     public EditHospitalFrame() {
+
+        initComponents();
+    }
+
+    public EditHospitalFrame(Hospital selectedHospital) {
+        this.selectedHospital = selectedHospital;
+        communityList = CommunityDao.queryAllCommunityList();
+
         initComponents();
     }
 
@@ -36,12 +48,12 @@ public class EditHospitalFrame extends javax.swing.JFrame {
         BasicInfoPane = new javax.swing.JPanel();
         lblCity = new javax.swing.JLabel();
         txtCity = new javax.swing.JTextField();
-        lblAddress = new javax.swing.JLabel();
         lblZipCode = new javax.swing.JLabel();
         txtZipCode = new javax.swing.JTextField();
-        txtAddress = new javax.swing.JTextField();
+        cbbCommunity = new javax.swing.JComboBox<>();
+        lblCommunity = new javax.swing.JLabel();
         btnClear = new javax.swing.JButton();
-        btnSubmitAppointment = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         AddressInfoPane = new javax.swing.JPanel();
         lblName1 = new javax.swing.JLabel();
         lblCity1 = new javax.swing.JLabel();
@@ -53,9 +65,10 @@ public class EditHospitalFrame extends javax.swing.JFrame {
         LoginPanel = new javax.swing.JPanel();
         lblPassword = new javax.swing.JLabel();
         lblConfirmPassword = new javax.swing.JLabel();
+        lblUserName = new javax.swing.JLabel();
+        txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         txtConfirmPassword = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -64,26 +77,45 @@ public class EditHospitalFrame extends javax.swing.JFrame {
 
         lblCity.setText("City:");
 
-        lblAddress.setText("Address:");
+        txtCity.setText(selectedHospital.getCity());
 
         lblZipCode.setText("ZipCode:");
+
+        txtZipCode.setText(selectedHospital.getZipCode());
+
+        communityList.forEach(o -> {
+            cbbCommunity.addItem(o.getcName());
+        });
+        cbbCommunity.setSelectedItem(selectedHospital.getCommunity());
+        cbbCommunity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCommunityActionPerformed(evt);
+            }
+        });
+
+        lblCommunity.setText("Community:");
 
         javax.swing.GroupLayout BasicInfoPaneLayout = new javax.swing.GroupLayout(BasicInfoPane);
         BasicInfoPane.setLayout(BasicInfoPaneLayout);
         BasicInfoPaneLayout.setHorizontalGroup(
             BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblCity)
-                    .addComponent(lblAddress)
-                    .addComponent(lblZipCode))
-                .addGap(18, 18, 18)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(txtCity, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtZipCode))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BasicInfoPaneLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCity)
+                            .addComponent(lblZipCode))
+                        .addGap(18, 18, 18)
+                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtCity, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(txtZipCode)))
+                    .addGroup(BasicInfoPaneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblCommunity)
+                        .addGap(20, 20, 20)
+                        .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         BasicInfoPaneLayout.setVerticalGroup(
             BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,16 +126,16 @@ public class EditHospitalFrame extends javax.swing.JFrame {
                     .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAddress)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(lblCommunity)
+                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblZipCode)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
-        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/reset.png"))); // NOI18N
+        btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
         btnClear.setText(" Clear");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,11 +143,11 @@ public class EditHospitalFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/modify.png"))); // NOI18N
-        btnSubmitAppointment.setText("Submit");
-        btnSubmitAppointment.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitAppointmentActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -125,16 +157,21 @@ public class EditHospitalFrame extends javax.swing.JFrame {
 
         lblCity1.setText("Phone:");
 
+        txtName.setText(selectedHospital.gethName());
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
             }
         });
 
+        txtPhone.setText(selectedHospital.getPhone());
+
         lblAddress1.setText("Intro:");
 
         txaIntro.setColumns(20);
         txaIntro.setRows(5);
+        txaIntro.setText(selectedHospital.getIntro());
+        txaIntro.setAutoscrolls(false);
         jScrollPane1.setViewportView(txaIntro);
 
         javax.swing.GroupLayout AddressInfoPaneLayout = new javax.swing.GroupLayout(AddressInfoPane);
@@ -174,38 +211,42 @@ public class EditHospitalFrame extends javax.swing.JFrame {
 
         LoginPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Admin Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
-        lblPassword.setText("New Password:");
+        lblPassword.setText("Password:");
 
         lblConfirmPassword.setText("Confirm:");
 
-        jLabel2.setText("* Change the password of the Hospital Admin Account.");
+        lblUserName.setText("UserName:");
+
+        txtUserName.setText(selectedHospital.getHospitalAdminUserName());
 
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
         LoginPanel.setLayout(LoginPanelLayout);
         LoginPanelLayout.setHorizontalGroup(
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel2))
-                    .addGroup(LoginPanelLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPassword)
-                            .addComponent(lblConfirmPassword))
-                        .addGap(20, 20, 20)
-                        .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
-                            .addComponent(txtConfirmPassword))))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblConfirmPassword)
+                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblUserName)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPassword))))
+                .addGap(26, 26, 26)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtUserName)
+                    .addComponent(txtPassword)
+                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
         LoginPanelLayout.setVerticalGroup(
             LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
+                .addGap(16, 16, 16)
+                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUserName)
+                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblPassword))
@@ -213,10 +254,11 @@ public class EditHospitalFrame extends javax.swing.JFrame {
                 .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblConfirmPassword)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital.jpeg"))); // NOI18N
+        jLabel1.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -228,7 +270,7 @@ public class EditHospitalFrame extends javax.swing.JFrame {
                         .addGap(345, 345, 345)
                         .addComponent(btnClear)
                         .addGap(82, 82, 82)
-                        .addComponent(btnSubmitAppointment))
+                        .addComponent(btnSave))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -238,7 +280,7 @@ public class EditHospitalFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(LoginPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
-                .addGap(50, 50, 50))
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,7 +298,7 @@ public class EditHospitalFrame extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(47, 47, 47))
         );
 
@@ -264,52 +306,101 @@ public class EditHospitalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void btnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppointmentActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+
+        String userName = txtUserName.getText();
+        String password = txtPassword.getText();
+        String cpassword = txtConfirmPassword.getText();
+        if (StringUtils.isBlank(userName) || StringUtils.isBlank(password) || StringUtils.isBlank(cpassword)) {
+            JOptionPane.showMessageDialog(this, "Please Input Username or Password!");
+            return;
+        }
+        if (!password.equals(cpassword)) {
+            JOptionPane.showMessageDialog(this, "Inconsistant Password, Please Reinput!");
+            return;
+        }
+        // userName must be unique
+        if (LoginDao.queryByUserName(userName) != null) {
+            JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
+            return;
+        }
 
         String hName = txtName.getText();
         String phone = txtPhone.getText();
         String intro = txaIntro.getText(); // optional
-        
-        if(StringUtils.isBlank(hName) || StringUtils.isBlank(phone)) {
+
+        if (StringUtils.isBlank(hName) || StringUtils.isBlank(phone)) {
             JOptionPane.showMessageDialog(this, "Please Input Name or Phone No!");
             return;
         }
-        if(!CheckUtils.checkPhoneNo(phone)) {
+        if (!CheckUtils.checkPhoneNo(phone)) {
             JOptionPane.showMessageDialog(this, "Please Check Phone No!");
             return;
         }
-            
+
         String city = txtCity.getText();
-        String address = txtAddress.getText();
+        String community = (String) cbbCommunity.getSelectedItem();
         String zipCode = txtZipCode.getText();
 
-        if (StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode)) {
+        if (StringUtils.isBlank(city) || StringUtils.isBlank(community) || StringUtils.isBlank(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
         }
-        
+
+        if (!CheckUtils.checkZipCode(zipCode)) {
+            JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
+            return;
+        }
+
         Hospital hospital = new Hospital();
         hospital.sethName(hName);
         hospital.setPhone(phone);
         hospital.setIntro(intro);
         hospital.setCity(city);
         hospital.setZipCode(zipCode);
-        hospital.setCommunity(address);
-        
-        hospitalDao.insertNewHospital(hospital);
-        
+        hospital.setCommunity(community);
+
+        if (!HospitalDao.deleteHospital(selectedHospital)) {
+            JOptionPane.showMessageDialog(this, "Duplicate Hospital!");
+            return;
+        }
+        if (!HospitalDao.insertNewHospital(hospital)) {
+            JOptionPane.showMessageDialog(this, "Fail to Edit!");
+            return;
+        }
+
+        LoginModel newHospitalAdmin = new LoginModel();
+        newHospitalAdmin.setUserName(userName);
+        newHospitalAdmin.setPassword(password);
+        newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());
+
+        if (!LoginDao.deleteOldUserByUserName(userName)) {
+            JOptionPane.showMessageDialog(this, "Fail to Save!");
+            return;
+        }
+        if (!LoginDao.insertNewUser(newHospitalAdmin)) {
+            JOptionPane.showMessageDialog(this, "Fail to Save!");
+            return;
+        }
+
         JOptionPane.showMessageDialog(this, "Successfully!");
 
         clearAllBlanket();
-    }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
+
+    private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbCommunityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,14 +437,18 @@ public class EditHospitalFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void clearAllBlanket() {
         txtName.setText("");
         txtPhone.setText("");
         txaIntro.setText("");
         txtCity.setText("");
-        txtAddress.setText("");
-        txtZipCode.setText("");        
+        cbbCommunity.setSelectedIndex(0);
+        txtZipCode.setText("");
+        txtUserName.setText("");
+        txtPassword.setText("");
+        txtConfirmPassword.setText("");
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -361,25 +456,26 @@ public class EditHospitalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel BasicInfoPane;
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnSubmitAppointment;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cbbCommunity;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblAddress1;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblCity1;
+    private javax.swing.JLabel lblCommunity;
     private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblName1;
     private javax.swing.JLabel lblPassword;
+    private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblZipCode;
     private javax.swing.JTextArea txaIntro;
-    private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtCity;
     private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
 }

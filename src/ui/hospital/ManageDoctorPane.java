@@ -5,6 +5,7 @@
 package ui.hospital;
 
 import dao.DoctorDao;
+import dao.LoginDao;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -13,8 +14,10 @@ import javax.swing.table.DefaultTableModel;
 import model.Doctor;
 import model.DoctorDirectory;
 import model.Hospital;
+import model.LoginModel;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import ui.doctor.DoctorRegisterFrame;
 
 /**
  *
@@ -24,21 +27,23 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
     public DoctorDirectory doctorDirectory = new DoctorDirectory();
     public String currHospitalName;
+    public List<Doctor> doctorList;
 
     /**
      * Creates new form AuthManagementPane
      */
     public ManageDoctorPane() {
+        doctorList = DoctorDao.queryAllDoctor();
         initComponents();
     }
 
     public ManageDoctorPane(Hospital currentHospital) {
         currHospitalName = currentHospital.gethName();
-        List<Doctor> doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+
         initComponents();
 
-        doctorDirectory.setDoctorList(doctorList);
-        populateTable(doctorDirectory.getDoctorList());
+        populateTable(doctorList);
 
     }
 
@@ -58,17 +63,18 @@ public class ManageDoctorPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtKeyword = new javax.swing.JTextField();
+        txtkeyword = new javax.swing.JTextField();
         btnBrowseDoctors = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDoctor = new javax.swing.JTable();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
-        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
+        txtkeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKeywordActionPerformed(evt);
+                txtkeywordActionPerformed(evt);
             }
         });
 
@@ -106,9 +112,7 @@ public class ManageDoctorPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbDoctor.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tbDoctor);
-        tbDoctor.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
@@ -134,24 +138,33 @@ public class ManageDoctorPane extends javax.swing.JPanel {
             }
         });
 
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnAdd.setText("New");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBrowseDoctors)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtkeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBrowseDoctors))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 61, Short.MAX_VALUE))
         );
@@ -161,29 +174,31 @@ public class ManageDoctorPane extends javax.swing.JPanel {
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowseDoctors, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtkeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
+    private void txtkeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtkeywordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtKeywordActionPerformed
+    }//GEN-LAST:event_txtkeywordActionPerformed
 
     private void btnBrowseDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseDoctorsActionPerformed
-        String keyword = txtKeyword.getText();
+        String keyword = txtkeyword.getText();
         if (StringUtils.isBlank(keyword)) {
             JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
             return;
         }
 
+        doctorDirectory.setDoctorList(doctorList);
         List<Doctor> searchResult = doctorDirectory.searchByKeyword(keyword);
 
         populateTable(searchResult);
@@ -227,30 +242,48 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tbDoctor.getModel();
         Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
-        if (DoctorDao.deleteDoctor(selectedDoctor)) {
-            JOptionPane.showMessageDialog(this, "Delete Successfully!");
-            return;
-        } else {
+        if (!DoctorDao.deleteDoctor(selectedDoctor)) {
             JOptionPane.showMessageDialog(this, "Fail to Delete!");
             return;
         }
+        // Delete Login Model
+        LoginModel curLoginModel = LoginDao.queryByUserName(selectedDoctor.getUsername());
+        if (ObjectUtils.isNotEmpty(curLoginModel)) {
+            if (!LoginDao.deleteOldUser(curLoginModel)) {
+                JOptionPane.showMessageDialog(this, "Fail to Delete!");
+                return;
+            }
+        }
 
+        JOptionPane.showMessageDialog(this, "Delete Successfully!");
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        List<Doctor> doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
-        doctorDirectory.setDoctorList(doctorList);
-        populateTable(doctorDirectory.getDoctorList());
-    }//GEN-LAST:event_btnRefeshActionPerformed
-
-    private void populateTable(List<Doctor> doctors) {
-        if (ObjectUtils.isEmpty(doctors)) {
+        if (StringUtils.isBlank(currHospitalName)) {
+            doctorList = DoctorDao.queryAllDoctor();
             return;
         }
 
+        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalName);
+        populateTable(doctorList);
+    }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
+        DoctorRegisterFrame addDoctorFrame = new DoctorRegisterFrame(true);
+        addDoctorFrame.setLocationRelativeTo(null);
+        addDoctorFrame.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void populateTable(List<Doctor> doctors) {
+
         DefaultTableModel model = (DefaultTableModel) tbDoctor.getModel();
         model.setRowCount(0);
+
+        if (ObjectUtils.isEmpty(doctors)) {
+            return;
+        }
 
         for (Doctor doctor : doctors) {
 
@@ -265,12 +298,13 @@ public class ManageDoctorPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBrowseDoctors;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbDoctor;
-    private javax.swing.JTextField txtKeyword;
+    private javax.swing.JTextField txtkeyword;
     // End of variables declaration//GEN-END:variables
 }

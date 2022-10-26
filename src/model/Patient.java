@@ -67,10 +67,6 @@ public class Patient extends Person {
         this.encounterHistory = encounterHistory;
     }
 
-    public String fullName() {
-        return getFirstName() + " " + getLastName();
-    }
-
     @Override
     public String toString() {
         return getPid();

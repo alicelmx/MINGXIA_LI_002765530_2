@@ -20,7 +20,7 @@ import tool.JsonFileUitls;
  */
 public class DoctorDao {
 
-    public static final String doctorInfoJson = "../database/DoctorInfo.json";
+    public static String doctorInfoJson = "../database/DoctorInfo.json";
 
     static DoctorSerialGenerator serialGenerator = DoctorSerialGenerator.getInstance();
 
@@ -79,10 +79,10 @@ public class DoctorDao {
         return resList.get(0);
     }
 
-    public Doctor findDoctorByDName(String dName) {
+    public static Doctor findDoctorByDName(String dName) {
         File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
-        List<Doctor> resList = doctorModelList.stream().filter(s -> (s.getFirstName() + " " + s.getLastName()).equalsIgnoreCase(dName)).collect(Collectors.toList());
+        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getFullName().equalsIgnoreCase(dName)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(doctorModelList) ? null : resList.get(0);
     }

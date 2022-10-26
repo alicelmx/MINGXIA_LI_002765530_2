@@ -4,10 +4,6 @@
  */
 package ui.patient;
 
-import dao.AppointmentDao;
-import dao.DoctorDao;
-import dao.EncounterDao;
-import dao.HospitalDao;
 import model.Doctor;
 import model.Encounter;
 
@@ -16,11 +12,6 @@ import model.Encounter;
  * @author limingxia
  */
 public class ViewEncounterFrame extends javax.swing.JFrame {
-
-    private DoctorDao doctorDao = new DoctorDao();
-    private HospitalDao hospitalDao = new HospitalDao();
-    private EncounterDao encounterDao = new EncounterDao();
-    private AppointmentDao appointmentDao = new AppointmentDao();
 
     public Doctor doctor;
     Encounter selectedEncounter;

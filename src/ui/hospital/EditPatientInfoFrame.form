@@ -6,7 +6,7 @@
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Add Patient"/>
   </Properties>
   <SyntheticProperties>
@@ -380,6 +380,9 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtUserName.setText(selectedDoctor.getUsername());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtConfirmPassword">
         </Component>

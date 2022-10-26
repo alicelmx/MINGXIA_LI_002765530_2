@@ -6,7 +6,7 @@
     </Component>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Add Patient"/>
   </Properties>
   <SyntheticProperties>
@@ -208,7 +208,7 @@
             <Property name="text" type="java.lang.String" value="Male"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE)){&#xa;    rbtnMale.setSelected(true);&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE.getIndex())){&#xa;    rbtnMale.setSelected(true);&#xa;}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JRadioButton" name="rbtnFemale">
@@ -222,7 +222,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnFemaleActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE)){&#xa;    rbtnFemale.setSelected(true);&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE.getIndex())){&#xa;    rbtnFemale.setSelected(true);&#xa;}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDateOfBirth">
@@ -243,7 +243,7 @@
             <Property name="text" type="java.lang.String" value="Prefer not to say"/>
           </Properties>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY)){&#xa;    rbtnPreferNotToSay.setSelected(true);&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY.getIndex())){&#xa;    rbtnPreferNotToSay.setSelected(true);&#xa;}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMaritialStatus">
@@ -380,6 +380,9 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtUserName.setText(selectedDoctor.getUsername());"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JPasswordField" name="txtConfirmPassword">
         </Component>
@@ -543,6 +546,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Thurs."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Thursday&quot;)) {&#xa;                ckbThurs.setSelected(true);&#xa;            }&#xa;        });"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbbLevel">
           <Properties>
@@ -566,6 +572,9 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Fri."/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Friday&quot;)) {&#xa;                ckbFri.setSelected(true);&#xa;            }&#xa;        });"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JCheckBox" name="ckbSat">
           <Properties>
@@ -574,6 +583,9 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckbSatActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Saturday&quot;)) {&#xa;                ckbSat.setSelected(true);&#xa;            }&#xa;        });"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>

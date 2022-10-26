@@ -80,4 +80,12 @@ public class CommunityDao {
         return ObjectUtils.isEmpty(res) ? null : res.get(0);
     }
 
+    public static Community queryCommunitybByCAdminUser(String userName) {
+        File file = new File(CommunityDao.class.getResource(communityListJson).getFile());
+        List<Community> communityList = JsonFileUitls.readJsonFileToModel(file, Community.class);
+        List<Community> res = communityList.stream().filter(s -> s.getCommunityAdminUser().equalsIgnoreCase(userName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(res) ? null : res.get(0);
+    }
+
 }

@@ -4,7 +4,10 @@
  */
 package ui.system;
 
-import ui.DoctorManagementPane;
+import ui.HomePageFrame;
+import ui.hospital.ManageDoctorPane;
+import ui.hospital.ManageEncounterPane;
+import ui.hospital.ManagePatientPane;
 
 /**
  *
@@ -30,11 +33,14 @@ public class SystemAdminFrame extends javax.swing.JFrame {
 
         splitPane = new javax.swing.JSplitPane();
         funcitonPane = new javax.swing.JPanel();
-        btnHospitalManagement = new javax.swing.JButton();
-        btnDoctorManagement = new javax.swing.JButton();
-        btnCommunityManagement = new javax.swing.JButton();
-        btnPatientManagement = new javax.swing.JButton();
+        btnHospital = new javax.swing.JButton();
+        btnCommunity = new javax.swing.JButton();
         btnPatientManagement1 = new javax.swing.JButton();
+        lblLogout = new javax.swing.JLabel();
+        btnAppointment = new javax.swing.JButton();
+        btnManageDoctor = new javax.swing.JButton();
+        btnDoctorManagement1 = new javax.swing.JButton();
+        btnAppointment1 = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -42,38 +48,65 @@ public class SystemAdminFrame extends javax.swing.JFrame {
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnHospitalManagement.setText("Manage Hospital ");
-        btnHospitalManagement.addActionListener(new java.awt.event.ActionListener() {
+        btnHospital.setText("Hospital ");
+        btnHospital.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHospitalManagementActionPerformed(evt);
+                btnHospitalActionPerformed(evt);
             }
         });
 
-        btnDoctorManagement.setText("Manage Doctor");
-        btnDoctorManagement.addActionListener(new java.awt.event.ActionListener() {
+        btnCommunity.setText("Community");
+        btnCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDoctorManagementActionPerformed(evt);
+                btnCommunityActionPerformed(evt);
             }
         });
 
-        btnCommunityManagement.setText("  Manage Community");
-        btnCommunityManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCommunityManagementActionPerformed(evt);
-            }
-        });
-
-        btnPatientManagement.setText("Manage Patient");
-        btnPatientManagement.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPatientManagementActionPerformed(evt);
-            }
-        });
-
-        btnPatientManagement1.setText("Manage Encounter");
+        btnPatientManagement1.setText("Encounter");
         btnPatientManagement1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPatientManagement1ActionPerformed(evt);
+            }
+        });
+
+        lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
+        lblLogout.setText("Logout");
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseClicked(evt);
+            }
+        });
+
+        btnAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnAppointment.setText("Appointment");
+        btnAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointmentActionPerformed(evt);
+            }
+        });
+
+        btnManageDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnManageDoctor.setText("Doctor");
+        btnManageDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageDoctorActionPerformed(evt);
+            }
+        });
+
+        btnDoctorManagement1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnDoctorManagement1.setText("Patient");
+        btnDoctorManagement1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoctorManagement1ActionPerformed(evt);
+            }
+        });
+
+        btnAppointment1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnAppointment1.setText("Password");
+        btnAppointment1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointment1ActionPerformed(evt);
             }
         });
 
@@ -82,29 +115,44 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnHospitalManagement)
-                    .addComponent(btnDoctorManagement)
-                    .addComponent(btnCommunityManagement)
-                    .addComponent(btnPatientManagement)
-                    .addComponent(btnPatientManagement1))
-                .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(btnHospital)
+                    .addComponent(btnCommunity)
+                    .addComponent(btnPatientManagement1)
+                    .addComponent(btnManageDoctor)
+                    .addComponent(btnDoctorManagement1))
+                .addContainerGap(46, Short.MAX_VALUE))
+            .addGroup(funcitonPaneLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAppointment, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(funcitonPaneLayout.createSequentialGroup()
+                        .addComponent(lblLogout)
+                        .addGap(65, 65, 65))
+                    .addComponent(btnAppointment1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addComponent(btnHospitalManagement)
-                .addGap(31, 31, 31)
-                .addComponent(btnDoctorManagement)
-                .addGap(42, 42, 42)
-                .addComponent(btnCommunityManagement)
-                .addGap(33, 33, 33)
-                .addComponent(btnPatientManagement)
+                .addGap(45, 45, 45)
+                .addComponent(btnManageDoctor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addComponent(btnHospital)
+                .addGap(18, 18, 18)
+                .addComponent(btnDoctorManagement1)
                 .addGap(29, 29, 29)
+                .addComponent(btnCommunity)
+                .addGap(27, 27, 27)
                 .addComponent(btnPatientManagement1)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(btnAppointment)
+                .addGap(18, 18, 18)
+                .addComponent(btnAppointment1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 220, Short.MAX_VALUE)
+                .addComponent(lblLogout)
+                .addGap(18, 18, 18))
         );
 
         splitPane.setLeftComponent(funcitonPane);
@@ -136,33 +184,54 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnHospitalManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalManagementActionPerformed
+    private void btnHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalActionPerformed
 
         ManageHospitalPane hospitalManagementPane = new ManageHospitalPane();
         splitPane.setRightComponent(hospitalManagementPane);
-    }//GEN-LAST:event_btnHospitalManagementActionPerformed
+    }//GEN-LAST:event_btnHospitalActionPerformed
 
-    private void btnPatientManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientManagementActionPerformed
+    private void btnCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityActionPerformed
 
-//        PatientManagementPane patientManagementPane = new PatientManagementPane();
-//        splitPane.setRightComponent(patientManagementPane);
-    }//GEN-LAST:event_btnPatientManagementActionPerformed
-
-    private void btnCommunityManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCommunityManagementActionPerformed
-
-//        ManageCommunityPane communityManagementPane = new ManageCommunityPane();
-//        splitPane.setRightComponent(communityManagementPane);
-    }//GEN-LAST:event_btnCommunityManagementActionPerformed
-
-    private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed
-
-        DoctorManagementPane doctorManagementPane = new DoctorManagementPane();
-        splitPane.setRightComponent(doctorManagementPane);
-    }//GEN-LAST:event_btnDoctorManagementActionPerformed
+        ManageCommunityPane communityManagementPane = new ManageCommunityPane();
+        splitPane.setRightComponent(communityManagementPane);
+    }//GEN-LAST:event_btnCommunityActionPerformed
 
     private void btnPatientManagement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientManagement1ActionPerformed
-        // TODO add your handling code here:
+
+        ManageEncounterPane manageEncounterPane = new ManageEncounterPane();
+        splitPane.setRightComponent(manageEncounterPane);
     }//GEN-LAST:event_btnPatientManagement1ActionPerformed
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+
+        HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.setLocationRelativeTo(null);
+        homePageFrame.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
+
+//        SearchDoctorPane patientAppointmentPane = new SearchDoctorPane(patient);
+//        splitPane.setRightComponent(patientAppointmentPane);
+    }//GEN-LAST:event_btnAppointmentActionPerformed
+
+    private void btnManageDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDoctorActionPerformed
+
+        ManageDoctorPane doctorManagementPane = new ManageDoctorPane();
+        splitPane.setRightComponent(doctorManagementPane);
+    }//GEN-LAST:event_btnManageDoctorActionPerformed
+
+    private void btnDoctorManagement1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagement1ActionPerformed
+
+        ManagePatientPane managePatientPane = new ManagePatientPane();
+        splitPane.setRightComponent(managePatientPane);
+    }//GEN-LAST:event_btnDoctorManagement1ActionPerformed
+
+    private void btnAppointment1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointment1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAppointment1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,13 +271,16 @@ public class SystemAdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCommunityManagement;
-    private javax.swing.JButton btnDoctorManagement;
-    private javax.swing.JButton btnHospitalManagement;
-    private javax.swing.JButton btnPatientManagement;
+    private javax.swing.JButton btnAppointment;
+    private javax.swing.JButton btnAppointment1;
+    private javax.swing.JButton btnCommunity;
+    private javax.swing.JButton btnDoctorManagement1;
+    private javax.swing.JButton btnHospital;
+    private javax.swing.JButton btnManageDoctor;
     private javax.swing.JButton btnPatientManagement1;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
+    private javax.swing.JLabel lblLogout;
     private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 }

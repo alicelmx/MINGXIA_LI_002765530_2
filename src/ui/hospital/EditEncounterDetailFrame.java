@@ -4,18 +4,8 @@
  */
 package ui.hospital;
 
-import ui.patient.*;
-import ui.doctor.*;
-import dao.AppointmentDao;
-import dao.DoctorDao;
-import dao.EncounterDao;
-import dao.HospitalDao;
-import javax.swing.JOptionPane;
-import model.AppointmentModel;
 import model.Doctor;
 import model.Encounter;
-import model.VitalSign;
-import tool.DateUtils;
 
 /**
  *
@@ -23,13 +13,9 @@ import tool.DateUtils;
  */
 public class EditEncounterDetailFrame extends javax.swing.JFrame {
 
-    private DoctorDao doctorDao = new DoctorDao();
-    private HospitalDao hospitalDao = new HospitalDao();
-    private EncounterDao encounterDao = new EncounterDao();
-    private AppointmentDao appointmentDao = new AppointmentDao();
-    
     public Doctor doctor;
     Encounter selectedEncounter;
+
     /**
      * Creates new form DiagnoseFrame
      */

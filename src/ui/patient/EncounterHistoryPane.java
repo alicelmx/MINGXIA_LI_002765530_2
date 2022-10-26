@@ -4,9 +4,7 @@
  */
 package ui.patient;
 
-import dao.CommunityDao;
 import dao.EncounterDao;
-import dao.PatientDao;
 import java.awt.Graphics;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -25,10 +23,6 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class EncounterHistoryPane extends javax.swing.JPanel {
 
-    private CommunityDao communityDao = new CommunityDao();
-    private PatientDao patientDao = new PatientDao();
-    private EncounterDao encounterDao = new EncounterDao();
-
     public List<Community> communitys;
     public EncounterHistory encounterHistory = new EncounterHistory();
 
@@ -41,8 +35,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
 
     public EncounterHistoryPane(Patient patient) {
         // TODO 这块有点不合理，因为名字可能会有重复，应该pid or did
-        String patientName = patient.getFirstName() + " " + patient.getLastName();
-        encounterHistory.setEncounterHistory(encounterDao.queryEncounterByPName(patientName));
+        encounterHistory.setEncounterHistory(EncounterDao.queryEncounterByPName(patient.getFullName()));
 
         initComponents();
 
@@ -188,12 +181,13 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void populateTable(List<Encounter> encounters) {
-        if (ObjectUtils.isEmpty(encounters)) {
-            return;
-        }
 
         DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
         model.setRowCount(0);
+
+        if (ObjectUtils.isEmpty(encounters)) {
+            return;
+        }
 
         for (Encounter encounter : encounters) {
 

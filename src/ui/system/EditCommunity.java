@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package ui.community;
+package ui.system;
 
 import dao.CommunityDao;
 import javax.swing.JOptionPane;
@@ -15,8 +15,6 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class EditCommunity extends javax.swing.JFrame {
-
-    private CommunityDao communityDao = new CommunityDao();
 
     public Community community;
 
@@ -168,7 +166,7 @@ public class EditCommunity extends javax.swing.JFrame {
         newCommunity.setAddress(address);
         newCommunity.setZipcode(zipCode);
 
-        communityDao.updateCommunity(newCommunity, community);
+        CommunityDao.updateCommunity(newCommunity, community);
 
         JOptionPane.showMessageDialog(this, "Successfully!");
 

@@ -20,7 +20,7 @@ import tool.PatientSerialGenerator;
  */
 public class PatientDao {
 
-    PatientSerialGenerator serialGenerator = PatientSerialGenerator.getInstance();
+    static PatientSerialGenerator serialGenerator = PatientSerialGenerator.getInstance();
 
     public static final String patientInfoJson = "../database/PatientInfo.json";
 
@@ -30,7 +30,7 @@ public class PatientDao {
      * @param uid
      * @return
      */
-    public Patient findPatientInfoByUid(String uid) {
+    public static Patient findPatientInfoByUid(String uid) {
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
@@ -43,7 +43,7 @@ public class PatientDao {
         return resList.get(0);
     }
 
-    public Patient queryPatientByUName(String userName) {
+    public static Patient queryPatientByUName(String userName) {
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
@@ -56,13 +56,13 @@ public class PatientDao {
         return resList.get(0);
     }
 
-    public List<Patient> queryAllPatientModel() {
+    public static List<Patient> queryAllPatientModel() {
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         return JsonFileUitls.readJsonFileToModel(file, Patient.class);
     }
 
-    public boolean insertNewPatient(Patient patient) {
+    public static boolean insertNewPatient(Patient patient) {
         patient.setPid(serialGenerator.next());
 
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
@@ -80,7 +80,7 @@ public class PatientDao {
         return true;
     }
 
-    public void deletePatient(Patient patient) {
+    public static void deletePatient(Patient patient) {
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> allEncounters = queryAllPatientModel();
         allEncounters.remove(patient);
@@ -93,9 +93,18 @@ public class PatientDao {
     public static Patient queryPatientByPName(String pName) {
         File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
         List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
-        List<Patient> resList = patientModelList.stream().filter(s -> (s.getFirstName() + " " + s.getLastName()).equalsIgnoreCase(pName)).collect(Collectors.toList());
+        List<Patient> resList = patientModelList.stream().filter(s -> s.getFullName().equalsIgnoreCase(pName)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
+    }
+
+    public static List<Patient> queryPatientByCName(String curCommunityName) {
+
+        File file = new File(PatientDao.class.getResource(patientInfoJson).getFile());
+        List<Patient> patientModelList = JsonFileUitls.readJsonFileToModel(file, Patient.class);
+        List<Patient> resList = patientModelList.stream().filter(s -> s.getCommunity().equalsIgnoreCase(curCommunityName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(resList) ? null : resList;
     }
 
 }

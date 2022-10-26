@@ -2,16 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.community;
+package ui.system;
 
 import dao.CommunityDao;
 import java.awt.Graphics;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Community;
 import org.apache.commons.lang3.ObjectUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -19,17 +21,15 @@ import org.apache.commons.lang3.ObjectUtils;
  */
 public class ManageCommunityPane extends javax.swing.JPanel {
 
-    private CommunityDao communityDao = new CommunityDao();
-
-    public List<Community> communitys;
+    public List<Community> communityList;
 
     /**
      * Creates new form AuthManagementPane
      */
     public ManageCommunityPane() {
-        communitys = communityDao.queryAllCommunityList();
+        communityList = CommunityDao.queryAllCommunityList();
         initComponents();
-        populateTable(communitys);
+        populateTable(communityList);
     }
 
     @Override
@@ -48,25 +48,26 @@ public class ManageCommunityPane extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtSearchArea = new javax.swing.JTextField();
-        btnBrowseDoctors = new javax.swing.JButton();
+        txtKeyword = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbCommunity = new javax.swing.JTable();
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
+        btnRefesh1 = new javax.swing.JButton();
 
-        txtSearchArea.addActionListener(new java.awt.event.ActionListener() {
+        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchAreaActionPerformed(evt);
+                txtKeywordActionPerformed(evt);
             }
         });
 
-        btnBrowseDoctors.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
-        btnBrowseDoctors.setText("search");
-        btnBrowseDoctors.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/search.png"))); // NOI18N
+        btnSearch.setText("search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBrowseDoctorsActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -124,6 +125,14 @@ public class ManageCommunityPane extends javax.swing.JPanel {
             }
         });
 
+        btnRefesh1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnRefesh1.setText("Add");
+        btnRefesh1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefesh1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -134,10 +143,12 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnBrowseDoctors)))
+                            .addComponent(btnSearch)))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRefesh1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,50 +161,41 @@ public class ManageCommunityPane extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBrowseDoctors, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtSearchArea, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRefesh1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(52, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtSearchAreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchAreaActionPerformed
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchAreaActionPerformed
+    }//GEN-LAST:event_txtKeywordActionPerformed
 
-    private void btnBrowseDoctorsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBrowseDoctorsActionPerformed
-// TODO
-//        // Patients are able to look for a doctor under the near hospitals
-//        Patient patient = patientDao.findPatientInfoByUid(userId);
-//        String zipcode = patient.getZipcode();
-//
-//        // search hospital
-//        List<Hospital> hospitalList = hospitalDao.findHospitalByZipcode(zipcode);
-//
-//        nearDoctorList = new ArrayList<>();
-//        hospitalList.stream().forEach(o -> {
-//            o.getDoctorDirectory().stream().forEach(m -> {
-//
-//                Doctor doctor = doctorDao.findDoctorByDid(m);
-//
-//                NearDoctorModel nearDoctorModel = new NearDoctorModel();
-//                nearDoctorModel.setHospital(o.gethName());
-//                nearDoctorModel.setAvailableTime(doctor.getAvailableTime());
-//                nearDoctorModel.setName(doctor.getdName());
-//                nearDoctorModel.setDepartment(doctor.getDepartment());
-//
-//                nearDoctorList.add(nearDoctorModel);
-//            });
-//        });
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
 
-//        populateTable();
-    }//GEN-LAST:event_btnBrowseDoctorsActionPerformed
+        String keyword = txtKeyword.getText();
+        if (StringUtils.isBlank(keyword)) {
+            JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
+            return;
+        }
+        List<Community> searchResult = communityList.stream().filter(c
+                -> c.getcName().equalsIgnoreCase(keyword)
+                || c.getCity().equalsIgnoreCase(keyword)
+                || c.getZipcode().equalsIgnoreCase(keyword)
+                || c.getAddress().contains(keyword)
+        ).collect(Collectors.toList());
+
+        populateTable(searchResult);
+
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int selectedRowIndex = tbCommunity.getSelectedRow();
@@ -217,18 +219,23 @@ public class ManageCommunityPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-        // TODO add your handling code here:
-        communitys = communityDao.queryAllCommunityList();
-        populateTable(communitys);
+
+        communityList = CommunityDao.queryAllCommunityList();
+        populateTable(communityList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
+    private void btnRefesh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefesh1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRefesh1ActionPerformed
+
     private void populateTable(List<Community> communityList) {
-        if (ObjectUtils.isEmpty(communityList)) {
-            return;
-        }
 
         DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
         model.setRowCount(0);
+
+        if (ObjectUtils.isEmpty(communityList)) {
+            return;
+        }
 
         for (Community community : communityList) {
 
@@ -243,12 +250,15 @@ public class ManageCommunityPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBrowseDoctors;
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnAdd1;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
+    private javax.swing.JButton btnRefesh1;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbCommunity;
-    private javax.swing.JTextField txtSearchArea;
+    private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
 }

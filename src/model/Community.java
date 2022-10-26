@@ -11,12 +11,14 @@ import java.util.Objects;
  * @author limingxia
  */
 public class Community {
-    
+
     private String cid;
     private String cName; // name is unique
     private String city;
     private String address;
     private String zipcode;
+    private String inhabitants; // num of inhabitants
+    private String communityAdminUser;
 
     public String getCid() {
         return cid;
@@ -58,29 +60,46 @@ public class Community {
         this.zipcode = zipcode;
     }
 
+    public String getInhabitants() {
+        return inhabitants;
+    }
+
+    public void setInhabitants(String inhabitants) {
+        this.inhabitants = inhabitants;
+    }
+
+    public String getCommunityAdminUser() {
+        return communityAdminUser;
+    }
+
+    public void setCommunityAdminUser(String communityAdminUser) {
+        this.communityAdminUser = communityAdminUser;
+    }
+
     @Override
     public String toString() {
-        return getcName();     
+        return getcName();
     }
 
     @Override
     public boolean equals(Object obj) {
-        
-        if(obj == this) return true;
-        
-        if (!(obj instanceof Community)) return false;
+
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Community)) {
+            return false;
+        }
 
         Community community = (Community) obj;
 
-        return Objects.equals(cid,community.getCid()) &&
-                Objects.equals(cName,community.getcName()) &&
-                Objects.equals(city,community.getCity()) &&
-                Objects.equals(address,community.getAddress()) &&
-                Objects.equals(zipcode,community.getZipcode());
+        return Objects.equals(cid, community.getCid())
+                && Objects.equals(cName, community.getcName())
+                && Objects.equals(city, community.getCity())
+                && Objects.equals(address, community.getAddress())
+                && Objects.equals(zipcode, community.getZipcode())
+                && Objects.equals(inhabitants, community.getInhabitants())
+                && Objects.equals(communityAdminUser, community.getCommunityAdminUser());
     }
-    
-    
-    
-    
-
 }
