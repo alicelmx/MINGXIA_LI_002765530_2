@@ -6,6 +6,7 @@ package ui.hospital;
 
 import dao.HospitalDao;
 import model.Hospital;
+import tool.DateUtils;
 import ui.HomePageFrame;
 
 /**
@@ -48,13 +49,15 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
         btnDoctorManagement = new javax.swing.JButton();
         btnEncounter = new javax.swing.JButton();
         lblLogout = new javax.swing.JLabel();
+        lblGreeting = new javax.swing.JLabel();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
-        btnAuthManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
+        btnAuthManagement.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnAuthManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital_admin.png"))); // NOI18N
         btnAuthManagement.setText("Profile");
         btnAuthManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +65,8 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnManageDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/TimeCard.png"))); // NOI18N
+        btnManageDoctor.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnManageDoctor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/doctor.png"))); // NOI18N
         btnManageDoctor.setText("Doctor");
         btnManageDoctor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,7 +74,8 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnDoctorManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnDoctorManagement.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnDoctorManagement.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/patient.png"))); // NOI18N
         btnDoctorManagement.setText("Patient");
         btnDoctorManagement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +83,8 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
             }
         });
 
-        btnEncounter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnEncounter.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnEncounter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/encounter.png"))); // NOI18N
         btnEncounter.setText("Encounter");
         btnEncounter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,7 +92,9 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
             }
         });
 
+        lblLogout.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
         lblLogout.setText("Logout");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -95,23 +103,30 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
             }
         });
 
+        lblGreeting.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        lblGreeting.setForeground(new java.awt.Color(255, 255, 255));
+        lblGreeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGreeting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/greeting.png"))); // NOI18N
+        String greeting = "Good " + DateUtils.checkNowTime();
+        lblGreeting.setText(greeting);
+
         javax.swing.GroupLayout funcitonPaneLayout = new javax.swing.GroupLayout(funcitonPane);
         funcitonPane.setLayout(funcitonPaneLayout);
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnEncounter)
+                    .addComponent(btnDoctorManagement)
+                    .addComponent(btnManageDoctor)
+                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(funcitonPaneLayout.createSequentialGroup()
                 .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(funcitonPaneLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnEncounter)
-                            .addComponent(btnDoctorManagement)
-                            .addComponent(btnManageDoctor)
-                            .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(funcitonPaneLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(lblLogout)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                    .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnEncounter, btnManageDoctor});
@@ -119,17 +134,17 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(93, 93, 93)
-                .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(btnManageDoctor)
-                .addGap(41, 41, 41)
+                .addGap(18, 18, 18)
                 .addComponent(btnDoctorManagement)
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
                 .addComponent(btnEncounter)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
-                .addComponent(lblLogout)
-                .addGap(15, 15, 15))
+                .addGap(18, 18, 18)
+                .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnEncounter, btnManageDoctor});
@@ -303,6 +318,7 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnManageDoctor;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
+    private javax.swing.JLabel lblGreeting;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables

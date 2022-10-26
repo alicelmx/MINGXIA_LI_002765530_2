@@ -80,9 +80,7 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AppointmentHistoryFrame pahf = new AppointmentHistoryFrame();
-                pahf.setLocationRelativeTo(null);
-                pahf.setVisible(true);
+                new AppointmentHistoryFrame().setVisible(true);
             }
         });
     }

@@ -6,6 +6,7 @@ package ui.community;
 
 import dao.CommunityDao;
 import model.Community;
+import tool.DateUtils;
 import ui.HomePageFrame;
 import ui.hospital.ManagePatientPane;
 import ui.system.ManageHospitalPane;
@@ -43,17 +44,47 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
 
         splitPane = new javax.swing.JSplitPane();
         funcitonPane = new javax.swing.JPanel();
-        lblLogout = new javax.swing.JLabel();
         btnPatient = new javax.swing.JButton();
         btnHospital = new javax.swing.JButton();
         btnProfile = new javax.swing.JButton();
+        lblLogout = new javax.swing.JLabel();
+        lblGreeting = new javax.swing.JLabel();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));
 
+        btnPatient.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/patient.png"))); // NOI18N
+        btnPatient.setText("Patient");
+        btnPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPatientActionPerformed(evt);
+            }
+        });
+
+        btnHospital.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnHospital.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital_admin.png"))); // NOI18N
+        btnHospital.setText("Hospital ");
+        btnHospital.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHospitalActionPerformed(evt);
+            }
+        });
+
+        btnProfile.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/community_admin.png"))); // NOI18N
+        btnProfile.setText("Profile");
+        btnProfile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfileActionPerformed(evt);
+            }
+        });
+
+        lblLogout.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
         lblLogout.setForeground(new java.awt.Color(255, 255, 255));
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/logout.png"))); // NOI18N
         lblLogout.setText("Logout");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -62,28 +93,12 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
             }
         });
 
-        btnPatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
-        btnPatient.setText("Patient");
-        btnPatient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPatientActionPerformed(evt);
-            }
-        });
-
-        btnHospital.setText("Hospital ");
-        btnHospital.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHospitalActionPerformed(evt);
-            }
-        });
-
-        btnProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
-        btnProfile.setText("Profile");
-        btnProfile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProfileActionPerformed(evt);
-            }
-        });
+        lblGreeting.setFont(new java.awt.Font("Helvetica Neue", 1, 16)); // NOI18N
+        lblGreeting.setForeground(new java.awt.Color(255, 255, 255));
+        lblGreeting.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblGreeting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/greeting.png"))); // NOI18N
+        String greeting = "Good " + DateUtils.checkNowTime();
+        lblGreeting.setText(greeting);
 
         javax.swing.GroupLayout funcitonPaneLayout = new javax.swing.GroupLayout(funcitonPane);
         funcitonPane.setLayout(funcitonPaneLayout);
@@ -91,33 +106,34 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
                 .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnHospital)
-                        .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(funcitonPaneLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(lblLogout))
-                            .addGroup(funcitonPaneLayout.createSequentialGroup()
-                                .addGap(47, 47, 47)
-                                .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(funcitonPaneLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btnPatient)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addGap(35, 35, 35)
+                        .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnHospital)
+                            .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPatient))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnHospital, btnPatient, btnProfile});
+
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
                 .addComponent(btnHospital)
-                .addGap(40, 40, 40)
+                .addGap(18, 18, 18)
                 .addComponent(btnPatient)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
-                .addComponent(lblLogout)
-                .addGap(15, 15, 15))
+                .addGap(18, 18, 18)
+                .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
+
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnHospital, btnPatient, btnProfile});
 
         splitPane.setLeftComponent(funcitonPane);
 
@@ -125,7 +141,7 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGap(0, 589, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -148,15 +164,6 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
-
-        HomePageFrame homePageFrame = new HomePageFrame();
-        homePageFrame.setLocationRelativeTo(null);
-        homePageFrame.setVisible(true);
-
-        this.dispose();
-    }//GEN-LAST:event_lblLogoutMouseClicked
-
     private void btnPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientActionPerformed
 
         ManagePatientPane managePatientPane = new ManagePatientPane(curCommunity);
@@ -174,6 +181,15 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
 //        ManageDoctorPane doctorManagementPane = new ManageDoctorPane(curCommunity);
 //        splitPane.setRightComponent(doctorManagementPane);
     }//GEN-LAST:event_btnProfileActionPerformed
+
+    private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
+
+        HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.setLocationRelativeTo(null);
+        homePageFrame.setVisible(true);
+
+        this.dispose();
+    }//GEN-LAST:event_lblLogoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -212,9 +228,7 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                CommunityAdminFrame systemAdminFrame = new CommunityAdminFrame();
-                systemAdminFrame.setLocationRelativeTo(null);
-                systemAdminFrame.setVisible(true);
+                new CommunityAdminFrame().setVisible(true);
             }
         });
     }
@@ -225,6 +239,7 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnProfile;
     private javax.swing.JPanel contentPane;
     private javax.swing.JPanel funcitonPane;
+    private javax.swing.JLabel lblGreeting;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables

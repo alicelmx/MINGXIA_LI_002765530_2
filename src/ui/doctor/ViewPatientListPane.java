@@ -175,6 +175,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
         AppointmentModel selectedAppointment = (AppointmentModel) model.getValueAt(selectedRowIndex, 0);
+
         DiagnoseFrame diagnoseFrame = new DiagnoseFrame(selectedAppointment);
         diagnoseFrame.setLocationRelativeTo(null);
         diagnoseFrame.setVisible(true);

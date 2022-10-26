@@ -4,9 +4,7 @@
  */
 package tool;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -33,6 +31,36 @@ public class DateUtils {
     public static final String MONTH_TIME_SPLIT_PATTERN = "yyyy-MM";
     public static final String CST_TIME_PATTERN = "EEE MMM dd HH:mm:ss zzz yyyy";
 
+    /**
+     * morning/ afternoon/ night
+     *
+     * @return
+     */
+    public static String checkNowTime() {
+        String res = "";
+        Date date = new Date();
+        SimpleDateFormat df = new SimpleDateFormat("HH");
+        String str = df.format(date);
+        int a = Integer.parseInt(str);
+        if (a >= 0 && a <= 6) {
+            res = "Night";
+        }
+        if (a > 6 && a <= 12) {
+            res = "Morning";
+        }
+        if (a > 12 && a <= 13) {
+            res = "Afternoon";
+        }
+        if (a > 13 && a <= 18) {
+            res = "Afternoon";
+        }
+        if (a > 18 && a <= 24) {
+            res = "Night";
+        }
+
+        return res;
+    }
+
     public static String formatFullTime(LocalDateTime localDateTime) {
         return formatFullTime(localDateTime, FULL_TIME_PATTERN);
     }
@@ -53,9 +81,9 @@ public class DateUtils {
     public static String getSerialDate() {
         return getDateFormat(new Date(), SERIAL_PATTERN);
     }
-    
+
     public static String getAmericaDate(Date date, String pattern) {
-        return getDateFormat(date,pattern);
+        return getDateFormat(date, pattern);
     }
 
     public static String formatCSTTime(String date, String format) throws ParseException {
@@ -456,21 +484,22 @@ public class DateUtils {
     public static Date plusDaytoDate(Date date, int day) {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(date);
-               calendar.add(Calendar.DATE, day);
+        calendar.add(Calendar.DATE, day);
         return calendar.getTime();
     }
+
     public static List<String> getDateViaWeek(List<String> availableTime) {
         List<String> res = new ArrayList<>();
-        
+
         Date now = new Date();
-        for(int i=1;i<=7;i++) {
+        for (int i = 1; i <= 7; i++) {
             Date day = plusDaytoDate(now, i);
             String week = getWeekOfDate(day);
-            if(availableTime.contains(week)) {
+            if (availableTime.contains(week)) {
                 res.add(getAmericaDate(day, AMERICA_PATTERN));
             }
         }
-        
+
         return res;
     }
 

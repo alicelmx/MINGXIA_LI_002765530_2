@@ -21,7 +21,7 @@ import org.apache.commons.lang3.StringUtils;
  * @author limingxia
  */
 public class ManageEncounterPane extends javax.swing.JPanel {
-    
+
     public EncounterHistory encounterHistory = new EncounterHistory();
     public Hospital currHospital;
     public List<Encounter> encounterList;
@@ -31,24 +31,24 @@ public class ManageEncounterPane extends javax.swing.JPanel {
      */
     public ManageEncounterPane() {
         encounterList = EncounterDao.queryALlEncounterRecord();
-        
+
         initComponents();
-        
+
         populateTable(encounterList);
-        
+
     }
-    
+
     public ManageEncounterPane(Hospital currHospital) {
-        
+
         this.currHospital = currHospital;
         encounterList = EncounterDao.queryEncounterByHName(this.currHospital.gethName());
-        
+
         initComponents();
-        
+
         populateTable(encounterList);
-        
+
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -155,7 +155,7 @@ public class ManageEncounterPane extends javax.swing.JPanel {
     private void txtKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKeywordsActionPerformed
-    
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String keywords = txtKeywords.getText();
         if (StringUtils.isBlank(keywords)) {
@@ -164,45 +164,45 @@ public class ManageEncounterPane extends javax.swing.JPanel {
         }
         encounterHistory.setEncounterHistory(encounterList);
         List<Encounter> searchResult = encounterHistory.searchByKeyword(keywords);
-        
+
         populateTable(searchResult);
     }//GEN-LAST:event_btnSearchActionPerformed
-    
+
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-        
+
         int selectedRowIndex = tbEncounterHistory.getSelectedRow();
-        
+
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please Select a Encounter to View.");
             return;
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
         Encounter encounter = (Encounter) model.getValueAt(selectedRowIndex, 0);
-        
+
         EditEncounterDetailFrame encounterDetailFrame = new EditEncounterDetailFrame(encounter);
         encounterDetailFrame.setLocationRelativeTo(null);
         encounterDetailFrame.setVisible(true);
-        
+
     }//GEN-LAST:event_btnViewActionPerformed
-    
+
     private void populateTable(List<Encounter> encounters) {
-        
+
         DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
         model.setRowCount(0);
-        
+
         if (ObjectUtils.isEmpty(encounters)) {
             return;
         }
-        
+
         for (Encounter encounter : encounters) {
-            
+
             Object[] row = new Object[4];
             row[0] = encounter;
             row[1] = encounter.gethName();
             row[2] = encounter.getdName();
             row[3] = encounter.getDeptment();
-            
+
             model.addRow(row);
         }
     }
