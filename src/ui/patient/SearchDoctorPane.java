@@ -110,7 +110,7 @@ public class SearchDoctorPane extends javax.swing.JPanel {
             }
         });
 
-        btnMakeAppointment1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnMakeAppointment1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/write.png"))); // NOI18N
         btnMakeAppointment1.setText("Make Appointment");
         btnMakeAppointment1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -118,7 +118,7 @@ public class SearchDoctorPane extends javax.swing.JPanel {
             }
         });
 
-        btnAppointmentHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/ActualSizeHS.png"))); // NOI18N
+        btnAppointmentHistory.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/appointment2.png"))); // NOI18N
         btnAppointmentHistory.setText("Appointment History");
         btnAppointmentHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

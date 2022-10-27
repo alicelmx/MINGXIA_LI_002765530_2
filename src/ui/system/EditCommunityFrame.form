@@ -27,9 +27,9 @@
               <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="btnClear" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnSubmitAppointment" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnClear" linkSize="1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                      <Component id="btnSubmitAppointment" linkSize="1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -39,9 +39,9 @@
                           <Component id="lblCity" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="lblName" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="txtCity" alignment="1" pref="185" max="32767" attributes="0"/>
+                          <Component id="txtCity" alignment="1" pref="181" max="32767" attributes="0"/>
                           <Component id="txtName" alignment="0" max="32767" attributes="0"/>
                           <Component id="txtZipCode" alignment="1" max="32767" attributes="0"/>
                           <Component id="txtAddress" alignment="0" max="32767" attributes="0"/>
@@ -60,7 +60,7 @@
                   <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="txtCity" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblCity" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -70,17 +70,17 @@
                   <Component id="lblAddress" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="txtAddress" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="lblZipCode" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtZipCode" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnClear" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="btnSubmitAppointment" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="btnClear" linkSize="2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="btnSubmitAppointment" linkSize="2" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="56" max="32767" attributes="0"/>
+              <EmptySpace pref="47" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

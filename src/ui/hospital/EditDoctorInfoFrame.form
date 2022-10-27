@@ -31,12 +31,12 @@
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="BasicInfoPane" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="LoginPanel" max="32767" attributes="0"/>
-                          <Component id="HospitalPane" pref="408" max="32767" attributes="0"/>
+                          <Component id="HospitalPane" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -53,16 +53,16 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="LoginPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Component id="HospitalPane" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="BasicInfoPane" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
                   <Component id="btnClear" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
                   <Component id="btnSave" alignment="2" min="-2" pref="41" max="-2" attributes="0"/>
@@ -90,37 +90,44 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lblLastName" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblGender" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblDateOfBirth" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblMaritialStatus" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblPhone" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblEmail" alignment="1" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblDateOfBirth" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="rbtnMale" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="rbtnFemale" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="rbtnPreferNotToSay" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="chooseMaritialStatus" alignment="0" pref="279" max="32767" attributes="0"/>
-                              <Component id="txtDataOfBirth" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtLastName" alignment="1" max="32767" attributes="0"/>
-                              <Component id="txtMobilePhone" alignment="0" max="32767" attributes="0"/>
-                              <Component id="txtEmail" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="txtDataOfBirth" linkSize="1" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Component id="lblFirstName" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblMaritialStatus" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtFirstName" min="-2" pref="279" max="-2" attributes="0"/>
+                          <Component id="chooseMaritialStatus" linkSize="1" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblPhone" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtMobilePhone" linkSize="1" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="txtEmail" linkSize="1" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="lblLastName" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblGender" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jPanel1" linkSize="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtLastName" linkSize="1" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="lblFirstName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtFirstName" linkSize="1" min="-2" pref="279" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -135,41 +142,37 @@
                       <Component id="lblFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblLastName" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtLastName" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="rbtnMale" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbtnFemale" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="rbtnPreferNotToSay" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="lblGender" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="lblGender" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel1" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblDateOfBirth" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDataOfBirth" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblMaritialStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="chooseMaritialStatus" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="txtMobilePhone" min="-2" max="-2" attributes="0"/>
                       <Component id="lblPhone" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -200,31 +203,6 @@
             <Property name="text" type="java.lang.String" value="Gender:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JRadioButton" name="rbtnMale">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="btngrpSex"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Male"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE.getIndex())){&#xa;    rbtnMale.setSelected(true);&#xa;}"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="rbtnFemale">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="btngrpSex"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Female"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnFemaleActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE.getIndex())){&#xa;    rbtnFemale.setSelected(true);&#xa;}"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JLabel" name="lblDateOfBirth">
           <Properties>
             <Property name="text" type="java.lang.String" value="Date of Birth:"/>
@@ -233,17 +211,6 @@
         <Component class="javax.swing.JTextField" name="txtDataOfBirth">
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtDataOfBirth.setText(selectedDoctor.getDateOfBirth());"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="rbtnPreferNotToSay">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="btngrpSex"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Prefer not to say"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY.getIndex())){&#xa;    rbtnPreferNotToSay.setSelected(true);&#xa;}"/>
           </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="lblMaritialStatus">
@@ -295,6 +262,75 @@
             <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="txtEmail.setText(selectedDoctor.getEmail());"/>
           </AuxValues>
         </Component>
+        <Container class="javax.swing.JPanel" name="jPanel1">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="rbtnMale" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="rbtnFemale" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="rbtnPreferNotToSay" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="rbtnMale" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbtnFemale" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rbtnPreferNotToSay" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JRadioButton" name="rbtnFemale">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btngrpSex"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Female"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rbtnFemaleActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.FEMALE.getIndex())){&#xa;    rbtnFemale.setSelected(true);&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rbtnPreferNotToSay">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btngrpSex"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Prefer not to say"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.PREFER_NOT_TO_SAY.getIndex())){&#xa;    rbtnPreferNotToSay.setSelected(true);&#xa;}"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JRadioButton" name="rbtnMale">
+              <Properties>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btngrpSex"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Male"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(selectedDoctor.getGender().equals(enumvalue.GenderEnum.MALE.getIndex())){&#xa;    rbtnMale.setSelected(true);&#xa;}"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="LoginPanel">
@@ -312,28 +348,20 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblConfirmPassword" alignment="1" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" attributes="0">
+                      <Component id="lblConfirmPassword" min="-2" max="-2" attributes="0"/>
                       <Component id="lblPassword" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="lblUserName" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtConfirmPassword" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="txtUserName" pref="287" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="txtPassword" max="32767" attributes="0"/>
-                      </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="txtPassword" alignment="0" pref="308" max="32767" attributes="0"/>
+                      <Component id="txtUserName" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtConfirmPassword" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -343,19 +371,19 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblUserName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtUserName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtUserName" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblPassword" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPassword" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtConfirmPassword" linkSize="3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblConfirmPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -412,36 +440,13 @@
                       <Component id="lblLevel" alignment="1" min="-2" max="-2" attributes="0"/>
                       <Component id="lblDepartment" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="cbbLevel" max="32767" attributes="0"/>
-                              <Component id="cbbDepartment" alignment="1" pref="247" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="ckbMon" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ckbTues" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ckbWed" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="ckbThurs" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="ckbFri" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="ckbSat" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                      </Group>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cbbDepartment" max="32767" attributes="0"/>
+                      <Component id="cbbLevel" max="32767" attributes="0"/>
+                      <Component id="jPanel2" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <EmptySpace pref="94" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -459,21 +464,9 @@
                       <Component id="cbbLevel" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblAvailableTime" min="-2" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="ckbTues" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ckbMon" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ckbWed" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="ckbFri" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="ckbSat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="ckbThurs" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="lblAvailableTime" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel2" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="7" max="32767" attributes="0"/>
               </Group>
@@ -518,38 +511,6 @@
             <Property name="text" type="java.lang.String" value="Available Time:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="ckbTues">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Tues."/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Tuesday&quot;)) {&#xa;        ckbTues.setSelected(true);&#xa;}&#xa;});"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="ckbMon">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Mon."/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Monday&quot;)) {&#xa;        ckbMon.setSelected(true);&#xa;}&#xa;});"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="ckbWed">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Wed."/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Wednesday&quot;)) {&#xa;        ckbWed.setSelected(true);&#xa;}&#xa;});"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="ckbThurs">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Thurs."/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Thursday&quot;)) {&#xa;                ckbThurs.setSelected(true);&#xa;            }&#xa;        });"/>
-          </AuxValues>
-        </Component>
         <Component class="javax.swing.JComboBox" name="cbbLevel">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -568,25 +529,107 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JCheckBox" name="ckbFri">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Fri."/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Friday&quot;)) {&#xa;                ckbFri.setSelected(true);&#xa;            }&#xa;        });"/>
-          </AuxValues>
-        </Component>
-        <Component class="javax.swing.JCheckBox" name="ckbSat">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Sat."/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckbSatActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Saturday&quot;)) {&#xa;                ckbSat.setSelected(true);&#xa;            }&#xa;        });"/>
-          </AuxValues>
-        </Component>
+        <Container class="javax.swing.JPanel" name="jPanel2">
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="ckbMon" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="ckbTues" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="ckbThurs" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ckbFri" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="ckbSat" min="-2" max="-2" attributes="0"/>
+                          <Component id="ckbWed" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="ckbTues" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ckbMon" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ckbWed" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="ckbFri" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ckbSat" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ckbThurs" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JCheckBox" name="ckbFri">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fri."/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Friday&quot;)) {&#xa;                ckbFri.setSelected(true);&#xa;            }&#xa;        });"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ckbMon">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Mon."/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Monday&quot;)) {&#xa;        ckbMon.setSelected(true);&#xa;}&#xa;});"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ckbWed">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Wed."/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Wednesday&quot;)) {&#xa;        ckbWed.setSelected(true);&#xa;}&#xa;});"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ckbSat">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sat."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ckbSatActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Saturday&quot;)) {&#xa;                ckbSat.setSelected(true);&#xa;            }&#xa;        });"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ckbThurs">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Thurs."/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;            if(time.equals(&quot;Thursday&quot;)) {&#xa;                ckbThurs.setSelected(true);&#xa;            }&#xa;        });"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="ckbTues">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tues."/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="selectedDoctor.getAvailableTime().forEach( time -&gt; {&#xa;    if(time.equals(&quot;Tuesday&quot;)) {&#xa;        ckbTues.setSelected(true);&#xa;}&#xa;});"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="btnClear">

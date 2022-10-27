@@ -137,7 +137,7 @@
     <Component class="javax.swing.JButton" name="btnMakeAppointment1">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/assets/add.png"/>
+          <Image iconType="3" name="/assets/write.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Make Appointment"/>
       </Properties>
@@ -148,7 +148,7 @@
     <Component class="javax.swing.JButton" name="btnAppointmentHistory">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/assets/ActualSizeHS.png"/>
+          <Image iconType="3" name="/assets/appointment2.png"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Appointment History"/>
       </Properties>

@@ -180,7 +180,7 @@ public class ManageEncounterPane extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
         Encounter encounter = (Encounter) model.getValueAt(selectedRowIndex, 0);
 
-        EditEncounterDetailFrame encounterDetailFrame = new EditEncounterDetailFrame(encounter);
+        ViewEncounterDetailFrame encounterDetailFrame = new ViewEncounterDetailFrame(encounter);
         encounterDetailFrame.setLocationRelativeTo(null);
         encounterDetailFrame.setVisible(true);
 

@@ -214,57 +214,57 @@ public class AddCommunityFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addGap(50, 50, 50)
                 .addComponent(BasicInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
                 .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(49, 49, 49))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String cName = txtName.getText();
         String city = txtCity.getText();
         String address = txtAddress.getText();
         String zipCode = txtZipCode.getText();
         String inhabitants = jtxtInhabitants.getText();
-        
+
         if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode) || StringUtils.isBlank(inhabitants)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
-            
+
         }
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         Community community = new Community();
-        
+
         community.setcName(cName);
         community.setCity(city);
         community.setAddress(address);
         community.setZipcode(zipCode);
         community.setInhabitants(inhabitants);
-        
+
         if (!CommunityDao.insertNewCommunity(community)) {
             JOptionPane.showMessageDialog(this, "Duplicate Community!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Successfully!");
-        
+
         clearAllBlanket();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -328,13 +328,13 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void clearAllBlanket() {
-        
+
         txtName.setText("");
         txtCity.setText("");
         txtAddress.setText("");
         txtZipCode.setText("");
         jtxtInhabitants.setText("");
-        
+
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");
