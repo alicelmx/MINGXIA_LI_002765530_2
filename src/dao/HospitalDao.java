@@ -4,13 +4,12 @@
  */
 package dao;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 import model.Hospital;
 import org.apache.commons.lang3.ObjectUtils;
+import tool.GsonUtils;
 import tool.HospitalSerialGenerator;
 import tool.JsonFileUitls;
 
@@ -20,51 +19,52 @@ import tool.JsonFileUitls;
  */
 public class HospitalDao {
 
+    public static final String HOSPITAL_INFO_JSON = "../database/HospitalInfo.json";
+    public static File file = new File(HospitalDao.class.getResource(HOSPITAL_INFO_JSON).getFile());
+
     static HospitalSerialGenerator serialGenerator = HospitalSerialGenerator.getInstance();
-
-    public static String hopitalInfoJson = "../database/HospitalInfo.json";
-    public static File file = new File(HospitalDao.class.getResource(hopitalInfoJson).getFile());
-
-    public static List<Hospital> queryHospitalByZipcode(String zipcode) {
-
-        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
-
-        return hospitalModelList.stream().filter(s -> s.getZipCode().equalsIgnoreCase(zipcode)).collect(Collectors.toList());
-    }
-
-    public static Hospital queryHospitalByHID(String hid) {
-
-        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
-        List<Hospital> resList = hospitalModelList.stream().filter(s -> s.getHid().equalsIgnoreCase(hid)).collect(Collectors.toList());
-
-        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
-    }
-
-    public static List<Hospital> queryHospitalList() {
-
-        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
-
-        return hospitalModelList;
-    }
 
     public static boolean insertNewHospital(Hospital hospital) {
         hospital.setHid(serialGenerator.next());
 
         List<Hospital> hospitalList = queryHospitalList();
-
         if (hospitalList.contains(hospital)) {
             return false;
         }
         hospitalList.add(hospital);
 
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(hospitalList);
+        String json = GsonUtils.listToJson(hospitalList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
 
         return true;
     }
 
-    public static List<Hospital> findHospitalByCommunity(String community) {
+    public static boolean deleteHospital(Hospital selectedHospital) {
+        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
+
+        if (!hospitalModelList.contains(selectedHospital)) {
+            return false;
+        }
+
+        hospitalModelList.remove(selectedHospital);
+
+        String json = GsonUtils.listToJson(hospitalModelList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
+    }
+
+    public static void updateHospital(Hospital newHospital, Hospital oldHospital) {
+        List<Hospital> hospitalList = queryHospitalList();
+        hospitalList.remove(oldHospital);
+        hospitalList.add(newHospital);
+
+        String json = GsonUtils.listToJson(hospitalList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+    }
+
+    public static List<Hospital> queryHospitalByCommunity(String community) {
         List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
         List<Hospital> resList = hospitalModelList.stream().filter(s -> s.getCommunity().equalsIgnoreCase(community)).collect(Collectors.toList());
 
@@ -78,37 +78,29 @@ public class HospitalDao {
         return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
     }
 
-    public static void updateHospital(Hospital newHospital, Hospital oldHospital) {
-
-        List<Hospital> hospitalList = queryHospitalList();
-        hospitalList.remove(oldHospital);
-        hospitalList.add(newHospital);
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(hospitalList);
-        JsonFileUitls.writeModeltoJsonfile(json, file);
-
-    }
-
-    public static boolean deleteHospital(Hospital selectedHospital) {
-        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
-
-        if (!hospitalModelList.contains(selectedHospital)) {
-            return false;
-        }
-
-        hospitalModelList.remove(selectedHospital);
-
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(hospitalModelList);
-        JsonFileUitls.writeModeltoJsonfile(json, file);
-
-        return true;
-    }
-
     public static List<Hospital> queryHospitalListByCommunity(String curCommunityName) {
         List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
         List<Hospital> resList = hospitalModelList.stream().filter(s -> s.getCommunity().equalsIgnoreCase(curCommunityName)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(resList) ? null : resList;
+    }
+
+    public static List<Hospital> queryHospitalByZipcode(String zipcode) {
+        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
+
+        return hospitalModelList.stream().filter(s -> s.getZipCode().equalsIgnoreCase(zipcode)).collect(Collectors.toList());
+    }
+
+    public static Hospital queryHospitalByHID(String hid) {
+        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
+        List<Hospital> resList = hospitalModelList.stream().filter(s -> s.getHid().equalsIgnoreCase(hid)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
+    }
+
+    public static List<Hospital> queryHospitalList() {
+        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
+
+        return hospitalModelList;
     }
 }

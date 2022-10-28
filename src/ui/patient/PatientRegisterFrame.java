@@ -1,15 +1,10 @@
 package ui.patient;
 
 import dao.CommunityDao;
-import static dao.HospitalDao.file;
 import dao.LoginDao;
 import dao.PatientDao;
 import enumvalue.GenderEnum;
-import java.awt.Image;
-import java.io.File;
 import java.util.List;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.Community;
 import model.Login;
@@ -75,7 +70,6 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         txtUserName = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
         txtConfirmPassword = new javax.swing.JPasswordField();
-        lblIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Register");
@@ -322,45 +316,24 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
-        lblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-        lblIcon.setPreferredSize(new java.awt.Dimension(120, 120));
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/assets/default_doctor_icon.png"));
-        Image img = imageIcon.getImage().getScaledInstance(120, 120, Image.SCALE_AREA_AVERAGING);
-        imageIcon.setImage(img);
-        lblIcon.setText(null);
-        lblIcon.setIcon(imageIcon);
-        lblIcon.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblIconMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout InputPaneLayout = new javax.swing.GroupLayout(InputPane);
         InputPane.setLayout(InputPaneLayout);
         InputPaneLayout.setHorizontalGroup(
             InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InputPaneLayout.createSequentialGroup()
-                .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(InputPaneLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BasicInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ContactInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(AddressDetialsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(InputPaneLayout.createSequentialGroup()
-                        .addGap(394, 394, 394)
-                        .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BasicInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ContactInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(AddressDetialsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         InputPaneLayout.setVerticalGroup(
             InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InputPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
                 .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(InputPaneLayout.createSequentialGroup()
@@ -401,7 +374,7 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -527,44 +500,6 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbCommunityActionPerformed
 
-    private void lblIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblIconMouseClicked
-
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
-
-            @Override
-            public String getDescription() {
-                return "img file（.jpg;.png）";
-            }
-
-            @Override
-            public boolean accept(File file) {
-                if (file.isDirectory()) {
-                    return true;
-                }
-                String fileName = file.getName().toLowerCase();
-                if (fileName.endsWith(".jpg") || fileName.endsWith(".png")) {
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        int i = fileChooser.showOpenDialog(getParent());
-        if (i == fileChooser.APPROVE_OPTION) {
-            file = fileChooser.getSelectedFile();
-            if (file != null) {
-                ImageIcon imageIcon = new ImageIcon(file.getAbsolutePath());
-                Image img = imageIcon.getImage();
-                img = img.getScaledInstance(120, 120, Image.SCALE_AREA_AVERAGING);
-                imageIcon.setImage(img);
-
-                lblIcon.setText(null);
-                lblIcon.setIcon(imageIcon);
-            }
-        }
-    }//GEN-LAST:event_lblIconMouseClicked
-
     /**
      * @param args the command line arguments
      */
@@ -594,7 +529,6 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblHouse;
-    private javax.swing.JLabel lblIcon;
     private javax.swing.JLabel lblLastName;
     private javax.swing.JLabel lblMaritialStatus;
     private javax.swing.JLabel lblPassword;

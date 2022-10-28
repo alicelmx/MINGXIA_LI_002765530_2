@@ -4,14 +4,13 @@
  */
 package dao;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 import model.Appointment;
 import org.apache.commons.lang3.ObjectUtils;
 import tool.AppointmentSerialGenerator;
+import tool.GsonUtils;
 import tool.JsonFileUitls;
 
 /**
@@ -20,31 +19,14 @@ import tool.JsonFileUitls;
  */
 public class AppointmentDao {
 
-    public static String doctorInfoJson = "../database/AppointmentList.json";
+    public static final String DOCTOR_INFO_JSON = "../database/AppointmentList.json";
+    public static File file = new File(AppointmentDao.class.getResource(DOCTOR_INFO_JSON).getFile());
 
     static AppointmentSerialGenerator serialGenerator = AppointmentSerialGenerator.getInstance();
-
-    public static List<Appointment> queryAppointmentByDId(String dId) {
-
-        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
-        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
-        if (ObjectUtils.isEmpty(appointmentList)) {
-            return null;
-        }
-        return appointmentList.stream().filter(s -> s.getDid().equalsIgnoreCase(dId) && s.getStatus() != 1).collect(Collectors.toList());
-    }
-
-    public static List<Appointment> queryAllAppointment() {
-        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
-        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
-
-        return appointmentList;
-    }
 
     public static boolean insertNewAppointment(Appointment appointment) {
         appointment.setAid(serialGenerator.next());
 
-        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
         List<Appointment> appointmentList = queryAllAppointment();
         // duplicate
         if (appointmentList.contains(appointment)) {
@@ -53,28 +35,30 @@ public class AppointmentDao {
 
         appointmentList.add(appointment);
 
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(appointmentList);
+        String json = GsonUtils.listToJson(appointmentList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
 
         return true;
 
     }
 
-    public static List<Appointment> queryAppointmentByPid(String userId) {
-        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
-        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
-        if (ObjectUtils.isEmpty(appointmentList)) {
-            return null;
-        }
-        List<Appointment> resList = appointmentList.stream().filter(s -> s.getpName().equalsIgnoreCase(userId)).collect(Collectors.toList());
+    public static boolean deleteAppointment(Appointment appointmentModel) {
+        List<Appointment> appointmentModels = queryAllAppointment();
 
-        return resList;
+        if (!appointmentModels.contains(appointmentModel)) {
+            return false;
+        }
+        // delete first
+        appointmentModels.remove(appointmentModel);
+
+        String json = GsonUtils.listToJson(appointmentModels);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 
     public static boolean updateAppointmentStatus(Appointment appointmentModel) {
 
-        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
         List<Appointment> appointmentModels = queryAllAppointment();
 
         if (!appointmentModels.contains(appointmentModel)) {
@@ -86,27 +70,33 @@ public class AppointmentDao {
         appointmentModel.setStatus(1);
         appointmentModels.add(appointmentModel);
 
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(appointmentModels);
+        String json = GsonUtils.listToJson(appointmentModels);
         JsonFileUitls.writeModeltoJsonfile(json, file);
 
         return true;
     }
 
-    public static boolean deleteAppointment(Appointment appointmentModel) {
-        File file = new File(AppointmentDao.class.getResource(doctorInfoJson).getFile());
-        List<Appointment> appointmentModels = queryAllAppointment();
-
-        if (!appointmentModels.contains(appointmentModel)) {
-            return false;
+    public static List<Appointment> queryAppointmentByDId(String dId) {
+        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
+        if (ObjectUtils.isEmpty(appointmentList)) {
+            return null;
         }
-        // delete first
-        appointmentModels.remove(appointmentModel);
+        return appointmentList.stream().filter(s -> s.getDid().equalsIgnoreCase(dId) && s.getStatus() != 1).collect(Collectors.toList());
+    }
 
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(appointmentModels);
-        JsonFileUitls.writeModeltoJsonfile(json, file);
+    public static List<Appointment> queryAllAppointment() {
+        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
 
-        return true;
+        return appointmentList;
+    }
+
+    public static List<Appointment> queryAppointmentByPid(String userId) {
+        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
+        if (ObjectUtils.isEmpty(appointmentList)) {
+            return null;
+        }
+        List<Appointment> resList = appointmentList.stream().filter(s -> s.getpName().equalsIgnoreCase(userId)).collect(Collectors.toList());
+
+        return resList;
     }
 }

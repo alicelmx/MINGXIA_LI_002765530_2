@@ -55,7 +55,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
-        btnRefesh1 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
 
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,9 +97,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbCommunity.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tbCommunity);
-        tbCommunity.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
@@ -125,11 +123,11 @@ public class ManageCommunityPane extends javax.swing.JPanel {
             }
         });
 
-        btnRefesh1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
-        btnRefesh1.setText("Add");
-        btnRefesh1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefesh1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -147,7 +145,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSearch)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRefesh1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -170,7 +168,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefesh1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -201,7 +199,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
         int selectedRowIndex = tbCommunity.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Community to Edit.");
+            JOptionPane.showMessageDialog(this, "Please Select a Community to Edit!");
             return;
         }
 
@@ -215,7 +213,20 @@ public class ManageCommunityPane extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
-        // TODO 
+        int selectedRowIndex = tbCommunity.getSelectedRow();
+
+        if (selectedRowIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Please Select a Community to Delete!");
+            return;
+        }
+
+        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
+        Community selectedCommunity = (Community) model.getValueAt(selectedRowIndex, 0);
+
+        if (!CommunityDao.deleteCommunity(selectedCommunity)) {
+            JOptionPane.showMessageDialog(this, "Failed to Delete!");
+            return;
+        }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
@@ -224,9 +235,12 @@ public class ManageCommunityPane extends javax.swing.JPanel {
         populateTable(communityList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
-    private void btnRefesh1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefesh1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnRefesh1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+
+        AddCommunityFrame addCommunityFrame = new AddCommunityFrame();
+        addCommunityFrame.setLocationRelativeTo(null);
+        addCommunityFrame.setVisible(true);
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void populateTable(List<Community> communityList) {
 
@@ -250,10 +264,10 @@ public class ManageCommunityPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
-    private javax.swing.JButton btnRefesh1;
     private javax.swing.JButton btnSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbCommunity;

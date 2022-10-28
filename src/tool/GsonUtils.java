@@ -11,7 +11,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
-import model.Encounter;
 
 /**
  *
@@ -62,38 +61,10 @@ public class GsonUtils {
 
         return result;
     }
-    
-    public static <T> String toJsonWithSerializeNulls(T entity) {
-        entity.getClass();
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String result = "";
-        try {
-            result = gson.toJson(entity);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (gson != null) {
-                gson = null;
-            }
-        }
-        return result;
+
+    public static <T> String listToJson(List<T> entityList) {
+        String jsonStr = GsonUtils.listToJson(entityList);
+
+        return jsonStr;
     }
-
-//    public static String listToJson(<T> entityList) {
-//        
-//        String result = "";
-//        Gson gson = new GsonBuilder().serializeNulls().create();
-//        try {
-//            result = gson.toJson(entityList);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (gson != null) {
-//                gson = null;
-//            }
-//        }
-//        
-//        return result;
-//    }
-
 }

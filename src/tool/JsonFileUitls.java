@@ -22,7 +22,9 @@ public class JsonFileUitls {
 
         try {
             String json = FileUtils.readFileToString(file, "utf-8");
-            if(StringUtils.isBlank(json)) return result;
+            if (StringUtils.isBlank(json)) {
+                return result;
+            }
             result = GsonUtils.parseJsonArrayWithGson(json, type);
         } catch (IOException e) {
             e.printStackTrace();

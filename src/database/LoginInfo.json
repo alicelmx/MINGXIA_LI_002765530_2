@@ -4,11 +4,6 @@
         "userName": "sysadmin",
         "password": "sysadmin123",
         "roleType": "0"
-    },
-    {
-        "userName": "communityadmin",
-        "password": "communityadmin123",
-        "roleType": "1"
     }
 ]
 

@@ -4,14 +4,13 @@
  */
 package dao;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 import model.Doctor;
 import org.apache.commons.lang3.ObjectUtils;
 import tool.DoctorSerialGenerator;
+import tool.GsonUtils;
 import tool.JsonFileUitls;
 
 /**
@@ -20,19 +19,46 @@ import tool.JsonFileUitls;
  */
 public class DoctorDao {
 
-    public static String doctorInfoJson = "../database/DoctorInfo.json";
+    public static final String DOCTOR_INFO_JSON = "../database/DoctorInfo.json";
+    public static File file = new File(DoctorDao.class.getResource(DOCTOR_INFO_JSON).getFile());
 
     static DoctorSerialGenerator serialGenerator = DoctorSerialGenerator.getInstance();
 
-    /**
-     * search userId by username
-     *
-     * @param did
-     * @return
-     */
-    public Doctor findDoctorByDid(String did) {
+    public static boolean insertNewDoctor(Doctor doctor) {
+        doctor.setDid(serialGenerator.next());
 
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
+        List<Doctor> doctorList = queryAllDoctor();
+
+        if (doctorList.contains(doctor)) {
+            return false;
+        }
+
+        doctorList.add(doctor);
+
+        String json = GsonUtils.listToJson(doctorList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
+    }
+
+    public static boolean deleteDoctor(Doctor selectedDoctor) {
+
+        List<Doctor> doctorList = queryAllDoctor();
+
+        if (!doctorList.contains(selectedDoctor)) {
+            return false;
+        }
+
+        doctorList.remove(selectedDoctor);
+
+        String json = GsonUtils.listToJson(doctorList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
+    }
+
+    public Doctor queryDoctorByDid(String did) {
+
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
         List<Doctor> resList = doctorModelList.stream().filter(s -> s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
         if (ObjectUtils.isEmpty(doctorModelList)) {
@@ -42,34 +68,20 @@ public class DoctorDao {
     }
 
     public static List<Doctor> queryAllDoctor() {
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
 
         return doctorModelList;
     }
 
-    public static boolean insertNewDoctor(Doctor doctor) {
-        doctor.setDid(serialGenerator.next());
+    public static List<Doctor> queryAllDoctorOfHospital(String hId) {
+        List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
+        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getHid().equalsIgnoreCase(hId)).collect(Collectors.toList());
 
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
-        List<Doctor> doctorList = queryAllDoctor();
-
-        if (doctorList.contains(doctor)) {
-            return false;
-        }
-
-        doctorList.add(doctor);
-
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(doctorList);
-        JsonFileUitls.writeModeltoJsonfile(json, file);
-
-        return true;
+        return ObjectUtils.isEmpty(doctorModelList) ? null : resList;
     }
 
     public static Doctor queryDoctorByUserName(String userName) {
 
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
         List<Doctor> resList = doctorModelList.stream().filter(s -> s.getUsername().equalsIgnoreCase(userName)).collect(Collectors.toList());
 
@@ -77,39 +89,5 @@ public class DoctorDao {
             return null;
         }
         return resList.get(0);
-    }
-
-    public static Doctor findDoctorByDId(String dId) {
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
-        List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
-        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getDid().equalsIgnoreCase(dId)).collect(Collectors.toList());
-
-        return ObjectUtils.isEmpty(doctorModelList) ? null : resList.get(0);
-    }
-
-    public static List<Doctor> queryAllDoctorOfHospital(String hId) {
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
-        List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
-        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getHid().equalsIgnoreCase(hId)).collect(Collectors.toList());
-
-        return ObjectUtils.isEmpty(doctorModelList) ? null : resList;
-    }
-
-    public static boolean deleteDoctor(Doctor selectedDoctor) {
-
-        File file = new File(DoctorDao.class.getResource(doctorInfoJson).getFile());
-        List<Doctor> doctorList = queryAllDoctor();
-
-        if (!doctorList.contains(selectedDoctor)) {
-            return false;
-        }
-
-        doctorList.remove(selectedDoctor);
-
-        Gson gson = new GsonBuilder().serializeNulls().create();
-        String json = gson.toJson(doctorList);
-        JsonFileUitls.writeModeltoJsonfile(json, file);
-
-        return true;
     }
 }

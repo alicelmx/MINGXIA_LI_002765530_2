@@ -32,7 +32,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
     DiagnoseFrame(Appointment selectedAppointment) {
         this.selectedAppointment = selectedAppointment;
-        doctor = DoctorDao.findDoctorByDId(this.selectedAppointment.getDid());
+        doctor = DoctorDao.queryDoctorByDId(this.selectedAppointment.getDid());
 
         initComponents();
     }

@@ -76,8 +76,8 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/modify.png"))); // NOI18N
-        btnSubmitAppointment.setText("Edit");
+        btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
+        btnSubmitAppointment.setText("Save");
         btnSubmitAppointment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitAppointmentActionPerformed(evt);

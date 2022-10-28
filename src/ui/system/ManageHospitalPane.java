@@ -6,7 +6,9 @@ package ui.system;
 
 import dao.HospitalDao;
 import dao.LoginDao;
+import java.awt.Graphics;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Community;
@@ -42,6 +44,13 @@ public class ManageHospitalPane extends javax.swing.JPanel {
 
         initComponents();
         populateTable(hospitals);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon(this.getClass().getResource("/assets/grey_line_bg.jpg"));
+        img.paintIcon(this, g, 0, 0);
     }
 
     /**

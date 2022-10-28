@@ -246,7 +246,7 @@ public class SearchDoctorPane extends javax.swing.JPanel {
 
     private void queryAllDoctor() {
         // TODO 这块是不是写错了
-        //        List<Hospital> hospitalList = HospitalDao.findHospitalByCommunity(patient.getCommunity());
+        //        List<Hospital> hospitalList = HospitalDao.queryHospitalByCommunity(patient.getCommunity());
         //        if (ObjectUtils.isEmpty(hospitalList)) {
         //            return;
         //        }
