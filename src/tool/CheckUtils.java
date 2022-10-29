@@ -14,19 +14,16 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CheckUtils {
 
-    public static final String REG_NUMBER = ".*\\d+.*";
-    public static final String REG_UPPERCASE = ".*[A-Z]+.*";
-    public static final String REG_LOWERCASE = ".*[a-z]+.*";
-    public static final String REG_SYMBOL = ".*[~!@#$%^&*()_+|<>,.?/:;'\\[\\]{}\"]+.*";
-
     public static boolean checkPhoneNo(String phoneNo) {
         if (StringUtils.isBlank(phoneNo)) {
             return false;
         }
 
-        Pattern pattern = Pattern.compile("[0-9]*");
+        String check = "^\\d{10}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(phoneNo);
 
-        return pattern.matcher(phoneNo).matches();
+        return matcher.matches();
     }
 
     public static boolean checkEmail(String email) {
@@ -68,40 +65,21 @@ public class CheckUtils {
             return false;
         }
 
-        if (username.length() > 10) {
-            return false;
-        }
-
-        Pattern pattern = Pattern.compile("[a-z0-9A-Z]*");
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{6,12}$*");
 
         return pattern.matcher(username).matches();
     }
 
-    public static String checkPassword(String password) {
-
-        if (StringUtils.isBlank(password) || password.length() < 6 || password.length() > 10) {
-            return "Password: Longer Than 6, Shorter Than 10 charater!";
+    // 至少8个字符，至少1个大写字母，1个小写字母和1个数字,不能包含特殊字符（非数字字母）
+    public static boolean checkPassword(String password) {
+        if (StringUtils.isBlank(password)) {
+            return false;
         }
 
-        int i = 0;
-        if (password.matches(REG_NUMBER)) {
-            i++;
-        }
-        if (password.matches(REG_LOWERCASE)) {
-            i++;
-        }
-        if (password.matches(REG_UPPERCASE)) {
-            i++;
-        }
-        if (password.matches(REG_SYMBOL)) {
-            i++;
-        }
+        String check = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(password);
 
-        if (i < 3) {
-            return "Password: Must Contain Capital Letter, Number and Symbol!";
-        }
-
-        return "";
+        return matcher.matches();
     }
-
 }

@@ -20,7 +20,7 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class AddHospitalFrame extends javax.swing.JFrame {
-    
+
     public List<Community> communityList;
 
     /**
@@ -309,17 +309,25 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
         String cpassword = txtConfirmPassword.getText();
         if (StringUtils.isBlank(userName) || StringUtils.isBlank(password) || StringUtils.isBlank(cpassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Username or Password!");
+            return;
+        }
+        if (!CheckUtils.checkUsername(userName)) {
+            JOptionPane.showMessageDialog(this, "Rule of Username: 6-12 Characters, Contail Only Digit and Letter!");
+            return;
+        }
+        if (!CheckUtils.checkPassword(password)) {
+            JOptionPane.showMessageDialog(this, "Please Longer Than 8 character, Only Contain Digit and Letter, At Least one Capital Letter!");
             return;
         }
         if (!password.equals(cpassword)) {
@@ -331,7 +339,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
-        
+
         String hName = txtName.getText();
         String phone = txtPhone.getText();
         String intro = txaIntro.getText(); // optional
@@ -344,21 +352,21 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Phone No!");
             return;
         }
-        
+
         String city = txtCity.getText();
         String community = (String) cbbCommunity.getSelectedItem();
         String zipCode = txtZipCode.getText();
-        
+
         if (StringUtils.isBlank(city) || StringUtils.isBlank(community) || StringUtils.isBlank(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
         }
-        
+
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         Hospital hospital = new Hospital();
         hospital.sethName(hName);
         hospital.setPhone(phone);
@@ -367,33 +375,33 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         hospital.setZipCode(zipCode);
         hospital.setCommunity(community);
         hospital.setHospitalAdminUserName(userName);
-        
+
         if (!HospitalDao.insertNewHospital(hospital)) {
             JOptionPane.showMessageDialog(this, "Duplicate Hospital!");
             return;
         }
-        
+
         Login newHospitalAdmin = new Login();
         newHospitalAdmin.setUserName(userName);
         newHospitalAdmin.setPassword(password);
         newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());
-        
+
         if (!LoginDao.insertNewUser(newHospitalAdmin)) {
             JOptionPane.showMessageDialog(this, "Fail to Save!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Successfully!");
-        
+
         clearAllBlanket();
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
-    
+
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-    
+
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbCommunityActionPerformed
@@ -432,7 +440,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void clearAllBlanket() {
         txtName.setText("");
         txtPhone.setText("");
@@ -443,7 +451,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

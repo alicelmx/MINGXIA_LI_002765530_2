@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import tool.CheckUtils;
 
 /**
  *
@@ -52,6 +53,7 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
         txtConfirmPassword = new javax.swing.JPasswordField();
         lblPassword = new javax.swing.JLabel();
         lblConfirmPassword = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -79,10 +81,10 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
         });
 
         cbbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "System Admin", "Community Admin", "Hospital Admin", "Doctor", "Patient" }));
+        cbbRole.setEnabled(false);
         cbbRole.setSelectedIndex(selectedRoleID);
 
         lblRole.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblRole.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/kontact_contacts.png"))); // NOI18N
         lblRole.setText("Role:");
 
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
@@ -92,7 +94,6 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblUsername.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/userName.png"))); // NOI18N
         lblUsername.setText("Username:");
 
         txtConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -165,28 +166,34 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
 
         jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cbbRole, txtConfirmPassword, txtNewPassword, txtOldPassword, txtUsername});
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 20)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Reset Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(101, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(99, 99, 99))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(100, 100, 100)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(238, 238, 238)
-                        .addComponent(btnSave3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGap(228, 228, 228)
+                .addComponent(btnSave3, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(62, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSave3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -217,6 +224,10 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
 
         if (StringUtils.isBlank(newPassword) || StringUtils.isBlank(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Please Fill in all the Blanks!");
+            return;
+        }
+        if (CheckUtils.checkPassword(newPassword)) {
+            JOptionPane.showMessageDialog(this, "Please Longer Than 8 character, Only Contain Digit and Letter, At Least one Capital Letter!");
             return;
         }
         if (newPassword.equals(oldPassword)) {
@@ -300,6 +311,7 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSave3;
     private javax.swing.JComboBox<String> cbbRole;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblPassword;

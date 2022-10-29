@@ -329,7 +329,7 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
                 .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(BasicInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(ContactInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
+                .addGap(20, 20, 20)
                 .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(AddressDetialsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -356,15 +356,15 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(30, 30, 30)
                 .addComponent(InputPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(370, 370, 370)
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(385, 385, 385))
+                .addContainerGap(378, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear, btnSave});
@@ -393,7 +393,7 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
             return;
         }
         if (!CheckUtils.checkUsername(userName)) {
-            JOptionPane.showMessageDialog(this, "Rule of Username: Length < 10, Contail Only Digit and Letter!");
+            JOptionPane.showMessageDialog(this, "Rule of Username: 6-12 Characters, Contail Only Digit and Letter!");
             return;
         }
         // userName must be unique
@@ -405,6 +405,10 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         String confirmPassword = new String(txtConfirmPassword.getPassword());
         if (StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Password!");
+            return;
+        }
+        if (!CheckUtils.checkPassword(password)) {
+            JOptionPane.showMessageDialog(this, "Please Longer Than 8 character, Only Contain Digit and Letter, At Least one Capital Letter!");
             return;
         }
         if (!password.equals(confirmPassword)) {

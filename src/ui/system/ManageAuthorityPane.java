@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import model.Login;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import tool.CheckUtils;
 
 /**
  *
@@ -200,6 +201,14 @@ public class ManageAuthorityPane extends javax.swing.JPanel {
         Login existedLoginModel = LoginDao.queryByUNameAndRoleId(userName, roleIdx);
         if (ObjectUtils.isEmpty(existedLoginModel)) {
             JOptionPane.showMessageDialog(this, "Non-existent Username, Cannot Modify Password!");
+            return;
+        }
+        if (!CheckUtils.checkPassword(password)) {
+            JOptionPane.showMessageDialog(this, "Please Longer Than 8 character, Only Contain Digit and Letter, At Least one Capital Letter!");
+            return;
+        }
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Inconsistant Passoword!");
             return;
         }
         if (existedLoginModel.getPassword().equals(password)) {

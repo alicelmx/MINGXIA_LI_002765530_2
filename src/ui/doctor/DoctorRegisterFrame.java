@@ -476,7 +476,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             return;
         }
         if (!CheckUtils.checkUsername(userName)) {
-            JOptionPane.showMessageDialog(this, "Rule of Username: Length < 10, Contail Only Digit and Letter!");
+            JOptionPane.showMessageDialog(this, "Rule of Username: 6-12 Characters, Contail Only Digit and Letter!");
             return;
         }
         // userName must be unique
@@ -484,10 +484,15 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
+
         String password = new String(txtPassword.getPassword());
         String confirmPassword = new String(txtConfirmPassword.getPassword());
         if (StringUtils.isBlank(password) || StringUtils.isBlank(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Please Input Password!");
+            return;
+        }
+        if (!CheckUtils.checkPassword(password)) {
+            JOptionPane.showMessageDialog(this, "Please Longer Than 8 character, Only Contain Digit and Letter, At Least one Capital Letter!");
             return;
         }
         if (!password.equals(confirmPassword)) {
