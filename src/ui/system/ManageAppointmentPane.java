@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Appointment;
+import model.Hospital;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,13 +25,23 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ManageAppointmentPane extends javax.swing.JPanel {
 
+    public Hospital curHospital;
     public List<Appointment> appointmentModelList;
 
     /**
      * Creates new form AuthManagementPane
      */
     public ManageAppointmentPane() {
-        appointmentModelList = AppointmentDao.queryAllAppointment();
+        queryAppointmentList();
+
+        initComponents();
+
+        populateTable(appointmentModelList);
+    }
+
+    public ManageAppointmentPane(Hospital currentHospital) {
+        curHospital = currentHospital;
+        queryAppointmentList();
 
         initComponents();
 
@@ -196,7 +207,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        appointmentModelList = AppointmentDao.queryAllAppointment();
+        queryAppointmentList();
         populateTable(appointmentModelList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
@@ -228,8 +239,19 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO        
+        AddAppointmentFrame addAppointmentFrame = new AddAppointmentFrame(curHospital);
+        addAppointmentFrame.setLocationRelativeTo(null);
+        addAppointmentFrame.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void queryAppointmentList() {
+        if (ObjectUtils.isEmpty(curHospital)) {
+            appointmentModelList = AppointmentDao.queryAllAppointment();
+        } else {
+            appointmentModelList = AppointmentDao.queryAppointmentByHid(curHospital.getHid());
+        }
+
+    }
 
     private void populateTable(List<Appointment> appointmentList) {
 

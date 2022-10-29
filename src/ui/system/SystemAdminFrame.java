@@ -48,7 +48,6 @@ public class SystemAdminFrame extends javax.swing.JFrame {
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("System Admin");
         setResizable(false);
 
         funcitonPane.setBackground(new java.awt.Color(0, 153, 153));

@@ -117,4 +117,16 @@ public class AppointmentDao {
 
         return resList;
     }
+
+    public static List<Appointment> queryAppointmentByHid(String hid) {
+        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
+        if (ObjectUtils.isEmpty(appointmentList)) {
+            return null;
+        }
+        List<Appointment> resList = appointmentList.stream().filter(s
+                -> s.getHid().equalsIgnoreCase(hid)
+        ).collect(Collectors.toList());
+
+        return resList;
+    }
 }

@@ -9,6 +9,7 @@ import java.awt.Color;
 import model.Hospital;
 import tool.DateUtils;
 import ui.HomePageFrame;
+import ui.system.ManageAppointmentPane;
 
 /**
  *
@@ -51,6 +52,7 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
         btnEncounter = new javax.swing.JButton();
         lblLogout = new javax.swing.JLabel();
         lblGreeting = new javax.swing.JLabel();
+        btnAppointment = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -111,26 +113,36 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
         String greeting = "Good " + DateUtils.checkNowTime();
         lblGreeting.setText(greeting);
 
+        btnAppointment.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/appointment.png"))); // NOI18N
+        btnAppointment.setText("Appointment");
+        btnAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointmentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout funcitonPaneLayout = new javax.swing.GroupLayout(funcitonPane);
         funcitonPane.setLayout(funcitonPaneLayout);
         funcitonPaneLayout.setHorizontalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnEncounter)
-                    .addComponent(btnDoctorManagement)
-                    .addComponent(btnManageDoctor)
-                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(funcitonPaneLayout.createSequentialGroup()
                 .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(funcitonPaneLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnManageDoctor)
+                    .addComponent(btnDoctorManagement)
+                    .addComponent(btnAppointment)
+                    .addComponent(btnEncounter)
+                    .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAuthManagement, btnDoctorManagement, btnEncounter, btnManageDoctor});
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAppointment, btnAuthManagement, btnDoctorManagement, btnEncounter, btnManageDoctor});
 
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,10 +153,12 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnDoctorManagement)
                 .addGap(18, 18, 18)
+                .addComponent(btnAppointment)
+                .addGap(18, 18, 18)
                 .addComponent(btnEncounter)
                 .addGap(18, 18, 18)
                 .addComponent(btnAuthManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
                 .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -156,7 +170,7 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,6 +226,12 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
+
+        ManageAppointmentPane manageAppointmentPane = new ManageAppointmentPane(currentHospital);
+        splitPane.setRightComponent(manageAppointmentPane);
+    }//GEN-LAST:event_btnAppointmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,6 +334,7 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAppointment;
     private javax.swing.JButton btnAuthManagement;
     private javax.swing.JButton btnDoctorManagement;
     private javax.swing.JButton btnEncounter;

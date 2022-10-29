@@ -31,7 +31,7 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         initComponents();
     }
 
-    MakeAppointmentFrame(Doctor selectedDoctor, Patient patient) {
+    public MakeAppointmentFrame(Doctor selectedDoctor, Patient patient) {
         this.doctor = selectedDoctor;
         this.curPatient = patient;
         availableDate = DateUtils.getDateViaWeek(this.doctor.getAvailableTime());

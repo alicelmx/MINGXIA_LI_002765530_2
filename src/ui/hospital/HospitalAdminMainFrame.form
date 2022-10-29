@@ -53,19 +53,20 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="btnEncounter" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnDoctorManagement" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnManageDoctor" linkSize="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAuthManagement" linkSize="1" min="-2" pref="86" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblLogout" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
                           <Component id="lblGreeting" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="btnManageDoctor" linkSize="1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnDoctorManagement" linkSize="1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAppointment" linkSize="1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnEncounter" linkSize="1" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAuthManagement" linkSize="1" alignment="2" min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
@@ -80,10 +81,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnDoctorManagement" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnAppointment" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnEncounter" linkSize="2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnAuthManagement" linkSize="2" min="-2" pref="41" max="-2" attributes="0"/>
-                      <EmptySpace pref="208" max="32767" attributes="0"/>
+                      <EmptySpace pref="148" max="32767" attributes="0"/>
                       <Component id="lblLogout" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -181,6 +184,20 @@
                 </Property>
               </Properties>
             </Component>
+            <Component class="javax.swing.JButton" name="btnAppointment">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Helvetica Neue" size="13" style="1"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/assets/appointment.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Appointment"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAppointmentActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="contentPane">
@@ -193,7 +210,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="608" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
