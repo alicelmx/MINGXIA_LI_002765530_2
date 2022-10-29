@@ -32,7 +32,7 @@ public class ManageEncounterPane extends javax.swing.JPanel {
      * Creates new form AuthManagementPane
      */
     public ManageEncounterPane() {
-        encounterList = EncounterDao.queryALlEncounterRecord();
+        encounterList = EncounterDao.queryAllEncounterRecord();
 
         initComponents();
 
@@ -127,8 +127,8 @@ public class ManageEncounterPane extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbEncounterHistory);
 
-        btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/view.png"))); // NOI18N
-        btnView.setText("View");
+        btnView.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/write.png"))); // NOI18N
+        btnView.setText("Edit");
         btnView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnViewActionPerformed(evt);
@@ -208,22 +208,28 @@ public class ManageEncounterPane extends javax.swing.JPanel {
         int selectedRowIndex = tbEncounterHistory.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Encounter to View.");
+            JOptionPane.showMessageDialog(this, "Please Select a Encounter to Edit.");
             return;
         }
 
         DefaultTableModel model = (DefaultTableModel) tbEncounterHistory.getModel();
         Encounter encounter = (Encounter) model.getValueAt(selectedRowIndex, 0);
 
-        ViewEncounterDetailFrame encounterDetailFrame = new ViewEncounterDetailFrame(encounter);
+        EditEncounterDetailFrame encounterDetailFrame = new EditEncounterDetailFrame(encounter);
         encounterDetailFrame.setLocationRelativeTo(null);
         encounterDetailFrame.setVisible(true);
 
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        if (ObjectUtils.isNotEmpty(currHospital)) {
+            encounterList = EncounterDao.queryEncounterByHID(this.currHospital.getHid());
+        } else if (ObjectUtils.isNotEmpty(curDoctor)) {
+            encounterList = EncounterDao.queryEncounterByDid(this.curDoctor.getDid());
+        } else {
+            encounterList = EncounterDao.queryAllEncounterRecord();
+        }
 
-        encounterList = EncounterDao.queryEncounterByDid(this.curDoctor.getDid());
         populateTable(encounterList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 

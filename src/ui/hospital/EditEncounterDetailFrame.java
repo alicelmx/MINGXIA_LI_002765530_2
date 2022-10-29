@@ -4,14 +4,18 @@
  */
 package ui.hospital;
 
+import dao.EncounterDao;
+import javax.swing.JOptionPane;
 import model.Doctor;
 import model.Encounter;
+import model.VitalSign;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author limingxia
  */
-public class ViewEncounterDetailFrame extends javax.swing.JFrame {
+public class EditEncounterDetailFrame extends javax.swing.JFrame {
 
     public Doctor doctor;
     Encounter selectedEncounter;
@@ -19,11 +23,11 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
     /**
      * Creates new form DiagnoseFrame
      */
-    public ViewEncounterDetailFrame() {
+    public EditEncounterDetailFrame() {
         initComponents();
     }
 
-    public ViewEncounterDetailFrame(Encounter selectedEncounter) {
+    public EditEncounterDetailFrame(Encounter selectedEncounter) {
         this.selectedEncounter = selectedEncounter;
 
         initComponents();
@@ -65,6 +69,7 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
         lblVitalSign2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtaRemark = new javax.swing.JTextArea();
+        btnSave = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -155,7 +160,6 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
 
         String bp = String.valueOf((selectedEncounter.getVitalSign().getBloodPressure()));
         txtBloodPressure.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtBloodPressure.setEnabled(false);
         txtBloodPressure.setText(bp);
         txtBloodPressure.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +171,6 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
 
         String tp = String.valueOf((selectedEncounter.getVitalSign().getPulseRate()));
         txtPulseRate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtPulseRate.setEnabled(false);
         txtPulseRate.setText(tp);
         txtPulseRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,7 +182,6 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
 
         String rr = String.valueOf((selectedEncounter.getVitalSign().getRespirationRate()));
         txtRespirationRate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtRespirationRate.setEnabled(false);
         txtRespirationRate.setText(rr);
         txtRespirationRate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,7 +193,6 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
 
         String bt = String.valueOf((selectedEncounter.getVitalSign().getBodyTemperature()));
         txtBodyTemperature.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        txtBodyTemperature.setEnabled(false);
         txtBodyTemperature.setText(bt);
         txtBodyTemperature.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,7 +255,6 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
         lblVitalSign1.setText("Prescription:");
 
         txtPrescription.setText(selectedEncounter.getPrescription());
-        txtPrescription.setEnabled(false);
         txtPrescription.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPrescriptionActionPerformed(evt);
@@ -266,7 +266,6 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
         txtaRemark.setText(selectedEncounter.getRemark());
         txtaRemark.setColumns(20);
         txtaRemark.setRows(5);
-        txtaRemark.setEnabled(false);
         jScrollPane1.setViewportView(txtaRemark);
 
         javax.swing.GroupLayout DiagnoseInfoPaneLayout = new javax.swing.GroupLayout(DiagnoseInfoPane);
@@ -297,6 +296,14 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -312,8 +319,10 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
                             .addComponent(DiagnoseInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(VitalSignPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(344, 344, 344)
-                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(256, 256, 256)
+                        .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -331,7 +340,9 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(DiagnoseInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -370,6 +381,63 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPatientNameActionPerformed
 
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        VitalSign vitalSign = new VitalSign();
+        double bloodPressure = Double.parseDouble(txtBloodPressure.getText());
+        double bodyTemperature = Double.parseDouble(txtBodyTemperature.getText());
+        double pulseRate = Double.parseDouble(txtPulseRate.getText());
+        double respirationRate = Double.parseDouble(txtPulseRate.getText());
+
+        if (bloodPressure <= 0 || bodyTemperature <= 0 || pulseRate <= 0 || respirationRate <= 0) {
+            JOptionPane.showMessageDialog(this, "Please Make Sure Vital Sign > 0!");
+            return;
+        }
+
+        vitalSign.setBloodPressure(bloodPressure);
+        vitalSign.setBodyTemperature(bodyTemperature);
+        vitalSign.setPulseRate(pulseRate);
+        vitalSign.setRespirationRate(respirationRate);
+
+        Encounter e = new Encounter();
+        e.setDatetime(selectedEncounter.getDatetime()); // cannot update datetime
+        e.setDeptment(txtDeptment.getText());
+
+        String prescription = txtPrescription.getText();
+        if (prescription.length() > 50) {
+            JOptionPane.showMessageDialog(this, "Please Make Prescription < 50!");
+            return;
+        }
+        e.setPrescription(prescription);
+
+        String conclusion = txtaRemark.getText();
+        if (StringUtils.isBlank(conclusion)) {
+            JOptionPane.showMessageDialog(this, "Please Input Conclusion!");
+            return;
+        }
+        if (conclusion.length() > 100) {
+            JOptionPane.showMessageDialog(this, "Please Make Conclusion < 100!");
+            return;
+        }
+
+        e.setRemark(conclusion);
+        e.setVitalSign(vitalSign);
+        e.setdName(txtDoctorName.getText());
+        e.sethName(selectedEncounter.gethName());
+        e.setpName(txtPatientName.getText());
+        e.setPid(selectedEncounter.getPid());
+        e.setHid(selectedEncounter.getHid());
+        e.setDid(selectedEncounter.getDid());
+
+        if (!EncounterDao.updateEncounter(e, selectedEncounter)) {
+            JOptionPane.showMessageDialog(this, "Fail to Edit!");
+            return;
+        }
+
+        JOptionPane.showMessageDialog(this, "Save Record Successfully!");
+
+        this.dispose();
+    }//GEN-LAST:event_btnSaveActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -387,14 +455,142 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ViewEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ViewEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ViewEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ViewEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditEncounterDetailFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -527,7 +723,7 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ViewEncounterDetailFrame().setVisible(true);
+                new EditEncounterDetailFrame().setVisible(true);
             }
         });
     }
@@ -537,6 +733,7 @@ public class ViewEncounterDetailFrame extends javax.swing.JFrame {
     private javax.swing.JPanel DiagnoseInfoPane;
     private javax.swing.JPanel VitalSignPane;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel imgDiagnose;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbEncounterID;

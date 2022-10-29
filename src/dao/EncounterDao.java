@@ -27,7 +27,7 @@ public class EncounterDao {
     public static boolean insertNewEncounterRecord(Encounter encounter) {
         encounter.setEid(serialGenerator.next());
 
-        List<Encounter> allEncounters = queryALlEncounterRecord();
+        List<Encounter> allEncounters = queryAllEncounterRecord();
 
         if (allEncounters.contains(encounter)) {
             return false;
@@ -54,7 +54,7 @@ public class EncounterDao {
         return ObjectUtils.isEmpty(res) ? null : res;
     }
 
-    public static List<Encounter> queryALlEncounterRecord() {
+    public static List<Encounter> queryAllEncounterRecord() {
 
         return JsonFileUitls.readJsonFileToModel(file, Encounter.class);
     }
@@ -64,5 +64,25 @@ public class EncounterDao {
         List<Encounter> res = allEncounters.stream().filter(s -> s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(res) ? null : res;
+    }
+
+    public static boolean updateEncounter(Encounter e, Encounter selectedEncounter) {
+        // aid cannot be changed
+        e.setEid(selectedEncounter.getEid());
+
+        List<Encounter> encounterList = queryAllEncounterRecord();
+        if (!encounterList.contains(selectedEncounter)) {
+            return false;
+        }
+        if (encounterList.contains(e)) {
+            return false;
+        }
+        encounterList.remove(selectedEncounter);
+        encounterList.add(e);
+
+        String json = GsonUtils.listToJson(encounterList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 }
