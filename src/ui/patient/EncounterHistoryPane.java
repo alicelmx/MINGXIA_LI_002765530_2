@@ -34,7 +34,6 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
     }
 
     public EncounterHistoryPane(Patient patient) {
-        // TODO 这块有点不合理，因为名字可能会有重复，应该pid or did
         encounterHistory.setEncounterHistory(EncounterDao.queryEncounterByPID(patient.getPid()));
 
         initComponents();
@@ -64,6 +63,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbEncounterHistory = new javax.swing.JTable();
         btnView = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         txtKeywords.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,6 +115,11 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Encounter History");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -130,11 +135,14 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSearch))))
                 .addGap(0, 38, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -142,7 +150,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(btnView, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -192,6 +200,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
         for (Encounter encounter : encounters) {
 
             Object[] row = new Object[4];
+
             row[0] = encounter;
             row[1] = encounter.gethName();
             row[2] = encounter.getdName();
@@ -204,6 +213,7 @@ public class EncounterHistoryPane extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnView;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbEncounterHistory;
     private javax.swing.JTextField txtKeywords;

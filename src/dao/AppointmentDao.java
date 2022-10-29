@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import model.Appointment;
 import org.apache.commons.lang3.ObjectUtils;
-import tool.AppointmentSerialGenerator;
+import tool.DateUtils;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
+import tool.serial.AppointmentSerialGenerator;
 
 /**
  *
@@ -76,12 +77,16 @@ public class AppointmentDao {
         return true;
     }
 
-    public static List<Appointment> queryAppointmentByDId(String dId) {
+    public static List<Appointment> queryTodayAppointmentByDId(String dId) {
         List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
         if (ObjectUtils.isEmpty(appointmentList)) {
             return null;
         }
-        return appointmentList.stream().filter(s -> s.getDid().equalsIgnoreCase(dId) && s.getStatus() != 1).collect(Collectors.toList());
+        String now = DateUtils.getCurrentTimeCustomFormat();
+        return appointmentList.stream().filter(s
+                -> s.getDid().equalsIgnoreCase(dId) && s.getStatus() != 1
+                && s.getDatetime().equals(now)
+        ).collect(Collectors.toList());
     }
 
     public static List<Appointment> queryAllAppointment() {
@@ -95,7 +100,20 @@ public class AppointmentDao {
         if (ObjectUtils.isEmpty(appointmentList)) {
             return null;
         }
-        List<Appointment> resList = appointmentList.stream().filter(s -> s.getpName().equalsIgnoreCase(userId)).collect(Collectors.toList());
+        List<Appointment> resList = appointmentList.stream().filter(s -> s.getPid().equalsIgnoreCase(userId)).collect(Collectors.toList());
+
+        return resList;
+    }
+
+    public static List<Appointment> queryProcessingAppointmentByDId(String did) {
+        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
+        if (ObjectUtils.isEmpty(appointmentList)) {
+            return null;
+        }
+        List<Appointment> resList = appointmentList.stream().filter(s
+                -> s.getDid().equalsIgnoreCase(did)
+                && s.getStatus().equals(0)
+        ).collect(Collectors.toList());
 
         return resList;
     }

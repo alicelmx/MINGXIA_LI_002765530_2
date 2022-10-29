@@ -5,6 +5,7 @@
 package ui.patient;
 
 import dao.PatientDao;
+import java.awt.Color;
 import model.Patient;
 import tool.DateUtils;
 import ui.HomePageFrame;
@@ -144,7 +145,7 @@ public class PatientMainFrame extends javax.swing.JFrame {
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 608, Short.MAX_VALUE)
+            .addGap(0, 595, Short.MAX_VALUE)
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -157,7 +158,7 @@ public class PatientMainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane)
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -169,8 +170,8 @@ public class PatientMainFrame extends javax.swing.JFrame {
 
     private void btnPatientProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientProfileActionPerformed
 
-        SearchDoctorPane patientAppointmentPane = new SearchDoctorPane(patient);
-        splitPane.setRightComponent(patientAppointmentPane);
+        EditPatientProfilePane editPatientProfilePane = new EditPatientProfilePane(patient);
+        splitPane.setRightComponent(editPatientProfilePane);
     }//GEN-LAST:event_btnPatientProfileActionPerformed
 
     private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
@@ -188,6 +189,7 @@ public class PatientMainFrame extends javax.swing.JFrame {
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
 
         HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.getContentPane().setBackground(Color.WHITE);
         homePageFrame.setLocationRelativeTo(null);
         homePageFrame.setVisible(true);
 

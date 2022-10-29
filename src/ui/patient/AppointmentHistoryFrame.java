@@ -69,20 +69,20 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
 
         tbAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Date", "Hospital", "Department", "Doctor"
+                "Date", "Hospital", "Department", "Doctor", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -189,32 +189,30 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
-        // TODO 待测试
-        int option = JOptionPane.showConfirmDialog(this, "Do You Want to Delete ?", "", JOptionPane.DEFAULT_OPTION);
-        //        if (x == 3) {
-        //            cdframe.getContentPane().add(cdframe.panel());
-        //            cdframe.repaint();
-        //            cdframe.revalidate();
-        //        } else {
-        //            cdframe.dispose();
-        //            JOptionPane.showMessageDialog(null, "Nooope!");
-        //        }
-
         int selectedRowIndex = tbAppointment.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Doctor to Delete.");
+            JOptionPane.showMessageDialog(this, "Please Select a Appointment to Delete!");
             return;
         }
 
         DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
         Appointment selectedAppointment = (Appointment) model.getValueAt(selectedRowIndex, 0);
+
+        // cannot delete finished appointment
+        if (selectedAppointment.getStatus().equals(1)) {
+            JOptionPane.showMessageDialog(this, "Cannot Delete Finished Appointment!");
+            return;
+        }
+
         if (!AppointmentDao.deleteAppointment(selectedAppointment)) {
             JOptionPane.showMessageDialog(this, "Fail to Cancel!");
             return;
         }
 
         JOptionPane.showMessageDialog(this, "Delete Successfully!");
+
+        btnRefesh.doClick();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -270,11 +268,12 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
 
         for (Appointment appointment : appointmentList) {
 
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = appointment;
             row[1] = appointment.gethName();
             row[2] = appointment.getDepartment();
             row[3] = appointment.getdName();
+            row[4] = appointment.getStatus() == 1 ? "Finished" : "Processing";
 
             model.addRow(row);
         }

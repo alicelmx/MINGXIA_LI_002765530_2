@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import model.Doctor;
 import org.apache.commons.lang3.ObjectUtils;
-import tool.DoctorSerialGenerator;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
+import tool.serial.DoctorSerialGenerator;
 
 /**
  *
@@ -57,7 +57,7 @@ public class DoctorDao {
         return true;
     }
 
-    public Doctor queryDoctorByDid(String did) {
+    public static Doctor queryDoctorByDid(String did) {
 
         List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
         List<Doctor> resList = doctorModelList.stream().filter(s -> s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
@@ -89,5 +89,31 @@ public class DoctorDao {
             return null;
         }
         return resList.get(0);
+    }
+
+    public static boolean updateDoctor(Doctor newDoctor, Doctor oldDoctor) {
+        newDoctor.setDid(oldDoctor.getDid());
+
+        List<Doctor> doctorModelList = queryAllDoctor();
+        if (doctorModelList.contains(newDoctor) || !doctorModelList.contains(oldDoctor)) {
+            return false;
+        }
+        doctorModelList.remove(oldDoctor);
+        doctorModelList.add(newDoctor);
+
+        String json = GsonUtils.listToJson(doctorModelList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
+    }
+
+    public static List<Doctor> queryDoctorByHid(String hid) {
+        List<Doctor> doctorModelList = JsonFileUitls.readJsonFileToModel(file, Doctor.class);
+        List<Doctor> resList = doctorModelList.stream().filter(s -> s.getHid().equalsIgnoreCase(hid)).collect(Collectors.toList());
+
+        if (ObjectUtils.isEmpty(doctorModelList)) {
+            return null;
+        }
+        return resList;
     }
 }

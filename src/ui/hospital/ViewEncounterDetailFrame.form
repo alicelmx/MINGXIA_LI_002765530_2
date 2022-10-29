@@ -63,7 +63,7 @@
               <Component id="DiagnoseInfoPane" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnBack" min="-2" pref="37" max="-2" attributes="0"/>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="38" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -124,31 +124,22 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
+              <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="lbEncounterID" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="lblAppointmentID3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtAppointmentID" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblAppointmentID4" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtDeptment" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="lblAppointmentID1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtPatientName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="txtDoctorName" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="lbEncounterID" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAppointmentID" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAppointmentID4" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDeptment" alignment="2" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="2" attributes="0">
+                      <Component id="txtPatientName" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAppointmentID1" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtDoctorName" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAppointmentID3" alignment="2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="15" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

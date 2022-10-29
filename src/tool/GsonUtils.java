@@ -63,8 +63,18 @@ public class GsonUtils {
     }
 
     public static <T> String listToJson(List<T> entityList) {
-        String jsonStr = GsonUtils.listToJson(entityList);
+        String jsonStr = "";
 
+        Gson gson = new GsonBuilder().create();
+        try {
+            jsonStr = gson.toJson(entityList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (gson != null) {
+                gson = null;
+            }
+        }
         return jsonStr;
     }
 }

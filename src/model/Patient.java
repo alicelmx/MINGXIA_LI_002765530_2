@@ -17,7 +17,7 @@ public class Patient extends Person {
     private String community;
     private String zipcode;
     private String house;
-    private EncounterHistory encounterHistory;
+//    private EncounterHistory encounterHistory;
 
     public String getPid() {
         return pid;
@@ -59,14 +59,13 @@ public class Patient extends Person {
         this.house = house;
     }
 
-    public EncounterHistory getEncounterHistory() {
-        return encounterHistory;
-    }
-
-    public void setEncounterHistory(EncounterHistory encounterHistory) {
-        this.encounterHistory = encounterHistory;
-    }
-
+//    public EncounterHistory getEncounterHistory() {
+//        return encounterHistory;
+//    }
+//
+//    public void setEncounterHistory(EncounterHistory encounterHistory) {
+//        this.encounterHistory = encounterHistory;
+//    }
     @Override
     public String toString() {
         return getPid();
@@ -84,12 +83,20 @@ public class Patient extends Person {
 
         Patient patient = (Patient) obj;
 
-        return Objects.equals(pid, patient.getPid())
+        return Objects.equals(getDateOfBirth(), patient.getDateOfBirth())
+                && Objects.equals(getEmail(), patient.getEmail())
+                && Objects.equals(getFirstName(), patient.getFirstName())
+                && Objects.equals(getGender(), patient.getGender())
+                && Objects.equals(getLastName(), patient.getLastName())
+                && Objects.equals(getMarritialStatus(), patient.getMarritialStatus())
+                && Objects.equals(getPhoneNum(), patient.getPhoneNum())
+                && Objects.equals(getUsername(), patient.getUsername())
+                && Objects.equals(pid, patient.getPid())
                 && Objects.equals(city, patient.getCity())
                 && Objects.equals(community, patient.getCommunity())
                 && Objects.equals(zipcode, patient.getZipcode())
-                && Objects.equals(house, patient.getHouse())
-                && Objects.equals(encounterHistory, patient.getEncounterHistory());
+                && Objects.equals(house, patient.getHouse());
+//                && Objects.equals(encounterHistory, patient.getEncounterHistory());
 
     }
 

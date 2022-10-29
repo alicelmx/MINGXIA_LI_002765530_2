@@ -15,7 +15,11 @@ import java.util.stream.Collectors;
  */
 public class DoctorDirectory {
 
-    private List<Doctor> doctorList = new ArrayList<>();
+    private List<Doctor> doctorList;
+
+    public DoctorDirectory() {
+        this.doctorList = new ArrayList<>();
+    }
 
     public List<Doctor> getDoctorList() {
         return doctorList;

@@ -10,8 +10,8 @@ import java.util.stream.Collectors;
 import model.Hospital;
 import org.apache.commons.lang3.ObjectUtils;
 import tool.GsonUtils;
-import tool.HospitalSerialGenerator;
 import tool.JsonFileUitls;
+import tool.serial.HospitalSerialGenerator;
 
 /**
  *
@@ -54,14 +54,24 @@ public class HospitalDao {
         return true;
     }
 
-    public static void updateHospital(Hospital newHospital, Hospital oldHospital) {
+    public static boolean updateHospital(Hospital newHospital, Hospital oldHospital) {
+        newHospital.setHid(oldHospital.getHid());
+
         List<Hospital> hospitalList = queryHospitalList();
+        if (hospitalList.contains(newHospital)) {
+            return false;
+        }
+
+        if (!hospitalList.contains(oldHospital)) {
+            return false;
+        }
         hospitalList.remove(oldHospital);
         hospitalList.add(newHospital);
 
         String json = GsonUtils.listToJson(hospitalList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
 
+        return true;
     }
 
     public static List<Hospital> queryHospitalByCommunity(String community) {
@@ -102,5 +112,27 @@ public class HospitalDao {
         List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
 
         return hospitalModelList;
+    }
+
+    public static Hospital queryHospitalByHName(String hName) {
+        List<Hospital> hospitalModelList = JsonFileUitls.readJsonFileToModel(file, Hospital.class);
+        List<Hospital> resList = hospitalModelList.stream().filter(s -> s.gethName().equalsIgnoreCase(hName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(resList) ? null : resList.get(0);
+    }
+
+    public static boolean updateHospitaltCommunity(String oldCName, String newCName) {
+        List<Hospital> hospitalList = queryHospitalList();
+
+        for (Hospital h : hospitalList) {
+            if (h.getCommunity().equals(oldCName)) {
+                h.setCommunity(newCName);
+            }
+        }
+
+        String json = GsonUtils.listToJson(hospitalList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 }

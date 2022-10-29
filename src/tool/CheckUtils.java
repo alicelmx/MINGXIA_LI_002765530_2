@@ -53,6 +53,30 @@ public class CheckUtils {
         return matcher.matches();
     }
 
+    public static boolean checkName(String name) {
+        if (StringUtils.isBlank(name)) {
+            return false;
+        }
+
+        Pattern pattern = Pattern.compile("[a-zA-Z]*");
+
+        return pattern.matcher(name).matches();
+    }
+
+    public static Boolean checkUsername(String username) {
+        if (StringUtils.isBlank(username)) {
+            return false;
+        }
+
+        if (username.length() > 10) {
+            return false;
+        }
+
+        Pattern pattern = Pattern.compile("[a-z0-9A-Z]*");
+
+        return pattern.matcher(username).matches();
+    }
+
     public static String checkPassword(String password) {
 
         if (StringUtils.isBlank(password) || password.length() < 6 || password.length() > 10) {

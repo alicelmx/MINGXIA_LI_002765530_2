@@ -4,36 +4,63 @@
  */
 package ui.system;
 
-import dao.CommunityDao;
-import dao.HospitalDao;
-import dao.LoginDao;
+import dao.AppointmentDao;
+import dao.EncounterDao;
 import dao.PatientDao;
 import java.awt.Graphics;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Community;
-import model.Login;
+import model.Encounter;
+import model.Hospital;
+import model.Patient;
+import model.PatientDirectory;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import ui.hospital.*;
 
 /**
  *
  * @author limingxia
  */
-public class ManageCommunityPane extends javax.swing.JPanel {
+public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
 
-    public List<Community> communityList;
+    public PatientDirectory patientDirectory = new PatientDirectory();
+    public List<Patient> patientList;
+    public String currHospitalID;
+    public String curCommunityName;
 
     /**
      * Creates new form AuthManagementPane
      */
-    public ManageCommunityPane() {
-        communityList = CommunityDao.queryAllCommunityList();
+    public ManagePatientPaneWithDelete() {
+        getPatientDirectory();
+
         initComponents();
-        populateTable(communityList);
+
+        populateTable(patientDirectory.getPatientList());
+
+    }
+
+    public ManagePatientPaneWithDelete(Hospital currentHospital) {
+        currHospitalID = currentHospital.getHid();
+        getPatientDirectory();
+
+        initComponents();
+
+        populateTable(patientDirectory.getPatientList());
+
+    }
+
+    public ManagePatientPaneWithDelete(Community curCommunity) {
+        curCommunityName = curCommunity.getcName();
+        getPatientDirectory();
+
+        initComponents();
+
+        populateTable(patientDirectory.getPatientList());
     }
 
     @Override
@@ -55,12 +82,11 @@ public class ManageCommunityPane extends javax.swing.JPanel {
         txtKeyword = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCommunity = new javax.swing.JTable();
+        tbPatient = new javax.swing.JTable();
         btnEdit = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnDeletePatient = new javax.swing.JButton();
 
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,7 +102,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
             }
         });
 
-        tbCommunity.setModel(new javax.swing.table.DefaultTableModel(
+        tbPatient.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,14 +110,14 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Name", "City", "Zip Code", "Address"
+                "PatientID", "Name", "Phone", "DateOfBirth"
             }
         ) {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -102,21 +128,13 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tbCommunity);
+        jScrollPane1.setViewportView(tbPatient);
 
         btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
-            }
-        });
-
-        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -128,18 +146,18 @@ public class ManageCommunityPane extends javax.swing.JPanel {
             }
         });
 
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Community Management");
+        jLabel1.setText("Patient Management");
+
+        btnDeletePatient.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
+        btnDeletePatient.setText("Delete");
+        btnDeletePatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletePatientActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -155,12 +173,10 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnSearch)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeletePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 38, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -176,13 +192,12 @@ public class ManageCommunityPane extends javax.swing.JPanel {
                     .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addComponent(btnDeletePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -191,121 +206,120 @@ public class ManageCommunityPane extends javax.swing.JPanel {
     }//GEN-LAST:event_txtKeywordActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-
         String keyword = txtKeyword.getText();
         if (StringUtils.isBlank(keyword)) {
             JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
             return;
         }
-        List<Community> searchResult = communityList.stream().filter(c
-                -> c.getcName().equalsIgnoreCase(keyword)
-                || c.getCity().equalsIgnoreCase(keyword)
-                || c.getZipcode().equalsIgnoreCase(keyword)
-                || c.getAddress().contains(keyword)
-        ).collect(Collectors.toList());
+
+        List<Patient> searchResult = patientDirectory.searchByKeyword(keyword);
 
         populateTable(searchResult);
-
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        int selectedRowIndex = tbCommunity.getSelectedRow();
+        int selectedRowIndex = tbPatient.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Community to Edit!");
+            JOptionPane.showMessageDialog(this, "Please Select a Patient to Edit.");
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
-        Community selectedCommunity = (Community) model.getValueAt(selectedRowIndex, 0);
+        DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
+        Patient selectedPatient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
-        EditCommunityFrame editCommunity = new EditCommunityFrame(selectedCommunity);
-        editCommunity.setLocationRelativeTo(null);
-        editCommunity.setVisible(true);
+        EditPatientInfoFrame editPatientInfoFrame = new EditPatientInfoFrame(selectedPatient);
+        editPatientInfoFrame.setLocationRelativeTo(null);
+        editPatientInfoFrame.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        int selectedRowIndex = tbCommunity.getSelectedRow();
+        getPatientDirectory();
+        populateTable(patientDirectory.getPatientList());
+    }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void btnDeletePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePatientActionPerformed
+        int selectedRowIndex = tbPatient.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Community to Delete!");
+            JOptionPane.showMessageDialog(this, "Please Select a Patient to Edit!");
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
-        Community selectedCommunity = (Community) model.getValueAt(selectedRowIndex, 0);
+        DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
+        Patient selectedPatient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
-        // if there is any hospital and patient belong to this community, cannot delete
-        if (ObjectUtils.isNotEmpty(HospitalDao.queryHospitalByCommunity(selectedCommunity.getcName()))) {
-            JOptionPane.showMessageDialog(this, "There are Hospitals in this Community, Failed to Delete!");
-            return;
-        }
-        if (ObjectUtils.isNotEmpty(PatientDao.queryPatientByCName(selectedCommunity.getcName()))) {
-            JOptionPane.showMessageDialog(this, "There are Patients in this Community, Failed to Delete!");
-            return;
-        }
-        if (!CommunityDao.deleteCommunity(selectedCommunity)) {
-            JOptionPane.showMessageDialog(this, "Failed to Delete!");
+        // 如果病人还有预约，不能被删除，得先删除预约
+        if (ObjectUtils.isNotEmpty(AppointmentDao.queryAppointmentByPid(selectedPatient.getPid()))) {
+            JOptionPane.showMessageDialog(this, "This Patient Still Has Appointments!");
             return;
         }
 
-        Login curLoginModel = LoginDao.queryByUserName(selectedCommunity.getCommunityAdminUser());
-        if (ObjectUtils.isNotEmpty(curLoginModel)) {
-            if (!LoginDao.deleteOldUser(curLoginModel)) {
-                JOptionPane.showMessageDialog(this, "Fail to Delete!");
-                return;
-            }
+        if (!PatientDao.deletePatient(selectedPatient)) {
+            JOptionPane.showMessageDialog(this, "Fail to Delete!");
+            return;
         }
 
         JOptionPane.showMessageDialog(this, "Delete Successfully!");
 
         btnRefesh.doClick();
-    }//GEN-LAST:event_btnDeleteActionPerformed
+    }//GEN-LAST:event_btnDeletePatientActionPerformed
 
-    private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+    private void populateTable(List<Patient> patients) {
 
-        communityList = CommunityDao.queryAllCommunityList();
-        populateTable(communityList);
-    }//GEN-LAST:event_btnRefeshActionPerformed
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
-        AddCommunityFrame addCommunityFrame = new AddCommunityFrame();
-        addCommunityFrame.setLocationRelativeTo(null);
-        addCommunityFrame.setVisible(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
-    private void populateTable(List<Community> communityList) {
-
-        DefaultTableModel model = (DefaultTableModel) tbCommunity.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
         model.setRowCount(0);
 
-        if (ObjectUtils.isEmpty(communityList)) {
+        if (ObjectUtils.isEmpty(patients)) {
             return;
         }
 
-        for (Community community : communityList) {
+        for (Patient patient : patients) {
 
             Object[] row = new Object[4];
-            row[0] = community;
-            row[1] = community.getCity();
-            row[2] = community.getZipcode();
-            row[3] = community.getAddress();
+            row[0] = patient;
+            row[1] = patient.getFullName();
+            row[2] = patient.getPhoneNum();
+            row[3] = patient.getDateOfBirth();
 
             model.addRow(row);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnDeletePatient;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbCommunity;
+    private javax.swing.JTable tbPatient;
     private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
+
+    private void getPatientDirectory() {
+
+        if (!StringUtils.isBlank(currHospitalID)) {
+            patientDirectory.clearAll();
+
+            List<Encounter> encounters = EncounterDao.queryEncounterByHID(this.currHospitalID);
+            if (ObjectUtils.isEmpty(encounters)) {
+                return;
+            }
+            encounters.forEach(e -> {
+                Patient p = PatientDao.queryPatientByPid(e.getPid());
+                if (!patientDirectory.containPatient(p)) {
+                    patientDirectory.addPatient(p);
+                }
+            });
+
+        } else if (!StringUtils.isBlank(curCommunityName)) {
+            patientList = PatientDao.queryPatientByCName(curCommunityName);
+            patientDirectory.setPatientList(patientList);
+        } else {
+            patientList = PatientDao.queryAllPatientModel();
+            patientDirectory.setPatientList(patientList);
+        }
+    }
 }

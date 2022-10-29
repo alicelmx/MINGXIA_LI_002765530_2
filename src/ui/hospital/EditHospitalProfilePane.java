@@ -1,17 +1,17 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.system;
+package ui.hospital;
 
 import dao.CommunityDao;
 import dao.HospitalDao;
-import dao.LoginDao;
+import java.awt.Graphics;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Community;
 import model.Hospital;
-import model.Login;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 
@@ -19,16 +19,30 @@ import tool.CheckUtils;
  *
  * @author limingxia
  */
-public class AddHospitalFrame extends javax.swing.JFrame {
-    
+public class EditHospitalProfilePane extends javax.swing.JPanel {
+
     public List<Community> communityList;
+    public Hospital curHospital;
 
     /**
-     * Creates new form AddHospitalFrame
+     * Creates new form EditHospitalProfilePane
      */
-    public AddHospitalFrame() {
-        communityList = CommunityDao.queryAllCommunityList();
+    public EditHospitalProfilePane() {
         initComponents();
+    }
+
+    public EditHospitalProfilePane(Hospital currentHospital) {
+        communityList = CommunityDao.queryAllCommunityList();
+        curHospital = HospitalDao.queryHospitalByHID(currentHospital.getHid());
+
+        initComponents();
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon(this.getClass().getResource("/assets/grey_line_bg.jpg"));
+        img.paintIcon(this, g, 0, 0);
     }
 
     /**
@@ -55,29 +69,26 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         lblAddress1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txaIntro = new javax.swing.JTextArea();
-        LoginPanel = new javax.swing.JPanel();
-        lblPassword = new javax.swing.JLabel();
-        lblConfirmPassword = new javax.swing.JLabel();
-        lblUserName = new javax.swing.JLabel();
-        txtUserName = new javax.swing.JTextField();
-        txtPassword = new javax.swing.JPasswordField();
-        txtConfirmPassword = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
+        BasicInfoPane.setBackground(null);
+        BasicInfoPane.setOpaque(false);
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
         lblCity.setText("City:");
 
+        txtCity.setText(curHospital.getCity());
+
         lblZipCode.setText("ZipCode:");
+
+        txtZipCode.setText(curHospital.getZipCode());
 
         communityList.forEach(o -> {
             cbbCommunity.addItem(o.getcName());
         });
+        cbbCommunity.setSelectedItem(curHospital.getCommunity());
         cbbCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbCommunityActionPerformed(evt);
@@ -99,18 +110,15 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                             .addComponent(lblZipCode))
                         .addGap(18, 18, 18)
                         .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                            .addComponent(txtCity)
                             .addComponent(txtZipCode)))
                     .addGroup(BasicInfoPaneLayout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(lblCommunity)
                         .addGap(18, 18, 18)
                         .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        BasicInfoPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cbbCommunity, txtCity, txtZipCode});
-
         BasicInfoPaneLayout.setVerticalGroup(
             BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BasicInfoPaneLayout.createSequentialGroup()
@@ -129,22 +137,28 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
+        AddressInfoPane.setBackground(null);
+        AddressInfoPane.setOpaque(false);
         AddressInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
         lblName1.setText("Name:");
 
         lblCity1.setText("Phone:");
 
+        txtName.setText(curHospital.gethName());
         txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNameActionPerformed(evt);
             }
         });
 
+        txtPhone.setText(curHospital.getPhone());
+
         lblAddress1.setText("Intro:");
 
         txaIntro.setColumns(20);
         txaIntro.setRows(5);
+        txaIntro.setText(curHospital.getIntro());
         txaIntro.setAutoscrolls(false);
         jScrollPane1.setViewportView(txaIntro);
 
@@ -183,54 +197,8 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        LoginPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Admin Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
-
-        lblPassword.setText("Password:");
-
-        lblConfirmPassword.setText("Confirm:");
-
-        lblUserName.setText("UserName:");
-
-        javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
-        LoginPanel.setLayout(LoginPanelLayout);
-        LoginPanelLayout.setHorizontalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                .addContainerGap(26, Short.MAX_VALUE)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblConfirmPassword)
-                    .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUserName)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginPanelLayout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPassword))))
-                .addGap(26, 26, 26)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtUserName)
-                    .addComponent(txtPassword)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
-        );
-        LoginPanelLayout.setVerticalGroup(
-            LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoginPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUserName)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPassword))
-                .addGap(18, 18, 18)
-                .addGroup(LoginPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblConfirmPassword)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30))
-        );
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital.jpeg"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jPanel2.setBackground(null);
+        jPanel2.setOpaque(false);
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
         btnSave.setText("Save");
@@ -269,69 +237,45 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(166, 166, 166)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(BasicInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AddressInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(313, 313, 313)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                            .addComponent(AddressInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AddressInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(AddressInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BasicInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(BasicInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
+                .addGap(60, 60, 60))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        
-        clearAllBlanket();
-    }//GEN-LAST:event_btnClearActionPerformed
-    
+    private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbCommunityActionPerformed
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
-        String userName = txtUserName.getText();
-        String password = txtPassword.getText();
-        String cpassword = txtConfirmPassword.getText();
-        if (StringUtils.isBlank(userName) || StringUtils.isBlank(password) || StringUtils.isBlank(cpassword)) {
-            JOptionPane.showMessageDialog(this, "Please Input Username or Password!");
-            return;
-        }
-        if (!password.equals(cpassword)) {
-            JOptionPane.showMessageDialog(this, "Inconsistant Password, Please Reinput!");
-            return;
-        }
-        // userName must be unique
-        if (LoginDao.queryByUserName(userName) != null) {
-            JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
-            return;
-        }
-        
+
         String hName = txtName.getText();
         String phone = txtPhone.getText();
         String intro = txaIntro.getText(); // optional
@@ -344,21 +288,21 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Phone No!");
             return;
         }
-        
+
         String city = txtCity.getText();
         String community = (String) cbbCommunity.getSelectedItem();
         String zipCode = txtZipCode.getText();
-        
+
         if (StringUtils.isBlank(city) || StringUtils.isBlank(community) || StringUtils.isBlank(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
         }
-        
+
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         Hospital hospital = new Hospital();
         hospital.sethName(hName);
         hospital.setPhone(phone);
@@ -366,112 +310,51 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         hospital.setCity(city);
         hospital.setZipCode(zipCode);
         hospital.setCommunity(community);
-        hospital.setHospitalAdminUserName(userName);
-        
-        if (!HospitalDao.insertNewHospital(hospital)) {
+        hospital.setHospitalAdminUserName(curHospital.getHospitalAdminUserName());
+
+        if (!HospitalDao.updateHospital(hospital, curHospital)) {
             JOptionPane.showMessageDialog(this, "Duplicate Hospital!");
             return;
         }
-        
-        Login newHospitalAdmin = new Login();
-        newHospitalAdmin.setUserName(userName);
-        newHospitalAdmin.setPassword(password);
-        newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());
-        
-        if (!LoginDao.insertNewUser(newHospitalAdmin)) {
-            JOptionPane.showMessageDialog(this, "Fail to Save!");
-            return;
-        }
-        
-        JOptionPane.showMessageDialog(this, "Successfully!");
-        
-        clearAllBlanket();
-        
-        this.dispose();
+
+        JOptionPane.showMessageDialog(this, "Edit Successfully!");
+
+        // 防止连续点击造成的编辑失败
+        curHospital = hospital;
     }//GEN-LAST:event_btnSaveActionPerformed
-    
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
-    
-    private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbCommunityActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddHospitalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddHospitalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddHospitalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddHospitalFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AddHospitalFrame().setVisible(true);
-            }
-        });
-    }
-    
-    public void clearAllBlanket() {
-        txtName.setText("");
-        txtPhone.setText("");
-        txaIntro.setText("");
-        txtCity.setText("");
-        cbbCommunity.setSelectedIndex(0);
-        txtZipCode.setText("");
-        txtUserName.setText("");
-        txtPassword.setText("");
-        txtConfirmPassword.setText("");
-        
-    }
+        clearAllBlanket();
+    }//GEN-LAST:event_btnClearActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel AddressInfoPane;
     private javax.swing.JPanel BasicInfoPane;
-    private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbbCommunity;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddress1;
     private javax.swing.JLabel lblCity;
     private javax.swing.JLabel lblCity1;
     private javax.swing.JLabel lblCommunity;
-    private javax.swing.JLabel lblConfirmPassword;
     private javax.swing.JLabel lblName1;
-    private javax.swing.JLabel lblPassword;
-    private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblZipCode;
     private javax.swing.JTextArea txaIntro;
     private javax.swing.JTextField txtCity;
-    private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JTextField txtName;
-    private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPhone;
-    private javax.swing.JTextField txtUserName;
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables
+
+    private void clearAllBlanket() {
+        txtName.setText("");
+        txtPhone.setText("");
+        txaIntro.setText("");
+        txtCity.setText("");
+        cbbCommunity.setSelectedIndex(0);
+        txtZipCode.setText("");
+    }
 }

@@ -4,14 +4,17 @@
  */
 package ui.system;
 
+import dao.AppointmentDao;
+import dao.DoctorDao;
 import dao.HospitalDao;
-import dao.LoginDao;
+import dao.PatientDao;
+import java.awt.Graphics;
 import java.util.List;
+import java.util.stream.Collectors;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Hospital;
-import model.HospitalDirectory;
-import model.Login;
+import model.Appointment;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,17 +24,24 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class ManageAppointmentPane extends javax.swing.JPanel {
 
-    List<Hospital> hospitals;
-    HospitalDirectory hospitalDirectory = new HospitalDirectory();
+    public List<Appointment> appointmentModelList;
 
     /**
      * Creates new form AuthManagementPane
      */
     public ManageAppointmentPane() {
-        hospitals = HospitalDao.queryHospitalList();
+        appointmentModelList = AppointmentDao.queryAllAppointment();
 
         initComponents();
-        populateTable(hospitals);
+
+        populateTable(appointmentModelList);
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        ImageIcon img = new ImageIcon(this.getClass().getResource("/assets/grey_line_bg.jpg"));
+        img.paintIcon(this, g, 0, 0);
     }
 
     /**
@@ -46,11 +56,11 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         txtKeyword = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbHospital = new javax.swing.JTable();
+        tbAppointment = new javax.swing.JTable();
         btnRefesh = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
-        btnEdit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -66,22 +76,22 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
             }
         });
 
-        tbHospital.setModel(new javax.swing.table.DefaultTableModel(
+        tbAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "City", "Intro"
+                "Date", "Hospital", "Department", "Doctor", "Patient", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -92,9 +102,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbHospital.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(tbHospital);
-        tbHospital.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        jScrollPane1.setViewportView(tbAppointment);
 
         btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/refresh.png"))); // NOI18N
         btnRefesh.setText("Refresh");
@@ -105,7 +113,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         });
 
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/delete.png"))); // NOI18N
-        btnDelete.setText("Delete");
+        btnDelete.setText("Cancel");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -120,13 +128,10 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
             }
         });
 
-        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/edit.png"))); // NOI18N
-        btnEdit.setText("Edit");
-        btnEdit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditActionPerformed(evt);
-            }
-        });
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Appointment Management");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -140,20 +145,21 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSearch))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 38, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -163,9 +169,8 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -179,96 +184,85 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
             return;
         }
-        hospitalDirectory.setHospitalList(hospitals);
-        List<Hospital> searchResult = hospitalDirectory.searchByKeyword(keyword);
+
+        List<Appointment> searchResult = appointmentModelList.stream().filter(a
+                -> a.getdName().equalsIgnoreCase(keyword)
+                || a.gethName().equalsIgnoreCase(keyword)
+                || a.getDepartment().equalsIgnoreCase(keyword)
+        ).collect(Collectors.toList());
 
         populateTable(searchResult);
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        hospitals = HospitalDao.queryHospitalList();
-        populateTable(hospitals);
+        appointmentModelList = AppointmentDao.queryAllAppointment();
+        populateTable(appointmentModelList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
-        // TODO 待测试
-        int option = JOptionPane.showConfirmDialog(this, "Do You Want to Delete ?", "", JOptionPane.DEFAULT_OPTION);
-//        if (x == 3) {
-//            cdframe.getContentPane().add(cdframe.panel());
-//            cdframe.repaint();
-//            cdframe.revalidate();
-//        } else {
-//            cdframe.dispose();
-//            JOptionPane.showMessageDialog(null, "Nooope!");
-//        }
-
-        int selectedRowIndex = tbHospital.getSelectedRow();
+        int selectedRowIndex = tbAppointment.getSelectedRow();
 
         if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Hospital to Delete.");
+            JOptionPane.showMessageDialog(this, "Please Select a Appointment to Cancel!");
             return;
         }
 
-        DefaultTableModel model = (DefaultTableModel) tbHospital.getModel();
-        Hospital selectedHospital = (Hospital) model.getValueAt(selectedRowIndex, 0);
-        if (!HospitalDao.deleteHospital(selectedHospital)) {
-            JOptionPane.showMessageDialog(this, "Fail to Delete!");
+        DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
+        Appointment selectedAppointment = (Appointment) model.getValueAt(selectedRowIndex, 0);
+
+        // cannot delete finished appointment
+        if (selectedAppointment.getStatus().equals(1)) {
+            JOptionPane.showMessageDialog(this, "Cannot Delete Finished Appointment!");
             return;
         }
 
-        // Delete Login Model
-        Login curLoginModel = LoginDao.queryByUserName(selectedHospital.getHospitalAdminUserName());
-        if (ObjectUtils.isNotEmpty(curLoginModel)) {
-            if (!LoginDao.deleteOldUser(curLoginModel)) {
-                JOptionPane.showMessageDialog(this, "Fail to Delete!");
-                return;
-            }
+        if (!AppointmentDao.deleteAppointment(selectedAppointment)) {
+            JOptionPane.showMessageDialog(this, "Fail to Cancel!");
+            return;
         }
 
         JOptionPane.showMessageDialog(this, "Delete Successfully!");
+
+        btnRefesh.doClick();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-
-        AddHospitalFrame addHospitalFrame = new AddHospitalFrame();
-        addHospitalFrame.setLocationRelativeTo(null);
-        addHospitalFrame.setVisible(true);
+        // TODO        
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+    private void populateTable(List<Appointment> appointmentList) {
 
-        int selectedRowIndex = tbHospital.getSelectedRow();
-
-        if (selectedRowIndex < 0) {
-            JOptionPane.showMessageDialog(this, "Please Select a Hospital to Edit.");
-            return;
-        }
-
-        DefaultTableModel model = (DefaultTableModel) tbHospital.getModel();
-        Hospital selectedHospital = (Hospital) model.getValueAt(selectedRowIndex, 0);
-
-        EditHospitalFrame editHospitalFrame = new EditHospitalFrame(selectedHospital);
-        editHospitalFrame.setLocationRelativeTo(null);
-        editHospitalFrame.setVisible(true);
-    }//GEN-LAST:event_btnEditActionPerformed
-
-    private void populateTable(List<Hospital> hospitalList) {
-
-        DefaultTableModel model = (DefaultTableModel) tbHospital.getModel();
+        DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
         model.setRowCount(0);
 
-        if (ObjectUtils.isEmpty(hospitalList)) {
+        if (ObjectUtils.isEmpty(appointmentList)) {
             return;
         }
 
-        for (Hospital hospital : hospitalList) {
+        for (Appointment appointment : appointmentList) {
+            Integer appStatus = appointment.getStatus();
 
-            Object[] row = new Object[3];
-            row[0] = hospital;
-            row[1] = hospital.getCity();
-            row[2] = hospital.getIntro();
+            Object[] row = new Object[6];
+
+            // query database
+            if (appStatus.equals(0)) {
+
+                row[0] = appointment;
+                row[1] = HospitalDao.queryHospitalByHID(appointment.getHid()).gethName();
+                row[2] = appointment.getDepartment();
+                row[3] = DoctorDao.queryDoctorByDid(appointment.getDid()).getdName();
+                row[4] = PatientDao.queryPatientByPid(appointment.getPid()).getFullName();
+                row[5] = "Processing";
+            } else {
+                // use fast photo
+                row[0] = appointment;
+                row[1] = appointment.gethName();
+                row[2] = appointment.getDepartment();
+                row[3] = appointment.getdName();
+                row[4] = appointment.getpName();
+                row[5] = "Finished";
+            }
 
             model.addRow(row);
         }
@@ -277,11 +271,11 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbHospital;
+    private javax.swing.JTable tbAppointment;
     private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
 }

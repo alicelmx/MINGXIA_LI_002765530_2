@@ -72,11 +72,15 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         txtConfirmPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Register");
         setResizable(false);
 
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
         btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
         btnSave.setText("Save");
@@ -388,6 +392,10 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
             return;
         }
+        if (!CheckUtils.checkUsername(userName)) {
+            JOptionPane.showMessageDialog(this, "Rule of Username: Length < 10, Contail Only Digit and Letter!");
+            return;
+        }
         // userName must be unique
         if (LoginDao.queryByUserName(userName) != null) {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
@@ -409,6 +417,10 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         String lastName = txtLastName.getText();
         if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName)) {
             JOptionPane.showMessageDialog(this, "Please Input Name!");
+            return;
+        }
+        if (!CheckUtils.checkName(firstName) || !CheckUtils.checkName(lastName)) {
+            JOptionPane.showMessageDialog(this, "Invalid Name!");
             return;
         }
 
@@ -459,6 +471,11 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         String community = (String) cbbCommunity.getSelectedItem();
         String houseNo = txtHouse.getText();
 
+        if (StringUtils.isBlank(houseNo) || StringUtils.isBlank(city)) {
+            JOptionPane.showMessageDialog(this, "Please Input City and House No!");
+            return;
+        }
+
         // 两张表一起写
         Login newPatientLoginModel = new Login();
         // 和Patient表中一致
@@ -499,6 +516,10 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbCommunityActionPerformed
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClearActionPerformed
 
     /**
      * @param args the command line arguments

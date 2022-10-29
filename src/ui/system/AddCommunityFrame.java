@@ -251,6 +251,10 @@ public class AddCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
+        if (Integer.parseInt(inhabitants) < 0) {
+            JOptionPane.showMessageDialog(this, "Please Check Inhabitant Number!");
+            return;
+        }
 
         String userName = txtUserName.getText();
         if (StringUtils.isBlank(userName)) {

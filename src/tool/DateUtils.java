@@ -108,12 +108,12 @@ public class DateUtils {
         return localDateTime.format(DateTimeFormatter.ofPattern(format));
     }
 
-    /**
-     *
-     * @return
-     */
     public static String getCurrentTime() {
         return getDateFormat(new Date(), FULL_TIME_SPLIT_PATTERN);
+    }
+
+    public static String getCurrentTimeCustomFormat() {
+        return getDateFormat(new Date(), BIRTHDAY_PATTERN);
     }
 
     public static String getCurrentMonth() {

@@ -9,5 +9,14 @@ package model;
  * @author limingxia
  */
 public class House {
-    
+
+    private String houseNo;
+
+    public String getHouseNo() {
+        return houseNo;
+    }
+
+    public void setHouseNo(String houseNo) {
+        this.houseNo = houseNo;
+    }
 }

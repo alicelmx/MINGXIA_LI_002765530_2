@@ -11,7 +11,7 @@ import model.Patient;
 import org.apache.commons.lang3.ObjectUtils;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
-import tool.PatientSerialGenerator;
+import tool.serial.PatientSerialGenerator;
 
 /**
  *
@@ -52,12 +52,16 @@ public class PatientDao {
         return true;
     }
 
-    public static void deletePatient(Patient patient) {
-        List<Patient> allEncounters = queryAllPatientModel();
-        allEncounters.remove(patient);
+    public static boolean deletePatient(Patient patient) {
+        List<Patient> patientList = queryAllPatientModel();
+        if (!patientList.remove(patient)) {
+            return false;
+        }
 
-        String json = GsonUtils.listToJson(allEncounters);
+        String json = GsonUtils.listToJson(patientList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 
     public static Patient queryPatientByUName(String userName) {
@@ -80,6 +84,41 @@ public class PatientDao {
         List<Patient> resList = patientModelList.stream().filter(s -> s.getCommunity().equalsIgnoreCase(curCommunityName)).collect(Collectors.toList());
 
         return ObjectUtils.isEmpty(resList) ? null : resList;
+    }
+
+    public static boolean updatePatient(Patient curPatient, Patient newPatient) {
+        // pid cannot be changed
+        newPatient.setPid(curPatient.getPid());
+
+        List<Patient> patientList = queryAllPatientModel();
+        if (!patientList.contains(curPatient)) {
+            return false;
+        }
+        if (patientList.contains(newPatient)) {
+            return false;
+        }
+        patientList.remove(curPatient);
+        patientList.add(newPatient);
+
+        String json = GsonUtils.listToJson(patientList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
+    }
+
+    public static boolean updatePatientCommunity(String oldCName, String newCName) {
+        List<Patient> patientList = queryAllPatientModel();
+
+        for (Patient p : patientList) {
+            if (p.getCommunity().equals(oldCName)) {
+                p.setCommunity(newCName);
+            }
+        }
+
+        String json = GsonUtils.listToJson(patientList);
+        JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 
 }

@@ -21,7 +21,7 @@ public class Appointment {
     private String hid;
     private String hName;
     private String department;
-    private int status; // 0 未进行 1已结束（已结束的预约看不到）
+    private Integer status; // 0 未进行 1已结束（已结束的预约看不到）
 
     public String getAid() {
         return aid;
@@ -55,11 +55,11 @@ public class Appointment {
         this.datetime = datetime;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

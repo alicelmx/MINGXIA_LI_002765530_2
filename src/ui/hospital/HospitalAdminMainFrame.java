@@ -5,6 +5,7 @@
 package ui.hospital;
 
 import dao.HospitalDao;
+import java.awt.Color;
 import model.Hospital;
 import tool.DateUtils;
 import ui.HomePageFrame;
@@ -30,7 +31,7 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
 
         initComponents();
 
-        btnAuthManagement.doClick();
+        btnDoctorManagement.doClick();
     }
 
     /**
@@ -180,8 +181,8 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
 
     private void btnAuthManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuthManagementActionPerformed
 
-        ManageDoctorPane doctorManagementPane = new ManageDoctorPane(currentHospital);
-        splitPane.setRightComponent(doctorManagementPane);
+        EditHospitalProfilePane editHospitalProfilePane = new EditHospitalProfilePane(currentHospital);
+        splitPane.setRightComponent(editHospitalProfilePane);
     }//GEN-LAST:event_btnAuthManagementActionPerformed
 
     private void btnManageDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageDoctorActionPerformed
@@ -205,6 +206,7 @@ public class HospitalAdminMainFrame extends javax.swing.JFrame {
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
 
         HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.getContentPane().setBackground(Color.WHITE);
         homePageFrame.setLocationRelativeTo(null);
         homePageFrame.setVisible(true);
 

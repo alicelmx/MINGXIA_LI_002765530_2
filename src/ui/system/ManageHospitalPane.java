@@ -4,6 +4,7 @@
  */
 package ui.system;
 
+import dao.DoctorDao;
 import dao.HospitalDao;
 import dao.LoginDao;
 import java.awt.Graphics;
@@ -70,6 +71,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,9 +113,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tbHospital.setColumnSelectionAllowed(true);
         jScrollPane1.setViewportView(tbHospital);
-        tbHospital.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         btnRefesh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/refresh.png"))); // NOI18N
         btnRefesh.setText("Refresh");
@@ -147,6 +147,11 @@ public class ManageHospitalPane extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Hospital Management");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,11 +173,14 @@ public class ManageHospitalPane extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 38, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -184,7 +192,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -206,7 +214,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
-        if (StringUtils.isBlank(curCommunityName)) {
+        if (!StringUtils.isBlank(curCommunityName)) {
             hospitals = HospitalDao.queryHospitalListByCommunity(curCommunityName);
 
         } else {
@@ -217,18 +225,6 @@ public class ManageHospitalPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRefeshActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
-        // TODO 待测试
-        int option = JOptionPane.showConfirmDialog(this, "Do You Want to Delete ?", "", JOptionPane.DEFAULT_OPTION);
-//        if (x == 3) {
-//            cdframe.getContentPane().add(cdframe.panel());
-//            cdframe.repaint();
-//            cdframe.revalidate();
-//        } else {
-//            cdframe.dispose();
-//            JOptionPane.showMessageDialog(null, "Nooope!");
-//        }
-
         int selectedRowIndex = tbHospital.getSelectedRow();
 
         if (selectedRowIndex < 0) {
@@ -238,6 +234,12 @@ public class ManageHospitalPane extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tbHospital.getModel();
         Hospital selectedHospital = (Hospital) model.getValueAt(selectedRowIndex, 0);
+
+        if (ObjectUtils.isNotEmpty(DoctorDao.queryDoctorByHid(selectedHospital.getHid()))) {
+            JOptionPane.showMessageDialog(this, "There are Doctors in this Hospital, Cannot be Deleted!");
+            return;
+        }
+
         if (!HospitalDao.deleteHospital(selectedHospital)) {
             JOptionPane.showMessageDialog(this, "Fail to Delete!");
             return;
@@ -253,6 +255,8 @@ public class ManageHospitalPane extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Delete Successfully!");
+
+        btnRefesh.doClick();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -305,6 +309,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbHospital;
     private javax.swing.JTextField txtKeyword;

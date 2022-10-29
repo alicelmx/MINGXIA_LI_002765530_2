@@ -15,7 +15,11 @@ import java.util.stream.Collectors;
  */
 public class HospitalDirectory {
 
-    private List<Hospital> hospitalList = new ArrayList<>();
+    private List<Hospital> hospitalList;
+
+    public HospitalDirectory() {
+        this.hospitalList = new ArrayList<>();
+    }
 
     public List<Hospital> getHospitalList() {
         return hospitalList;
@@ -51,9 +55,9 @@ public class HospitalDirectory {
     public List<Hospital> searchByKeyword(String keyword) {
 
         List<Hospital> res = getHospitalList().stream().filter(
-                s -> s.gethName().equalsIgnoreCase(keyword)
+                s -> s.gethName().contains(keyword)
                 || s.getCity().equalsIgnoreCase(keyword)
-                || s.getIntro().contentEquals(keyword)
+                || s.getIntro().contains(keyword)
         ).collect(Collectors.toList());
 
         return res;

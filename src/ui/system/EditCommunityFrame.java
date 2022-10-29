@@ -5,6 +5,8 @@
 package ui.system;
 
 import dao.CommunityDao;
+import dao.HospitalDao;
+import dao.PatientDao;
 import javax.swing.JOptionPane;
 import model.Community;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +51,8 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         txtZipCode = new javax.swing.JTextField();
         btnClear = new javax.swing.JButton();
         btnSubmitAppointment = new javax.swing.JButton();
+        jtxtInhabitants = new javax.swing.JFormattedTextField();
+        lblInhabitant = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -84,30 +88,42 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             }
         });
 
+        jtxtInhabitants.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jtxtInhabitants.setText(community.getInhabitants());
+
+        lblInhabitant.setText("Inhabitants:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(75, 75, 75)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnClear)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                        .addComponent(btnSubmitAppointment)
-                        .addGap(21, 21, 21))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblZipCode, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblAddress, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCity, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                            .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtZipCode)
-                            .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnClear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                .addComponent(btnSubmitAppointment)
+                                .addGap(21, 21, 21))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblZipCode, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblAddress, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblCity, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addGap(20, 20, 20)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
+                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtZipCode)
+                                    .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(lblInhabitant)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(80, 80, 80))
         );
 
@@ -120,19 +136,23 @@ public class EditCommunityFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCity))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAddress)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblZipCode)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInhabitant))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,8 +174,9 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         String city = txtCity.getText();
         String address = txtAddress.getText();
         String zipCode = txtZipCode.getText();
+        String inhabitants = jtxtInhabitants.getText();
 
-        if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode)) {
+        if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode) || StringUtils.isBlank(inhabitants)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
 
@@ -165,13 +186,34 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             return;
         }
 
+        if (Integer.parseInt(inhabitants) < 0) {
+            JOptionPane.showMessageDialog(this, "Please Check Inhabitant Number!");
+            return;
+        }
+
         Community newCommunity = new Community();
         newCommunity.setcName(cName);
         newCommunity.setCity(city);
         newCommunity.setAddress(address);
         newCommunity.setZipcode(zipCode);
+        newCommunity.setInhabitants(inhabitants);
+        newCommunity.setCommunityAdminUser(community.getCommunityAdminUser());
 
-        CommunityDao.updateCommunity(newCommunity, community);
+        if (!CommunityDao.updateCommunity(newCommunity, community)) {
+            JOptionPane.showMessageDialog(this, "Fail to Edit!");
+            return;
+        }
+
+        // update patient's community
+        if (!PatientDao.updatePatientCommunity(community.getcName(), newCommunity.getcName())) {
+            JOptionPane.showMessageDialog(this, "Fail to Edit!");
+            return;
+        }
+
+        if (!HospitalDao.updateHospitaltCommunity(community.getcName(), newCommunity.getcName())) {
+            JOptionPane.showMessageDialog(this, "Fail to Edit!");
+            return;
+        }
 
         JOptionPane.showMessageDialog(this, "Successfully!");
 
@@ -219,13 +261,16 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         txtCity.setText("");
         txtAddress.setText("");
         txtZipCode.setText("");
+        jtxtInhabitants.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmitAppointment;
+    private javax.swing.JFormattedTextField jtxtInhabitants;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblInhabitant;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblZipCode;
     private javax.swing.JTextField txtAddress;

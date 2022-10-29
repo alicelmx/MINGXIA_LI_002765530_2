@@ -4,9 +4,11 @@
  */
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.ObjectUtils;
 
 /**
  *
@@ -15,6 +17,10 @@ import java.util.stream.Collectors;
 public class PatientDirectory {
 
     private List<Patient> patientList;
+
+    public PatientDirectory() {
+        this.patientList = new ArrayList<>();
+    }
 
     public List<Patient> getPatientList() {
         return patientList;
@@ -29,6 +35,9 @@ public class PatientDirectory {
     }
 
     public void clearAll() {
+        if (ObjectUtils.isEmpty(this.patientList)) {
+            return;
+        }
         this.patientList.clear();
     }
 

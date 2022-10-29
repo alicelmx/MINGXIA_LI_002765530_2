@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import model.Community;
 import org.apache.commons.lang3.ObjectUtils;
-import tool.CommunitySerialGenerator;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
+import tool.serial.CommunitySerialGenerator;
 
 /**
  *
@@ -28,6 +28,14 @@ public class CommunityDao {
         community.setCid(serialGenerator.next());
 
         List<Community> communityList = queryAllCommunityList();
+
+        // community name must be unique
+        for (Community c : communityList) {
+            if (c.getcName().equals(community.getcName())) {
+                return false;
+            }
+        }
+
         if (communityList.contains(community)) {
             return false;
         }
@@ -52,14 +60,20 @@ public class CommunityDao {
         return true;
     }
 
-    public static void updateCommunity(Community newCommunity, Community oldCommunity) {
-        List<Community> communityList = queryAllCommunityList();
+    public static boolean updateCommunity(Community newCommunity, Community oldCommunity) {
+        newCommunity.setCid(oldCommunity.getCid());
 
+        List<Community> communityList = queryAllCommunityList();
+        if (!communityList.contains(oldCommunity) || communityList.contains(newCommunity)) {
+            return false;
+        }
         communityList.remove(oldCommunity);
         communityList.add(newCommunity);
 
         String json = GsonUtils.listToJson(communityList);
         JsonFileUitls.writeModeltoJsonfile(json, file);
+
+        return true;
     }
 
     public static Community queryCommunitybByCAdminUser(String userName) {

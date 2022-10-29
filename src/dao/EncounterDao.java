@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 import model.Encounter;
 import org.apache.commons.lang3.ObjectUtils;
-import tool.EncounterSerialGenerator;
 import tool.GsonUtils;
 import tool.JsonFileUitls;
+import tool.serial.EncounterSerialGenerator;
 
 /**
  *
@@ -57,5 +57,12 @@ public class EncounterDao {
     public static List<Encounter> queryALlEncounterRecord() {
 
         return JsonFileUitls.readJsonFileToModel(file, Encounter.class);
+    }
+
+    public static List<Encounter> queryEncounterByDid(String did) {
+        List<Encounter> allEncounters = JsonFileUitls.readJsonFileToModel(file, Encounter.class);
+        List<Encounter> res = allEncounters.stream().filter(s -> s.getDid().equalsIgnoreCase(did)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(res) ? null : res;
     }
 }

@@ -4,7 +4,9 @@
  */
 package ui.hospital;
 
+import dao.AppointmentDao;
 import dao.DoctorDao;
+import dao.HospitalDao;
 import dao.LoginDao;
 import java.awt.Graphics;
 import java.util.List;
@@ -34,7 +36,10 @@ public class ManageDoctorPane extends javax.swing.JPanel {
      */
     public ManageDoctorPane() {
         doctorList = DoctorDao.queryAllDoctor();
+
         initComponents();
+
+        populateTable(doctorList);
     }
 
     public ManageDoctorPane(Hospital currentHospital) {
@@ -71,6 +76,7 @@ public class ManageDoctorPane extends javax.swing.JPanel {
         btnDelete = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         txtkeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,20 +94,20 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
         tbDoctor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Name", "Department", "Phone", "Level"
+                "Name", "Department", "Phone", "Level", "Hospital Name"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -146,12 +152,17 @@ public class ManageDoctorPane extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Doctor Management");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -166,12 +177,15 @@ public class ManageDoctorPane extends javax.swing.JPanel {
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 38, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBrowseDoctors, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtkeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -183,7 +197,7 @@ public class ManageDoctorPane extends javax.swing.JPanel {
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -222,17 +236,6 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
 
-        // TODO 待测试
-        int option = JOptionPane.showConfirmDialog(this, "Do You Want to Delete ?", "", JOptionPane.DEFAULT_OPTION);
-//        if (x == 3) {
-//            cdframe.getContentPane().add(cdframe.panel());
-//            cdframe.repaint();
-//            cdframe.revalidate();
-//        } else {
-//            cdframe.dispose();
-//            JOptionPane.showMessageDialog(null, "Nooope!");
-//        }
-
         int selectedRowIndex = tbDoctor.getSelectedRow();
 
         if (selectedRowIndex < 0) {
@@ -242,6 +245,13 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
         DefaultTableModel model = (DefaultTableModel) tbDoctor.getModel();
         Doctor selectedDoctor = (Doctor) model.getValueAt(selectedRowIndex, 0);
+
+        // 不能删除还有预约的医生
+        if (ObjectUtils.isNotEmpty(AppointmentDao.queryProcessingAppointmentByDId(selectedDoctor.getDid()))) {
+            JOptionPane.showMessageDialog(this, "This Doctor Have Unprocessed Appointment!");
+            return;
+        }
+
         if (!DoctorDao.deleteDoctor(selectedDoctor)) {
             JOptionPane.showMessageDialog(this, "Fail to Delete!");
             return;
@@ -256,16 +266,18 @@ public class ManageDoctorPane extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Delete Successfully!");
+
+        btnRefesh.doClick();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
         if (StringUtils.isBlank(currHospitalID)) {
             doctorList = DoctorDao.queryAllDoctor();
-            return;
+        } else {
+            doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalID);
         }
 
-        doctorList = DoctorDao.queryAllDoctorOfHospital(currHospitalID);
         populateTable(doctorList);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
@@ -287,11 +299,12 @@ public class ManageDoctorPane extends javax.swing.JPanel {
 
         for (Doctor doctor : doctors) {
 
-            Object[] row = new Object[4];
+            Object[] row = new Object[5];
             row[0] = doctor;
             row[1] = doctor.getDepartment();
             row[2] = doctor.getPhoneNum();
             row[3] = doctor.getLevel();
+            row[4] = HospitalDao.queryHospitalByHID(doctor.getHid()).gethName();
 
             model.addRow(row);
         }
@@ -303,6 +316,7 @@ public class ManageDoctorPane extends javax.swing.JPanel {
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnRefesh;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbDoctor;
     private javax.swing.JTextField txtkeyword;

@@ -92,7 +92,6 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         lblIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Add Patient");
 
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
@@ -202,6 +201,12 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         lblConfirmPassword.setText("Confirm:");
 
         lblUserName.setText("UserName:");
+
+        txtUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserNameActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout LoginPanelLayout = new javax.swing.GroupLayout(LoginPanel);
         LoginPanel.setLayout(LoginPanelLayout);
@@ -396,13 +401,9 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         });
 
         lblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/patient.jpeg"))); // NOI18N
         lblIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         lblIcon.setPreferredSize(new java.awt.Dimension(120, 120));
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/assets/default_doctor_icon.png"));
-        Image img = imageIcon.getImage().getScaledInstance(120, 120, Image.SCALE_AREA_AVERAGING);
-        imageIcon.setImage(img);
-        lblIcon.setText(null);
-        lblIcon.setIcon(imageIcon);
         lblIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblIconMouseClicked(evt);
@@ -419,7 +420,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(BasicInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(133, 133, 133)
+                        .addGap(130, 130, 130)
                         .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -474,6 +475,10 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
             return;
         }
+        if (!CheckUtils.checkUsername(userName)) {
+            JOptionPane.showMessageDialog(this, "Rule of Username: Length < 10, Contail Only Digit and Letter!");
+            return;
+        }
         // userName must be unique
         if (LoginDao.queryByUserName(userName) != null) {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
@@ -495,6 +500,10 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         String lastName = txtLastName.getText();
         if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName)) {
             JOptionPane.showMessageDialog(this, "Please Input Name!");
+            return;
+        }
+        if (!CheckUtils.checkName(firstName) || !CheckUtils.checkName(lastName)) {
+            JOptionPane.showMessageDialog(this, "Invalid Name!");
             return;
         }
 
@@ -535,7 +544,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             return;
         }
 
-        Hospital belongToHospital = (Hospital) cbbHospital.getSelectedItem();
+        Hospital belongToHospital = HospitalDao.queryHospitalByHName((String) cbbHospital.getSelectedItem());
 
         String department = (String) cbbDepartment.getSelectedItem();
         if (StringUtils.isBlank(department)) {
@@ -563,8 +572,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             availTime.add("Saturday");
         }
 
-        if (!ckbMon.isSelected() && !ckbTues.isSelected() && !ckbWed.isSelected()
-                && !ckbThurs.isSelected() && !ckbFri.isSelected() && !ckbSat.isSelected()) {
+        if (availTime.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please Choose Work Time!");
             return;
         }
@@ -662,6 +670,10 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_lblIconMouseClicked
+
+    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserNameActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,11 +5,12 @@
 package ui.community;
 
 import dao.CommunityDao;
+import java.awt.Color;
 import model.Community;
 import tool.DateUtils;
 import ui.HomePageFrame;
-import ui.hospital.ManagePatientPane;
 import ui.system.ManageHospitalPane;
+import ui.system.ManagePatientPaneWithDelete;
 
 /**
  *
@@ -31,6 +32,8 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
         curCommunity = CommunityDao.queryCommunitybByCAdminUser(userName);
 
         initComponents();
+
+        btnHospital.doClick();
     }
 
     /**
@@ -165,12 +168,14 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientActionPerformed
+        curCommunity = CommunityDao.queryCommunitybByCAdminUser(curCommunity.getCommunityAdminUser());
 
-        ManagePatientPane managePatientPane = new ManagePatientPane(curCommunity);
+        ManagePatientPaneWithDelete managePatientPane = new ManagePatientPaneWithDelete(curCommunity);
         splitPane.setRightComponent(managePatientPane);
     }//GEN-LAST:event_btnPatientActionPerformed
 
     private void btnHospitalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHospitalActionPerformed
+        curCommunity = CommunityDao.queryCommunitybByCAdminUser(curCommunity.getCommunityAdminUser());
 
         ManageHospitalPane hospitalManagementPane = new ManageHospitalPane(curCommunity);
         splitPane.setRightComponent(hospitalManagementPane);
@@ -178,13 +183,14 @@ public class CommunityAdminFrame extends javax.swing.JFrame {
 
     private void btnProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfileActionPerformed
 
-//        ManageDoctorPane doctorManagementPane = new ManageDoctorPane(curCommunity);
-//        splitPane.setRightComponent(doctorManagementPane);
+        EditCommunityPane editCommunityPane = new EditCommunityPane(curCommunity);
+        splitPane.setRightComponent(editCommunityPane);
     }//GEN-LAST:event_btnProfileActionPerformed
 
     private void lblLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseClicked
 
         HomePageFrame homePageFrame = new HomePageFrame();
+        homePageFrame.getContentPane().setBackground(Color.WHITE);
         homePageFrame.setLocationRelativeTo(null);
         homePageFrame.setVisible(true);
 

@@ -12,6 +12,7 @@ import model.Appointment;
 import model.Doctor;
 import model.Encounter;
 import model.VitalSign;
+import org.apache.commons.lang3.StringUtils;
 import tool.DateUtils;
 
 /**
@@ -32,7 +33,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
     DiagnoseFrame(Appointment selectedAppointment) {
         this.selectedAppointment = selectedAppointment;
-        doctor = DoctorDao.queryDoctorByDId(this.selectedAppointment.getDid());
+        doctor = DoctorDao.queryDoctorByDid(this.selectedAppointment.getDid());
 
         initComponents();
     }
@@ -48,7 +49,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
 
         lblAppointmentID2 = new javax.swing.JLabel();
         btnEmpty = new javax.swing.JButton();
-        btnSave1 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         BasicInfoPane = new javax.swing.JPanel();
         lblAppointmentID = new javax.swing.JLabel();
         lblAppointmentID4 = new javax.swing.JLabel();
@@ -86,11 +87,11 @@ public class DiagnoseFrame extends javax.swing.JFrame {
             }
         });
 
-        btnSave1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
-        btnSave1.setText("Save");
-        btnSave1.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
+        btnSave.setText("Save");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSave1ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -317,7 +318,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                         .addGap(290, 290, 290)
                         .addComponent(btnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(52, 52, 52)
-                        .addComponent(btnSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(50, 50, 50))
         );
         layout.setVerticalGroup(
@@ -336,12 +337,12 @@ public class DiagnoseFrame extends javax.swing.JFrame {
                 .addComponent(DiagnoseInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSave1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEmpty, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(50, 50, 50))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEmpty, btnSave1});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEmpty, btnSave});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -377,33 +378,61 @@ public class DiagnoseFrame extends javax.swing.JFrame {
         txtaRemark.setText("");
     }//GEN-LAST:event_btnEmptyActionPerformed
 
-    private void btnSave1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSave1ActionPerformed
-        // TODO add your handling code here:
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         VitalSign vitalSign = new VitalSign();
-        vitalSign.setBloodPressure(Double.parseDouble(txtBloodPressure.getText()));
-        vitalSign.setBodyTemperature(Double.parseDouble(txtBodyTemperature.getText()));
-        vitalSign.setPulseRate(Double.parseDouble(txtPulseRate.getText()));
-        vitalSign.setRespirationRate(Double.parseDouble(txtRespirationRate.getText()));
+        double bloodPressure = Double.parseDouble(txtBloodPressure.getText());
+        double bodyTemperature = Double.parseDouble(txtBodyTemperature.getText());
+        double pulseRate = Double.parseDouble(txtPulseRate.getText());
+        double respirationRate = Double.parseDouble(txtPulseRate.getText());
+
+        if (bloodPressure <= 0 || bodyTemperature <= 0 || pulseRate <= 0 || respirationRate <= 0) {
+            JOptionPane.showMessageDialog(this, "Please Make Sure Vital Sign > 0!");
+            return;
+        }
+
+        vitalSign.setBloodPressure(bloodPressure);
+        vitalSign.setBodyTemperature(bodyTemperature);
+        vitalSign.setPulseRate(pulseRate);
+        vitalSign.setRespirationRate(respirationRate);
 
         Encounter e = new Encounter();
         e.setDatetime(DateUtils.getCurrentTime());
         e.setDeptment(txtDeptment.getText());
-        e.setPrescription(txtPrescription.getText());
-        e.setRemark(txtaRemark.getText());
+
+        String prescription = txtPrescription.getText();
+        if (prescription.length() > 50) {
+            JOptionPane.showMessageDialog(this, "Please Make Prescription < 50!");
+            return;
+        }
+        e.setPrescription(prescription);
+
+        String conclusion = txtaRemark.getText();
+        if (StringUtils.isBlank(conclusion)) {
+            JOptionPane.showMessageDialog(this, "Please Input Conclusion!");
+            return;
+        }
+        if (conclusion.length() > 100) {
+            JOptionPane.showMessageDialog(this, "Please Make Conclusion < 100!");
+            return;
+        }
+        e.setRemark(conclusion);
         e.setVitalSign(vitalSign);
         e.setdName(txtDoctorName.getText());
         e.sethName(doctor.gethName());
         e.setpName(txtPatientName.getText());
+        e.setPid(selectedAppointment.getPid());
+        e.setHid(selectedAppointment.getHid());
+        e.setDid(selectedAppointment.getDid());
 
         EncounterDao.insertNewEncounterRecord(e);
 
-        // updata appointment status
+        // update appointment status
         AppointmentDao.updateAppointmentStatus(selectedAppointment);
 
         JOptionPane.showMessageDialog(this, "Save Record Successfully!");
 
         this.dispose();
-    }//GEN-LAST:event_btnSave1ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -448,7 +477,7 @@ public class DiagnoseFrame extends javax.swing.JFrame {
     private javax.swing.JPanel DiagnoseInfoPane;
     private javax.swing.JPanel VitalSignPane;
     private javax.swing.JButton btnEmpty;
-    private javax.swing.JButton btnSave1;
+    private javax.swing.JButton btnSave;
     private javax.swing.JLabel imgDiagnose;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAppointmentID;

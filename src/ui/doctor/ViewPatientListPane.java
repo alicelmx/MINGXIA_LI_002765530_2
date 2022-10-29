@@ -37,7 +37,8 @@ public class ViewPatientListPane extends javax.swing.JPanel {
 
         initComponents();
 
-        appointmentList = AppointmentDao.queryAppointmentByDId(currentDoctor.getDid());
+        appointmentList = AppointmentDao.queryTodayAppointmentByDId(currentDoctor.getDid());
+
         populateTable(appointmentList);
     }
 
@@ -63,6 +64,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
         txtKeywords = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         tbAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -122,24 +124,29 @@ public class ViewPatientListPane extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Today's Appointment");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(39, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnDiagnose))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jScrollPane1)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btnSearch))))
-                .addGap(47, 47, 47))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtKeywords)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDiagnose, btnSearch});
@@ -147,17 +154,19 @@ public class ViewPatientListPane extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel1)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDiagnose)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(112, 112, 112))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnDiagnose, btnSearch});
@@ -174,7 +183,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
         }
 
         DefaultTableModel model = (DefaultTableModel) tbAppointment.getModel();
-        Appointment selectedAppointment = (Appointment) model.getValueAt(selectedRowIndex, 0);
+        Appointment selectedAppointment = (Appointment) model.getValueAt(selectedRowIndex, 2);
 
         DiagnoseFrame diagnoseFrame = new DiagnoseFrame(selectedAppointment);
         diagnoseFrame.setLocationRelativeTo(null);
@@ -204,7 +213,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
 
         // after update, query database
-        List<Appointment> appointmentModels = AppointmentDao.queryAppointmentByDId(currentDoctor.getDid());
+        List<Appointment> appointmentModels = AppointmentDao.queryTodayAppointmentByDId(currentDoctor.getDid());
         populateTable(appointmentModels);
     }//GEN-LAST:event_btnRefeshActionPerformed
 
@@ -212,6 +221,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     private javax.swing.JButton btnDiagnose;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbAppointment;
     private javax.swing.JTextField txtKeywords;
@@ -229,9 +239,9 @@ public class ViewPatientListPane extends javax.swing.JPanel {
         for (Appointment appointmentModel : appointmentModels) {
 
             Object[] row = new Object[3];
-            row[0] = appointmentModel;
+            row[0] = appointmentModel.getAid();
             row[1] = appointmentModel.getpName();
-            row[2] = appointmentModel.getDatetime();
+            row[2] = appointmentModel;
 
             model.addRow(row);
         }

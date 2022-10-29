@@ -113,7 +113,15 @@ public class Doctor extends Person {
 
         Doctor doctor = (Doctor) obj;
 
-        return Objects.equals(did, doctor.getDid())
+        return Objects.equals(getDateOfBirth(), doctor.getDateOfBirth())
+                && Objects.equals(getEmail(), doctor.getEmail())
+                && Objects.equals(getFirstName(), doctor.getFirstName())
+                && Objects.equals(getGender(), doctor.getGender())
+                && Objects.equals(getLastName(), doctor.getLastName())
+                && Objects.equals(getMarritialStatus(), doctor.getMarritialStatus())
+                && Objects.equals(getPhoneNum(), doctor.getPhoneNum())
+                && Objects.equals(getUsername(), doctor.getUsername())
+                && Objects.equals(did, doctor.getDid())
                 && Objects.equals(dName, doctor.getdName())
                 && Objects.equals(department, doctor.getDepartment())
                 && Objects.equals(level, doctor.getLevel())
