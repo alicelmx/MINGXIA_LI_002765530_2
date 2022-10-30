@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui.system;
+package ui.doctor;
 
 import dao.AppointmentDao;
 import dao.DoctorDao;
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author limingxia
  */
-public class ManageAppointmentPane extends javax.swing.JPanel {
+public class ViewCancelAppointmentPane extends javax.swing.JPanel {
 
     public Hospital curHospital;
     public Doctor curDoctor;
@@ -33,7 +33,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
     /**
      * Creates new form AuthManagementPane
      */
-    public ManageAppointmentPane() {
+    public ViewCancelAppointmentPane() {
         queryAppointmentList();
 
         initComponents();
@@ -41,7 +41,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         populateTable(appointmentModelList);
     }
 
-    public ManageAppointmentPane(Hospital currentHospital) {
+    public ViewCancelAppointmentPane(Hospital currentHospital) {
         curHospital = currentHospital;
         queryAppointmentList();
 
@@ -50,7 +50,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         populateTable(appointmentModelList);
     }
 
-    public ManageAppointmentPane(Doctor doctor) {
+    public ViewCancelAppointmentPane(Doctor doctor) {
         curDoctor = doctor;
         queryAppointmentList();
 
@@ -81,7 +81,6 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         tbAppointment = new javax.swing.JTable();
         btnRefesh = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        btnAdd = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
@@ -142,14 +141,6 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
             }
         });
 
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-
         jLabel1.setFont(new java.awt.Font("Helvetica Neue", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 153, 153));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -159,22 +150,21 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSearch))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSearch))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 38, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -189,7 +179,6 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(86, Short.MAX_VALUE))
@@ -249,16 +238,10 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         btnRefesh.doClick();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        AddAppointmentFrame addAppointmentFrame = new AddAppointmentFrame(curHospital);
-        addAppointmentFrame.setLocationRelativeTo(null);
-        addAppointmentFrame.setVisible(true);
-    }//GEN-LAST:event_btnAddActionPerformed
-
     private void queryAppointmentList() {
         if (!ObjectUtils.isEmpty(curHospital)) {
             appointmentModelList = AppointmentDao.queryAppointmentByHid(curHospital.getHid());
-        } else if (ObjectUtils.isEmpty(curDoctor)) {
+        } else if (!ObjectUtils.isEmpty(curDoctor)) {
             appointmentModelList = AppointmentDao.queryAppointmentByDid(curDoctor.getDid());
         } else {
             appointmentModelList = AppointmentDao.queryAllAppointment();
@@ -304,7 +287,6 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;

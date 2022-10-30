@@ -49,6 +49,7 @@ public class DoctorMainFrame extends javax.swing.JFrame {
         btnEncounter = new javax.swing.JButton();
         lblLogout = new javax.swing.JLabel();
         lblGreeting = new javax.swing.JLabel();
+        btnAppointment = new javax.swing.JButton();
         contentPane = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -100,6 +101,15 @@ public class DoctorMainFrame extends javax.swing.JFrame {
         String greeting = "Good " + DateUtils.checkNowTime();
         lblGreeting.setText(greeting);
 
+        btnAppointment.setFont(new java.awt.Font("Helvetica Neue", 1, 13)); // NOI18N
+        btnAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/appointment.png"))); // NOI18N
+        btnAppointment.setText("Appointment");
+        btnAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAppointmentActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout funcitonPaneLayout = new javax.swing.GroupLayout(funcitonPane);
         funcitonPane.setLayout(funcitonPaneLayout);
         funcitonPaneLayout.setHorizontalGroup(
@@ -110,15 +120,16 @@ public class DoctorMainFrame extends javax.swing.JFrame {
                     .addComponent(lblGreeting, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(funcitonPaneLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btnDiagnose)
                     .addComponent(btnEncounter)
-                    .addComponent(btnDiagnose))
+                    .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAppointment))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDiagnose, btnEncounter, btnProfile});
+        funcitonPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAppointment, btnDiagnose, btnEncounter, btnProfile});
 
         funcitonPaneLayout.setVerticalGroup(
             funcitonPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,10 +138,12 @@ public class DoctorMainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(btnDiagnose)
                 .addGap(18, 18, 18)
+                .addComponent(btnAppointment)
+                .addGap(18, 18, 18)
                 .addComponent(btnEncounter)
                 .addGap(18, 18, 18)
                 .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 268, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 208, Short.MAX_VALUE)
                 .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -190,6 +203,12 @@ public class DoctorMainFrame extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_lblLogoutMouseClicked
+
+    private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
+
+        ViewCancelAppointmentPane manageAppointmentPane = new ViewCancelAppointmentPane(doctor);
+        splitPane.setRightComponent(manageAppointmentPane);
+    }//GEN-LAST:event_btnAppointmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -290,6 +309,7 @@ public class DoctorMainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAppointment;
     private javax.swing.JButton btnDiagnose;
     private javax.swing.JButton btnEncounter;
     private javax.swing.JButton btnProfile;

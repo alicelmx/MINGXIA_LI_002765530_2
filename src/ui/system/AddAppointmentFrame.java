@@ -80,7 +80,7 @@ public class AddAppointmentFrame extends javax.swing.JFrame {
         tbDoctor = new javax.swing.JTable();
         btnMakeAppointment4 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         SearchPatientPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Search Patient", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
