@@ -17,7 +17,7 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class EditCommunityFrame extends javax.swing.JFrame {
-
+    
     public Community community;
 
     /**
@@ -26,7 +26,7 @@ public class EditCommunityFrame extends javax.swing.JFrame {
     public EditCommunityFrame() {
         initComponents();
     }
-
+    
     EditCommunityFrame(Community community) {
         this.community = community;
         initComponents();
@@ -43,34 +43,22 @@ public class EditCommunityFrame extends javax.swing.JFrame {
 
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        lblCity = new javax.swing.JLabel();
-        txtCity = new javax.swing.JTextField();
-        lblAddress = new javax.swing.JLabel();
-        txtAddress = new javax.swing.JTextField();
-        lblZipCode = new javax.swing.JLabel();
-        txtZipCode = new javax.swing.JTextField();
         btnClear = new javax.swing.JButton();
         btnSubmitAppointment = new javax.swing.JButton();
         jtxtInhabitants = new javax.swing.JFormattedTextField();
         lblInhabitant = new javax.swing.JLabel();
+        lblZipCode = new javax.swing.JLabel();
+        txtZipCode = new javax.swing.JTextField();
+        lblCommunity = new javax.swing.JLabel();
+        lblCity = new javax.swing.JLabel();
+        cbbCity = new javax.swing.JComboBox<>();
+        txtAddress = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblName.setText("Name:");
 
         txtName.setText(community.getcName());
-
-        lblCity.setText("City:");
-
-        txtCity.setText(community.getCity());
-
-        lblAddress.setText("Address:");
-
-        txtAddress.setText(community.getAddress());
-
-        lblZipCode.setText("ZipCode:");
-
-        txtZipCode.setText(community.getZipcode());
 
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
         btnClear.setText(" Clear");
@@ -93,11 +81,46 @@ public class EditCommunityFrame extends javax.swing.JFrame {
 
         lblInhabitant.setText("Inhabitants:");
 
+        lblZipCode.setText("ZipCode:");
+
+        // Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());
+        //txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtZipCodeActionPerformed(evt);
+            }
+        });
+
+        lblCommunity.setText("Address:");
+
+        lblCity.setText("City:");
+
+        cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
+        //if(selectedHospital.getCity().equals("Boston")) {
+            //    cbbCity.setSelectedIndex(0);
+            //} else if(selectedHospital.getCity().equals("Malden")) {
+            //    cbbCity.setSelectedIndex(1);
+            //} else {
+            //    cbbCity.setSelectedIndex(2);
+            //}
+        cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbCityMouseClicked(evt);
+            }
+        });
+        cbbCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCityActionPerformed(evt);
+            }
+        });
+
+        txtName.setText(community.getcName());
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(75, 75, 75)
@@ -108,21 +131,27 @@ public class EditCommunityFrame extends javax.swing.JFrame {
                                 .addComponent(btnSubmitAppointment)
                                 .addGap(21, 21, 21))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblZipCode, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblAddress, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblCity, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
-                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblName)
+                                            .addComponent(lblCity)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(1, 1, 1)
+                                            .addComponent(lblCommunity))
+                                        .addComponent(lblZipCode, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cbbCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtName)
                                     .addComponent(txtZipCode)
-                                    .addComponent(txtAddress, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                    .addComponent(txtAddress)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblInhabitant)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(80, 80, 80))
         );
@@ -137,18 +166,18 @@ public class EditCommunityFrame extends javax.swing.JFrame {
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCity))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity)
+                    .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(lblAddress)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCommunity)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblZipCode)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblInhabitant))
@@ -156,7 +185,7 @@ public class EditCommunityFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear, btnSubmitAppointment});
@@ -168,29 +197,29 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-
+    
     private void btnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppointmentActionPerformed
         String cName = txtName.getText();
-        String city = txtCity.getText();
+        String city = (String) cbbCity.getSelectedItem();
         String address = txtAddress.getText();
         String zipCode = txtZipCode.getText();
         String inhabitants = jtxtInhabitants.getText();
-
+        
         if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode) || StringUtils.isBlank(inhabitants)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
-
+            
         }
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-
+        
         if (Integer.parseInt(inhabitants) < 0) {
             JOptionPane.showMessageDialog(this, "Please Check Inhabitant Number!");
             return;
         }
-
+        
         Community newCommunity = new Community();
         newCommunity.setcName(cName);
         newCommunity.setCity(city);
@@ -198,7 +227,7 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         newCommunity.setZipcode(zipCode);
         newCommunity.setInhabitants(inhabitants);
         newCommunity.setCommunityAdminUser(community.getCommunityAdminUser());
-
+        
         if (!CommunityDao.updateCommunity(newCommunity, community)) {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
@@ -209,16 +238,28 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
         }
-
+        
         if (!HospitalDao.updateHospitaltCommunity(community.getcName(), newCommunity.getcName())) {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
         }
-
+        
         JOptionPane.showMessageDialog(this, "Successfully!");
-
+        
         this.dispose();
     }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
+    
+    private void txtZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZipCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtZipCodeActionPerformed
+    
+    private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
+        
+    }//GEN-LAST:event_cbbCityMouseClicked
+    
+    private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
+        
+    }//GEN-LAST:event_cbbCityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,10 +296,10 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
     private void clearAllBlanket() {
         txtName.setText("");
-        txtCity.setText("");
+        cbbCity.setSelectedIndex(0);
         txtAddress.setText("");
         txtZipCode.setText("");
         jtxtInhabitants.setText("");
@@ -267,14 +308,14 @@ public class EditCommunityFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmitAppointment;
+    private javax.swing.JComboBox<String> cbbCity;
     private javax.swing.JFormattedTextField jtxtInhabitants;
-    private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblCity;
+    private javax.swing.JLabel lblCommunity;
     private javax.swing.JLabel lblInhabitant;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblZipCode;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtZipCode;
     // End of variables declaration//GEN-END:variables

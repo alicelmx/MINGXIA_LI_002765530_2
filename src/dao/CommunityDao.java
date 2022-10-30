@@ -96,4 +96,11 @@ public class CommunityDao {
         return ObjectUtils.isEmpty(res) ? null : res.get(0);
     }
 
+    public static List<Community> queryCommunityListByCityName(String cityName) {
+        List<Community> communityList = JsonFileUitls.readJsonFileToModel(file, Community.class);
+        List<Community> res = communityList.stream().filter(s -> s.getCity().equalsIgnoreCase(cityName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(res) ? null : res;
+    }
+
 }

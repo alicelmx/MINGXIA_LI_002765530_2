@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author limingxia
@@ -11,6 +13,7 @@ package model;
 public class City {
 
     private String cityName;
+    private List<Community> communityList;
 
     public String getCityName() {
         return cityName;
@@ -20,8 +23,25 @@ public class City {
         this.cityName = cityName;
     }
 
+    public List<Community> getCommunityList() {
+        return communityList;
+    }
+
+    public void setCommunityList(List<Community> communityList) {
+        this.communityList = communityList;
+    }
+
     @Override
     public String toString() {
         return cityName;
     }
+
+//    public static List<City> getInitialData() {
+//        List<Community> communitys = CommunityDao.queryAllCommunityList();
+//
+//        List<City> cityList = new ArrayList<>();
+//        for (Community c : communitys) {
+//            
+//        }
+//    }
 }

@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import model.Community;
 import model.Hospital;
 import model.Login;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import tool.CheckUtils;
 
@@ -20,7 +21,7 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class AddHospitalFrame extends javax.swing.JFrame {
-
+    
     public List<Community> communityList;
 
     /**
@@ -40,13 +41,6 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BasicInfoPane = new javax.swing.JPanel();
-        lblCity = new javax.swing.JLabel();
-        txtCity = new javax.swing.JTextField();
-        lblZipCode = new javax.swing.JLabel();
-        txtZipCode = new javax.swing.JTextField();
-        cbbCommunity = new javax.swing.JComboBox<>();
-        lblCommunity = new javax.swing.JLabel();
         AddressInfoPane = new javax.swing.JPanel();
         lblName1 = new javax.swing.JLabel();
         lblCity1 = new javax.swing.JLabel();
@@ -66,63 +60,15 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnSave = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
+        BasicInfoPane = new javax.swing.JPanel();
+        lblCity = new javax.swing.JLabel();
+        lblZipCode = new javax.swing.JLabel();
+        txtZipCode = new javax.swing.JTextField();
+        cbbCommunity = new javax.swing.JComboBox<>();
+        lblCommunity = new javax.swing.JLabel();
+        cbbCity = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
-
-        lblCity.setText("City:");
-
-        lblZipCode.setText("ZipCode:");
-
-        communityList.forEach(o -> {
-            cbbCommunity.addItem(o.getcName());
-        });
-        cbbCommunity.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbCommunityActionPerformed(evt);
-            }
-        });
-
-        lblCommunity.setText("Community:");
-
-        javax.swing.GroupLayout BasicInfoPaneLayout = new javax.swing.GroupLayout(BasicInfoPane);
-        BasicInfoPane.setLayout(BasicInfoPaneLayout);
-        BasicInfoPaneLayout.setHorizontalGroup(
-            BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblZipCode)
-                    .addComponent(lblCity)
-                    .addComponent(lblCommunity))
-                .addGap(18, 18, 18)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(txtZipCode)
-                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        BasicInfoPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cbbCommunity, txtCity, txtZipCode});
-
-        BasicInfoPaneLayout.setVerticalGroup(
-            BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCommunity)
-                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCity)
-                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblZipCode)
-                    .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15))
-        );
 
         AddressInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
@@ -264,6 +210,91 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
+
+        lblCity.setText("City:");
+
+        lblZipCode.setText("ZipCode:");
+
+        // Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());
+        //txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtZipCodeActionPerformed(evt);
+            }
+        });
+
+        cbbCommunity.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbCommunityMouseClicked(evt);
+            }
+        });
+        cbbCommunity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCommunityActionPerformed(evt);
+            }
+        });
+
+        lblCommunity.setText("Community:");
+
+        cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
+        //if(selectedHospital.getCity().equals("Boston")) {
+            //    cbbCity.setSelectedIndex(0);
+            //} else if(selectedHospital.getCity().equals("Malden")) {
+            //    cbbCity.setSelectedIndex(1);
+            //} else {
+            //    cbbCity.setSelectedIndex(2);
+            //}
+        cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbbCityMouseClicked(evt);
+            }
+        });
+        cbbCity.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbCityActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout BasicInfoPaneLayout = new javax.swing.GroupLayout(BasicInfoPane);
+        BasicInfoPane.setLayout(BasicInfoPaneLayout);
+        BasicInfoPaneLayout.setHorizontalGroup(
+            BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BasicInfoPaneLayout.createSequentialGroup()
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(BasicInfoPaneLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(lblZipCode))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BasicInfoPaneLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCommunity, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCity, javax.swing.GroupLayout.Alignment.TRAILING))))
+                .addGap(18, 18, 18)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbbCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbbCommunity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtZipCode))
+                .addGap(55, 55, 55))
+        );
+        BasicInfoPaneLayout.setVerticalGroup(
+            BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BasicInfoPaneLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCity)
+                    .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCommunity))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblZipCode))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -273,8 +304,8 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BasicInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(AddressInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(AddressInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BasicInfoPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(LoginPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -304,12 +335,12 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-
+        
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-
+    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
+        
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
         String cpassword = txtConfirmPassword.getText();
@@ -334,7 +365,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
-
+        
         String hName = txtName.getText();
         String phone = txtPhone.getText();
         String intro = txaIntro.getText(); // optional
@@ -347,21 +378,21 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Phone No!");
             return;
         }
-
-        String city = txtCity.getText();
+        
+        String city = (String) cbbCity.getSelectedItem();
         String community = (String) cbbCommunity.getSelectedItem();
         String zipCode = txtZipCode.getText();
-
+        
         if (StringUtils.isBlank(city) || StringUtils.isBlank(community) || StringUtils.isBlank(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
         }
-
+        
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-
+        
         Hospital hospital = new Hospital();
         hospital.sethName(hName);
         hospital.setPhone(phone);
@@ -370,43 +401,69 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         hospital.setZipCode(zipCode);
         hospital.setCommunity(community);
         hospital.setHospitalAdminUserName(userName);
-
+        
         if (!HospitalDao.insertNewHospital(hospital)) {
             JOptionPane.showMessageDialog(this, "Duplicate Hospital!");
             return;
         }
-
+        
         Login newHospitalAdmin = new Login();
         newHospitalAdmin.setUserName(userName);
         newHospitalAdmin.setPassword(password);
         newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());
-
+        
         if (!LoginDao.insertNewUser(newHospitalAdmin)) {
             JOptionPane.showMessageDialog(this, "Fail to Save!");
             return;
         }
-
+        
         JOptionPane.showMessageDialog(this, "Successfully!");
-
+        
         clearAllBlanket();
-
+        
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-
+    
+    private void txtZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZipCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtZipCodeActionPerformed
+    
+    private void cbbCommunityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCommunityMouseClicked
+        txtZipCode.setText("");
+        txtZipCode.setEnabled(true);
+    }//GEN-LAST:event_cbbCommunityMouseClicked
+    
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
+        
         String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
         Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
-
-        txtCity.setText(sc.getCity());
-        txtCity.setEnabled(false);
-
-        txtZipCode.setText(sc.getZipcode());
-        txtZipCode.setEnabled(false);
+        
+        if (ObjectUtils.isNotEmpty(sc)) {
+            txtZipCode.setText(sc.getZipcode());
+            txtZipCode.setEnabled(false);
+        }
     }//GEN-LAST:event_cbbCommunityActionPerformed
+    
+    private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
+        txtZipCode.setText("");
+        txtZipCode.setEnabled(true);
+    }//GEN-LAST:event_cbbCityMouseClicked
+    
+    private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
+        
+        String cityName = (String) cbbCity.getSelectedItem();
+        List<Community> communitys = CommunityDao.queryCommunityListByCityName(cityName);
+        cbbCommunity.removeAllItems();
+        
+        if (ObjectUtils.isEmpty(communitys)) {
+            return;
+        }
+        communitys.forEach(o -> cbbCommunity.addItem(o.getcName()));
+    }//GEN-LAST:event_cbbCityActionPerformed
 
     /**
      * @param args the command line arguments
@@ -442,18 +499,18 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
     public void clearAllBlanket() {
         txtName.setText("");
         txtPhone.setText("");
         txaIntro.setText("");
-        txtCity.setText("");
+        cbbCity.setSelectedIndex(0);
         cbbCommunity.setSelectedIndex(0);
         txtZipCode.setText("");
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");
-
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -462,6 +519,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cbbCity;
     private javax.swing.JComboBox<String> cbbCommunity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
@@ -476,7 +534,6 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblUserName;
     private javax.swing.JLabel lblZipCode;
     private javax.swing.JTextArea txaIntro;
-    private javax.swing.JTextField txtCity;
     private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;

@@ -38,13 +38,13 @@ public class AddCommunityFrame extends javax.swing.JFrame {
         lblName = new javax.swing.JLabel();
         lblCity = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
-        txtCity = new javax.swing.JTextField();
         lblAddress = new javax.swing.JLabel();
         lblZipCode = new javax.swing.JLabel();
         txtZipCode = new javax.swing.JTextField();
         txtAddress = new javax.swing.JTextField();
         lblZipCode1 = new javax.swing.JLabel();
         jtxtInhabitants = new javax.swing.JFormattedTextField();
+        cbbCity = new javax.swing.JComboBox<>();
         btnClear = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         LoginPanel = new javax.swing.JPanel();
@@ -73,6 +73,8 @@ public class AddCommunityFrame extends javax.swing.JFrame {
 
         jtxtInhabitants.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
 
+        cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
+
         javax.swing.GroupLayout BasicInfoPaneLayout = new javax.swing.GroupLayout(BasicInfoPane);
         BasicInfoPane.setLayout(BasicInfoPaneLayout);
         BasicInfoPaneLayout.setHorizontalGroup(
@@ -90,18 +92,16 @@ public class AddCommunityFrame extends javax.swing.JFrame {
                             .addComponent(lblZipCode, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(20, 20, 20)
                         .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(44, 44, 44)
-                                .addComponent(lblCity)
-                                .addGap(20, 20, 20)
-                                .addComponent(txtCity))
-                            .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                                .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(lblZipCode1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(11, 11, 11)
+                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblZipCode1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblCity, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbbCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jtxtInhabitants))))
                 .addGap(64, 64, 64))
         );
         BasicInfoPaneLayout.setVerticalGroup(
@@ -112,7 +112,7 @@ public class AddCommunityFrame extends javax.swing.JFrame {
                     .addComponent(lblName)
                     .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCity)
-                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,21 +231,21 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-
+        
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-
+    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String cName = txtName.getText();
-        String city = txtCity.getText();
+        String city = (String) cbbCity.getSelectedItem();
         String address = txtAddress.getText();
         String zipCode = txtZipCode.getText();
         String inhabitants = jtxtInhabitants.getText();
-
+        
         if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode) || StringUtils.isBlank(inhabitants)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
-
+            
         }
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
@@ -255,7 +255,7 @@ public class AddCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Inhabitant Number!");
             return;
         }
-
+        
         String userName = txtUserName.getText();
         if (StringUtils.isBlank(userName)) {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
@@ -284,34 +284,34 @@ public class AddCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Inconsistent Password!");
             return;
         }
-
+        
         Community community = new Community();
-
+        
         community.setcName(cName);
         community.setCity(city);
         community.setAddress(address);
         community.setZipcode(zipCode);
         community.setInhabitants(inhabitants);
         community.setCommunityAdminUser(userName);
-
+        
         if (!CommunityDao.insertNewCommunity(community)) {
             JOptionPane.showMessageDialog(this, "Duplicate Community!");
             return;
         }
-
+        
         Login newLoginModel = new Login();
         // 和Patient表中一致
         newLoginModel.setRoleType(enumvalue.RoleEnum.COMMUNITY_ADMIN.getIndex());
         newLoginModel.setUserName(userName);
         newLoginModel.setPassword(password);
-
+        
         if (!LoginDao.insertNewUser(newLoginModel)) {
             JOptionPane.showMessageDialog(this, "Fail to Create New Community!");
             return;
         }
-
+        
         JOptionPane.showMessageDialog(this, "Successfully!");
-
+        
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -355,6 +355,7 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     private javax.swing.JPanel LoginPanel;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSave;
+    private javax.swing.JComboBox<String> cbbCity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JFormattedTextField jtxtInhabitants;
     private javax.swing.JLabel lblAddress;
@@ -366,7 +367,6 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblZipCode;
     private javax.swing.JLabel lblZipCode1;
     private javax.swing.JTextField txtAddress;
-    private javax.swing.JTextField txtCity;
     private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
@@ -375,13 +375,13 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void clearAllBlanket() {
-
+        
         txtName.setText("");
-        txtCity.setText("");
+        cbbCity.setSelectedIndex(0);
         txtAddress.setText("");
         txtZipCode.setText("");
         jtxtInhabitants.setText("");
-
+        
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");
