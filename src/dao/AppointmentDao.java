@@ -105,6 +105,19 @@ public class AppointmentDao {
         return resList;
     }
 
+    public static List<Appointment> queryUnprocessingAppointmentByPid(String userId) {
+        List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
+        if (ObjectUtils.isEmpty(appointmentList)) {
+            return null;
+        }
+        List<Appointment> resList = appointmentList.stream().filter(
+                s -> s.getPid().equalsIgnoreCase(userId)
+                && s.getStatus().equals(0)
+        ).collect(Collectors.toList());
+
+        return resList;
+    }
+
     public static List<Appointment> queryProcessingAppointmentByDId(String did) {
         List<Appointment> appointmentList = JsonFileUitls.readJsonFileToModel(file, Appointment.class);
         if (ObjectUtils.isEmpty(appointmentList)) {

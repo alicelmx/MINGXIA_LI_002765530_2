@@ -260,7 +260,13 @@ public class EditDoctorProfilePane extends javax.swing.JPanel {
 
         lblLevel.setText("Level:");
 
-        cbbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ophtalmology", "Internal Medicine", "Surgery", "Pediatrics", "Obstetrics and Gynecology", "Stomatology", "Neurology" }));
+        String[] departmentList = { "Ophtalmology", "Internal Medicine", "Surgery", "Pediatrics", "Obstetrics and Gynecology", "Stomatology", "Neurology" };
+        cbbDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(departmentList));
+        for(int i=0;i<departmentList.length;i++) {
+            if(departmentList[i].equals(selectedDoctor.getDepartment())) {
+                cbbDepartment.setSelectedIndex(i);
+            }
+        }
         cbbDepartment.setEnabled(false);
         cbbDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

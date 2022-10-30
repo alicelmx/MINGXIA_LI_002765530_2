@@ -208,7 +208,7 @@ public class ViewCancelAppointmentPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-
+        txtKeyword.setText("");
         queryAppointmentList();
         populateTable(appointmentModelList);
     }//GEN-LAST:event_btnRefeshActionPerformed

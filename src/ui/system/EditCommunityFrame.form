@@ -76,9 +76,9 @@
                   <Component id="lblCity" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblAddress" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtAddress" alignment="0" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="2" attributes="0">
+                  <Component id="lblAddress" alignment="2" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAddress" alignment="2" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">

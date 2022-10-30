@@ -219,6 +219,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtKeyword.setText("");
 
         queryAppointmentList();
         populateTable(appointmentModelList);
@@ -260,7 +261,7 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
     private void queryAppointmentList() {
         if (!ObjectUtils.isEmpty(curHospital)) {
             appointmentModelList = AppointmentDao.queryAppointmentByHid(curHospital.getHid());
-        } else if (ObjectUtils.isEmpty(curDoctor)) {
+        } else if (!ObjectUtils.isEmpty(curDoctor)) {
             appointmentModelList = AppointmentDao.queryAppointmentByDid(curDoctor.getDid());
         } else {
             appointmentModelList = AppointmentDao.queryAllAppointment();

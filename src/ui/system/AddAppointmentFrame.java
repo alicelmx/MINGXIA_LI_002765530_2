@@ -5,7 +5,6 @@
 package ui.system;
 
 import dao.DoctorDao;
-import dao.EncounterDao;
 import dao.HospitalDao;
 import dao.PatientDao;
 import java.util.List;
@@ -14,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Doctor;
 import model.DoctorDirectory;
-import model.Encounter;
 import model.Hospital;
 import model.Patient;
 import model.PatientDirectory;
@@ -452,18 +450,8 @@ public class AddAppointmentFrame extends javax.swing.JFrame {
             doctorDirectory.setDoctorList(doctorList);
 
         } else {
-            patientDirectory.clearAll();
-
-            List<Encounter> encounters = EncounterDao.queryEncounterByHID(curHospital.getHid());
-            if (ObjectUtils.isEmpty(encounters)) {
-                return;
-            }
-            encounters.forEach(e -> {
-                Patient p = PatientDao.queryPatientByPid(e.getPid());
-                if (!patientDirectory.containPatient(p)) {
-                    patientDirectory.addPatient(p);
-                }
-            });
+            patientList = PatientDao.queryAllPatientModel();
+            patientDirectory.setPatientList(patientList);
 
             doctorList = DoctorDao.queryDoctorByHid(curHospital.getHid());
             doctorDirectory.setDoctorList(doctorList);

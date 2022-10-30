@@ -211,7 +211,7 @@ public class ViewPatientListPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
-
+        txtKeywords.setText("");
         // after update, query database
         List<Appointment> appointmentModels = AppointmentDao.queryTodayAppointmentByDId(currentDoctor.getDid());
         populateTable(appointmentModels);

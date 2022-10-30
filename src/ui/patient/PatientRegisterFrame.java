@@ -21,9 +21,17 @@ import ui.LoginFrame;
 public class PatientRegisterFrame extends javax.swing.JFrame {
 
     public List<Community> communityList;
+    public boolean toLogin = true;
 
     public PatientRegisterFrame() {
         communityList = CommunityDao.queryAllCommunityList();
+        initComponents();
+    }
+
+    public PatientRegisterFrame(boolean toLogin) {
+        this.toLogin = toLogin;
+        communityList = CommunityDao.queryAllCommunityList();
+
         initComponents();
     }
 
@@ -512,9 +520,12 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, "Congrats! Register Successfully!", "", JOptionPane.PLAIN_MESSAGE);
 
-        LoginFrame loginFrame = new LoginFrame(enumvalue.RoleEnum.PATIENT.getIndex());
-        loginFrame.setLocationRelativeTo(null);
-        loginFrame.setVisible(true);
+        if (toLogin) {
+            LoginFrame loginFrame = new LoginFrame(enumvalue.RoleEnum.PATIENT.getIndex());
+            loginFrame.setLocationRelativeTo(null);
+            loginFrame.setVisible(true);
+        }
+
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 

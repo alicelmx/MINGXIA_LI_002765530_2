@@ -4,7 +4,6 @@
  */
 package ui.hospital;
 
-import dao.EncounterDao;
 import dao.PatientDao;
 import java.awt.Graphics;
 import java.util.List;
@@ -12,12 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Community;
-import model.Encounter;
 import model.Hospital;
 import model.Patient;
 import model.PatientDirectory;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import ui.patient.PatientRegisterFrame;
 
 /**
  *
@@ -84,6 +83,7 @@ public class ManagePatientPane extends javax.swing.JPanel {
         btnEdit = new javax.swing.JButton();
         btnRefesh = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnEdit1 = new javax.swing.JButton();
 
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,7 +114,7 @@ public class ManagePatientPane extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -148,6 +148,14 @@ public class ManagePatientPane extends javax.swing.JPanel {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Patient Management");
 
+        btnEdit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/add.png"))); // NOI18N
+        btnEdit1.setText("Add");
+        btnEdit1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEdit1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,7 +171,9 @@ public class ManagePatientPane extends javax.swing.JPanel {
                             .addComponent(btnSearch)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 38, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -182,7 +192,8 @@ public class ManagePatientPane extends javax.swing.JPanel {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -220,10 +231,17 @@ public class ManagePatientPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtKeyword.setText("");
 
         getPatientDirectory();
         populateTable(patientDirectory.getPatientList());
     }//GEN-LAST:event_btnRefeshActionPerformed
+
+    private void btnEdit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEdit1ActionPerformed
+        PatientRegisterFrame patientRegisterFrame = new PatientRegisterFrame(false);
+        patientRegisterFrame.setLocationRelativeTo(null);
+        patientRegisterFrame.setVisible(true);
+    }//GEN-LAST:event_btnEdit1ActionPerformed
 
     private void populateTable(List<Patient> patients) {
 
@@ -247,10 +265,8 @@ public class ManagePatientPane extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnDelete1;
-    private javax.swing.JButton btnDelete2;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnEdit1;
     private javax.swing.JButton btnRefesh;
     private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
@@ -262,18 +278,20 @@ public class ManagePatientPane extends javax.swing.JPanel {
     private void getPatientDirectory() {
 
         if (!StringUtils.isBlank(currHospitalID)) {
-            patientDirectory.clearAll();
-
-            List<Encounter> encounters = EncounterDao.queryEncounterByHID(this.currHospitalID);
-            if (ObjectUtils.isEmpty(encounters)) {
-                return;
-            }
-            encounters.forEach(e -> {
-                Patient p = PatientDao.queryPatientByPid(e.getPid());
-                if (!patientDirectory.containPatient(p)) {
-                    patientDirectory.addPatient(p);
-                }
-            });
+            patientList = PatientDao.queryAllPatientModel();
+            patientDirectory.setPatientList(patientList);
+//            patientDirectory.clearAll();
+//
+//            List<Encounter> encounters = EncounterDao.queryEncounterByHID(this.currHospitalID);
+//            if (ObjectUtils.isEmpty(encounters)) {
+//                return;
+//            }
+//            encounters.forEach(e -> {
+//                Patient p = PatientDao.queryPatientByPid(e.getPid());
+//                if (!patientDirectory.containPatient(p)) {
+//                    patientDirectory.addPatient(p);
+//                }
+//            });
 
         } else if (!StringUtils.isBlank(curCommunityName)) {
             patientList = PatientDao.queryPatientByCName(curCommunityName);

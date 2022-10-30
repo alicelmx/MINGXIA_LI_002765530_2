@@ -183,6 +183,7 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtKeywordActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtKeyword.setText("");
 
         appointmentModelList = AppointmentDao.queryAppointmentByPid(this.patient.getPid());
         populateTable(appointmentModelList);

@@ -271,6 +271,7 @@ public class ManageDoctorPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtkeyword.setText("");
 
         if (StringUtils.isBlank(currHospitalID)) {
             doctorList = DoctorDao.queryAllDoctor();

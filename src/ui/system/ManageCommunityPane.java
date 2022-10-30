@@ -264,6 +264,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtKeyword.setText("");
 
         communityList = CommunityDao.queryAllCommunityList();
         populateTable(communityList);

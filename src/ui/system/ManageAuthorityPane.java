@@ -231,6 +231,8 @@ public class ManageAuthorityPane extends javax.swing.JPanel {
         }
 
         JOptionPane.showMessageDialog(this, "Modify Password Successfully!");
+
+        clearAllBlanket();
     }//GEN-LAST:event_btnSave3ActionPerformed
 
     private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
@@ -250,4 +252,11 @@ public class ManageAuthorityPane extends javax.swing.JPanel {
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+
+    private void clearAllBlanket() {
+
+        txtUsername.setText("");
+        txtPassword.setText("");
+        txtConfirmPassword.setText("");
+    }
 }

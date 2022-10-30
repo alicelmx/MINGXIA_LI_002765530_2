@@ -62,7 +62,6 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         lblDoctorNameTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Make Appointment");
         setResizable(false);
 
         btnSubmitAppointment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N

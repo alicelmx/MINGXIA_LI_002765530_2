@@ -222,6 +222,8 @@ public class ManageEncounterPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnViewActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtKeywords.setText("");
+
         if (ObjectUtils.isNotEmpty(currHospital)) {
             encounterList = EncounterDao.queryEncounterByHID(this.currHospital.getHid());
         } else if (ObjectUtils.isNotEmpty(curDoctor)) {

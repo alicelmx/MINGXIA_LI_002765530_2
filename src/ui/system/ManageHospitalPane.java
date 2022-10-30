@@ -213,6 +213,7 @@ public class ManageHospitalPane extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
+        txtKeyword.setText("");
 
         if (!StringUtils.isBlank(curCommunityName)) {
             hospitals = HospitalDao.queryHospitalListByCommunity(curCommunityName);
