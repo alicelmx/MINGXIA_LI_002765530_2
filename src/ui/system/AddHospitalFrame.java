@@ -91,22 +91,17 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         BasicInfoPaneLayout.setHorizontalGroup(
             BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BasicInfoPaneLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblZipCode)
+                    .addComponent(lblCity)
+                    .addComponent(lblCommunity))
+                .addGap(18, 18, 18)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblCity)
-                            .addComponent(lblZipCode))
-                        .addGap(18, 18, 18)
-                        .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                            .addComponent(txtZipCode)))
-                    .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(lblCommunity)
-                        .addGap(18, 18, 18)
-                        .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(txtCity, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                    .addComponent(txtZipCode)
+                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         BasicInfoPaneLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cbbCommunity, txtCity, txtZipCode});
@@ -116,17 +111,17 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             .addGroup(BasicInfoPaneLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCommunity)
+                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCity)
                     .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCommunity)
-                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblZipCode)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         AddressInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Basic Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
@@ -287,7 +282,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(313, 313, 313)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -403,7 +398,14 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        // TODO add your handling code here:
+        String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
+        Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
+
+        txtCity.setText(sc.getCity());
+        txtCity.setEnabled(false);
+
+        txtZipCode.setText(sc.getZipcode());
+        txtZipCode.setEnabled(false);
     }//GEN-LAST:event_cbbCommunityActionPerformed
 
     /**

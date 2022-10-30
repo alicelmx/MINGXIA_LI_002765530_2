@@ -72,6 +72,11 @@ public class EditHospitalFrame extends javax.swing.JFrame {
         lblZipCode.setText("ZipCode:");
 
         txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtZipCodeActionPerformed(evt);
+            }
+        });
 
         communityList.forEach(o -> {
             cbbCommunity.addItem(o.getcName());
@@ -110,15 +115,14 @@ public class EditHospitalFrame extends javax.swing.JFrame {
         BasicInfoPaneLayout.setVerticalGroup(
             BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BasicInfoPaneLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCommunity)
+                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCity)
                     .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblCommunity)
-                    .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(12, 12, 12)
                 .addGroup(BasicInfoPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblZipCode)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -294,8 +298,19 @@ public class EditHospitalFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        // TODO add your handling code here:
+        String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
+        Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
+
+        txtCity.setText(sc.getCity());
+        txtCity.setEnabled(false);
+
+        txtZipCode.setText(sc.getZipcode());
+        txtZipCode.setEnabled(false);
     }//GEN-LAST:event_cbbCommunityActionPerformed
+
+    private void txtZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZipCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtZipCodeActionPerformed
 
     /**
      * @param args the command line arguments

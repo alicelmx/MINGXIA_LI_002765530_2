@@ -371,7 +371,14 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
     }//GEN-LAST:event_chooseMaritialStatusActionPerformed
 
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        // TODO add your handling code here:
+        String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
+        Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
+
+        txtCity.setText(sc.getCity());
+        txtCity.setEnabled(false);
+
+        txtZipCode.setText(sc.getZipcode());
+        txtZipCode.setEnabled(false);
     }//GEN-LAST:event_cbbCommunityActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed

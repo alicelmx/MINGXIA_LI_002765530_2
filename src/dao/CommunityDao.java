@@ -89,4 +89,11 @@ public class CommunityDao {
         return communityList;
     }
 
+    public static Community queryCommunityListByCName(String cName) {
+        List<Community> communityList = JsonFileUitls.readJsonFileToModel(file, Community.class);
+        List<Community> res = communityList.stream().filter(s -> s.getcName().equalsIgnoreCase(cName)).collect(Collectors.toList());
+
+        return ObjectUtils.isEmpty(res) ? null : res.get(0);
+    }
+
 }

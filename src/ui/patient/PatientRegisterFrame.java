@@ -103,6 +103,11 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
         communityList.forEach(o -> {
             cbbCommunity.addItem(o.getcName());
         });
+        cbbCommunity.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbbCommunityItemStateChanged(evt);
+            }
+        });
         cbbCommunity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbbCommunityActionPerformed(evt);
@@ -518,12 +523,24 @@ public class PatientRegisterFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseMaritialStatusActionPerformed
 
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        // TODO add your handling code here:
+
+        String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
+        Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
+
+        txtCity.setText(sc.getCity());
+        txtCity.setEnabled(false);
+
+        txtZipCode.setText(sc.getZipcode());
+        txtZipCode.setEnabled(false);
     }//GEN-LAST:event_cbbCommunityActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void cbbCommunityItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbbCommunityItemStateChanged
+
+    }//GEN-LAST:event_cbbCommunityItemStateChanged
 
     /**
      * @param args the command line arguments

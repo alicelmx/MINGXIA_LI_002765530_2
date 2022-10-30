@@ -223,6 +223,7 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cbbCommunity">
               <Events>
+                <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbbCommunityItemStateChanged"/>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbCommunityActionPerformed"/>
               </Events>
               <AuxValues>

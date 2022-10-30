@@ -380,7 +380,14 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_chooseMaritialStatusActionPerformed
 
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        // TODO add your handling code here:
+        String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
+        Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
+
+        txtCity.setText(sc.getCity());
+        txtCity.setEnabled(false);
+
+        txtZipCode.setText(sc.getZipcode());
+        txtZipCode.setEnabled(false);
     }//GEN-LAST:event_cbbCommunityActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
