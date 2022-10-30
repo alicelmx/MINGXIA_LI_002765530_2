@@ -200,14 +200,11 @@ public class SearchDoctorPane extends javax.swing.JPanel {
 
         List<Doctor> searchResult = doctorList.stream().filter(d
                 -> d.getdName().equalsIgnoreCase(keyword)
-                || d.getdName().contains(keyword)
                 || d.getDepartment().equalsIgnoreCase(keyword)
                 || d.gethName().equalsIgnoreCase(keyword)
-                || d.gethName().contains(keyword)
                 || d.getAvailableTime().contains(keyword)
                 || d.getCommunity().equalsIgnoreCase(keyword)
-                || d.getCommunity().contains(keyword)
-                || d.getZipCode().equalsIgnoreCase(keyword)
+                || d.getZipCode().equals(keyword)
         ).collect(Collectors.toList());
 
         populateTable(searchResult);

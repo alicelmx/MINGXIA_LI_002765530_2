@@ -200,7 +200,7 @@ public class ManageCommunityPane extends javax.swing.JPanel {
         List<Community> searchResult = communityList.stream().filter(c
                 -> c.getcName().equalsIgnoreCase(keyword)
                 || c.getCity().equalsIgnoreCase(keyword)
-                || c.getZipcode().equalsIgnoreCase(keyword)
+                || c.getZipcode().equals(keyword)
                 || c.getAddress().contains(keyword)
         ).collect(Collectors.toList());
 

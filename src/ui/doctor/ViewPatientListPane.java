@@ -202,9 +202,9 @@ public class ViewPatientListPane extends javax.swing.JPanel {
         }
 
         List<Appointment> searchResult = appointmentList.stream().filter(app
-                -> app.getdName().equalsIgnoreCase(keyword)
-                || app.getDatetime().equalsIgnoreCase(keyword)
+                -> app.getDatetime().equalsIgnoreCase(keyword)
                 || app.getpName().equalsIgnoreCase(keyword)
+                || app.getAid().equalsIgnoreCase(keyword)
         ).collect(Collectors.toList());
 
         populateTable(searchResult);

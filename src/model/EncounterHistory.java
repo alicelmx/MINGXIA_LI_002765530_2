@@ -51,6 +51,7 @@ public class EncounterHistory {
                 || s.getdName().equalsIgnoreCase(keyword)
                 || s.gethName().equalsIgnoreCase(keyword)
                 || s.getDeptment().equalsIgnoreCase(keyword)
+                || s.getpName().equalsIgnoreCase(keyword)
         ).collect(Collectors.toList());
 
         return res;

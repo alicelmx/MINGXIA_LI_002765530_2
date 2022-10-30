@@ -55,7 +55,7 @@ public class HospitalDirectory {
     public List<Hospital> searchByKeyword(String keyword) {
 
         List<Hospital> res = getHospitalList().stream().filter(
-                s -> s.gethName().contains(keyword)
+                s -> s.gethName().equalsIgnoreCase(keyword)
                 || s.getCity().equalsIgnoreCase(keyword)
                 || s.getIntro().contains(keyword)
         ).collect(Collectors.toList());

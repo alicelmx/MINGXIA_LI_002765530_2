@@ -210,7 +210,9 @@ public class ManageAppointmentPane extends javax.swing.JPanel {
         List<Appointment> searchResult = appointmentModelList.stream().filter(a
                 -> a.getdName().equalsIgnoreCase(keyword)
                 || a.gethName().equalsIgnoreCase(keyword)
+                || a.getDatetime().equalsIgnoreCase(keyword)
                 || a.getDepartment().equalsIgnoreCase(keyword)
+                || a.getpName().equalsIgnoreCase(keyword)
         ).collect(Collectors.toList());
 
         populateTable(searchResult);

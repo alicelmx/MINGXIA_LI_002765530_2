@@ -52,7 +52,7 @@ public class PatientDirectory {
     public List<Patient> searchByKeyword(String keyword) {
         return this.patientList.stream()
                 .filter(
-                        s -> String.valueOf(s.getPid()).equalsIgnoreCase(keyword)
+                        s -> s.getPid().equalsIgnoreCase(keyword)
                         || s.getFullName().equalsIgnoreCase(keyword)
                         || s.getPhoneNum().equalsIgnoreCase(keyword)
                         || s.getDateOfBirth().equalsIgnoreCase(keyword)

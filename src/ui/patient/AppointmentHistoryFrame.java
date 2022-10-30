@@ -170,6 +170,7 @@ public class AppointmentHistoryFrame extends javax.swing.JFrame {
 
         List<Appointment> searchResult = appointmentModelList.stream().filter(a
                 -> a.getdName().equalsIgnoreCase(keyword)
+                || a.getDatetime().equalsIgnoreCase(keyword)
                 || a.gethName().equalsIgnoreCase(keyword)
                 || a.getDepartment().equalsIgnoreCase(keyword)
         ).collect(Collectors.toList());

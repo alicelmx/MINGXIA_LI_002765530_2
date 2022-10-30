@@ -194,7 +194,7 @@ public class ManageEncounterPane extends javax.swing.JPanel {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String keywords = txtKeywords.getText();
         if (StringUtils.isBlank(keywords)) {
-            JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
+            JOptionPane.showMessageDialog(this, "Please Input Keyword to Search!");
             return;
         }
         encounterHistory.setEncounterHistory(encounterList);
