@@ -172,8 +172,8 @@ public class SystemAdminFrame extends javax.swing.JFrame {
                 .addComponent(btnAppointment)
                 .addGap(18, 18, 18)
                 .addComponent(btnAppointment1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
-                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
+                .addComponent(lblLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         funcitonPaneLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAppointment, btnAppointment1, btnCommunity, btnHospital, btnManageDoctor, btnPatientManagement, btnPatientManagement1});

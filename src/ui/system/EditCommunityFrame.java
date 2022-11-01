@@ -17,7 +17,7 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class EditCommunityFrame extends javax.swing.JFrame {
-    
+
     public Community community;
 
     /**
@@ -26,7 +26,7 @@ public class EditCommunityFrame extends javax.swing.JFrame {
     public EditCommunityFrame() {
         initComponents();
     }
-    
+
     EditCommunityFrame(Community community) {
         this.community = community;
         initComponents();
@@ -96,13 +96,13 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         lblCity.setText("City:");
 
         cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
-        //if(selectedHospital.getCity().equals("Boston")) {
-            //    cbbCity.setSelectedIndex(0);
-            //} else if(selectedHospital.getCity().equals("Malden")) {
-            //    cbbCity.setSelectedIndex(1);
-            //} else {
-            //    cbbCity.setSelectedIndex(2);
-            //}
+        if(community.getCity().equals("Boston")) {
+            cbbCity.setSelectedIndex(0);
+        } else if(community.getCity().equals("Malden")) {
+            cbbCity.setSelectedIndex(1);
+        } else {
+            cbbCity.setSelectedIndex(2);
+        }
         cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCityMouseClicked(evt);
@@ -197,29 +197,29 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     private void btnSubmitAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppointmentActionPerformed
         String cName = txtName.getText();
         String city = (String) cbbCity.getSelectedItem();
         String address = txtAddress.getText();
         String zipCode = txtZipCode.getText();
         String inhabitants = jtxtInhabitants.getText();
-        
+
         if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode) || StringUtils.isBlank(inhabitants)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
-            
+
         }
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         if (Integer.parseInt(inhabitants) < 0) {
             JOptionPane.showMessageDialog(this, "Please Check Inhabitant Number!");
             return;
         }
-        
+
         Community newCommunity = new Community();
         newCommunity.setcName(cName);
         newCommunity.setCity(city);
@@ -227,7 +227,7 @@ public class EditCommunityFrame extends javax.swing.JFrame {
         newCommunity.setZipcode(zipCode);
         newCommunity.setInhabitants(inhabitants);
         newCommunity.setCommunityAdminUser(community.getCommunityAdminUser());
-        
+
         if (!CommunityDao.updateCommunity(newCommunity, community)) {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
@@ -238,27 +238,27 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
         }
-        
+
         if (!HospitalDao.updateHospitaltCommunity(community.getcName(), newCommunity.getcName())) {
             JOptionPane.showMessageDialog(this, "Fail to Edit!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Successfully!");
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
-    
+
     private void txtZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZipCodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtZipCodeActionPerformed
-    
+
     private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
-        
+
     }//GEN-LAST:event_cbbCityMouseClicked
-    
+
     private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
-        
+
     }//GEN-LAST:event_cbbCityActionPerformed
 
     /**
@@ -296,7 +296,7 @@ public class EditCommunityFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void clearAllBlanket() {
         txtName.setText("");
         cbbCity.setSelectedIndex(0);

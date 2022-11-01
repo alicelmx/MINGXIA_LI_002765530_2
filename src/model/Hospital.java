@@ -20,8 +20,6 @@ public class Hospital {
     private String zipCode;
     private String intro;
     private String hospitalAdminUserName;
-//    private List<Doctor> doctorDirectory;
-//    private PatientDirectory patientDirectory;
 
     public String getHid() {
         return hid;

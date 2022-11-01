@@ -21,7 +21,6 @@ public class Doctor extends Person {
     private String hid;
     private String community;
     private String zipCode;
-
     private List<String> availableTime;
 
     public String getDid() {

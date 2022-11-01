@@ -35,13 +35,4 @@ public class City {
     public String toString() {
         return cityName;
     }
-
-//    public static List<City> getInitialData() {
-//        List<Community> communitys = CommunityDao.queryAllCommunityList();
-//
-//        List<City> cityList = new ArrayList<>();
-//        for (Community c : communitys) {
-//            
-//        }
-//    }
 }

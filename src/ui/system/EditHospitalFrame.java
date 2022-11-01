@@ -71,13 +71,23 @@ public class EditHospitalFrame extends javax.swing.JFrame {
         lblZipCode.setText("ZipCode:");
 
         // Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());
-        //txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.setText(selectedHospital.getZipCode());
         txtZipCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtZipCodeActionPerformed(evt);
             }
         });
 
+        int selectedIdx = 0;
+        for(Community c : communityList) {
+            if(c.getCity().equals(selectedHospital.getCity())) {
+                cbbCommunity.addItem(c.getcName());
+            }
+            if(c.getcName().equals(selectedHospital.getCommunity())) {
+                selectedIdx = cbbCommunity.getItemCount()-1;
+            }
+        }
+        cbbCommunity.setSelectedIndex(selectedIdx);
         cbbCommunity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCommunityMouseClicked(evt);
@@ -92,13 +102,13 @@ public class EditHospitalFrame extends javax.swing.JFrame {
         lblCommunity.setText("Community:");
 
         cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
-        //if(selectedHospital.getCity().equals("Boston")) {
-            //    cbbCity.setSelectedIndex(0);
-            //} else if(selectedHospital.getCity().equals("Malden")) {
-            //    cbbCity.setSelectedIndex(1);
-            //} else {
-            //    cbbCity.setSelectedIndex(2);
-            //}
+        if(selectedHospital.getCity().equals("Boston")) {
+            cbbCity.setSelectedIndex(0);
+        } else if(selectedHospital.getCity().equals("Malden")) {
+            cbbCity.setSelectedIndex(1);
+        } else {
+            cbbCity.setSelectedIndex(2);
+        }
         cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCityMouseClicked(evt);

@@ -226,7 +226,7 @@ public class ResetPasswordFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Fill in all the Blanks!");
             return;
         }
-        if (CheckUtils.checkPassword(newPassword)) {
+        if (!CheckUtils.checkPassword(newPassword)) {
             JOptionPane.showMessageDialog(this, "Please Longer Than 8 character, Only Contain Digit and Letter, At Least one Capital Letter!");
             return;
         }

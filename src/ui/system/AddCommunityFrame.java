@@ -231,21 +231,21 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String cName = txtName.getText();
         String city = (String) cbbCity.getSelectedItem();
         String address = txtAddress.getText();
         String zipCode = txtZipCode.getText();
         String inhabitants = jtxtInhabitants.getText();
-        
+
         if (StringUtils.isBlank(cName) || StringUtils.isBlank(city) || StringUtils.isBlank(address) || StringUtils.isBlank(zipCode) || StringUtils.isBlank(inhabitants)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
-            
+
         }
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
@@ -255,7 +255,7 @@ public class AddCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Inhabitant Number!");
             return;
         }
-        
+
         String userName = txtUserName.getText();
         if (StringUtils.isBlank(userName)) {
             JOptionPane.showMessageDialog(this, "Please Input Username!");
@@ -284,34 +284,34 @@ public class AddCommunityFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Inconsistent Password!");
             return;
         }
-        
+
         Community community = new Community();
-        
+
         community.setcName(cName);
         community.setCity(city);
         community.setAddress(address);
         community.setZipcode(zipCode);
         community.setInhabitants(inhabitants);
         community.setCommunityAdminUser(userName);
-        
+
         if (!CommunityDao.insertNewCommunity(community)) {
             JOptionPane.showMessageDialog(this, "Duplicate Community!");
             return;
         }
-        
+
         Login newLoginModel = new Login();
         // 和Patient表中一致
         newLoginModel.setRoleType(enumvalue.RoleEnum.COMMUNITY_ADMIN.getIndex());
         newLoginModel.setUserName(userName);
         newLoginModel.setPassword(password);
-        
+
         if (!LoginDao.insertNewUser(newLoginModel)) {
             JOptionPane.showMessageDialog(this, "Fail to Create New Community!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Successfully!");
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -375,13 +375,13 @@ public class AddCommunityFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void clearAllBlanket() {
-        
+
         txtName.setText("");
         cbbCity.setSelectedIndex(0);
         txtAddress.setText("");
         txtZipCode.setText("");
         jtxtInhabitants.setText("");
-        
+
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");

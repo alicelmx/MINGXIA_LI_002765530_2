@@ -196,7 +196,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbCityActionPerformed"/>
       </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//if(selectedHospital.getCity().equals(&quot;Boston&quot;)) {&#xa;//    cbbCity.setSelectedIndex(0);&#xa;//} else if(selectedHospital.getCity().equals(&quot;Malden&quot;)) {&#xa;//    cbbCity.setSelectedIndex(1);&#xa;//} else {&#xa;//    cbbCity.setSelectedIndex(2);&#xa;//}"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(community.getCity().equals(&quot;Boston&quot;)) {&#xa;    cbbCity.setSelectedIndex(0);&#xa;} else if(community.getCity().equals(&quot;Malden&quot;)) {&#xa;    cbbCity.setSelectedIndex(1);&#xa;} else {&#xa;    cbbCity.setSelectedIndex(2);&#xa;}"/>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
     </Component>

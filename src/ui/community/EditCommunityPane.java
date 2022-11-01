@@ -63,7 +63,7 @@ public class EditCommunityPane extends javax.swing.JPanel {
         lblCity = new javax.swing.JLabel();
         txtZipCode = new javax.swing.JTextField();
         lblName = new javax.swing.JLabel();
-        cbbCity1 = new javax.swing.JComboBox<>();
+        cbbCity = new javax.swing.JComboBox<>();
 
         btnClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/RepeatHS.png"))); // NOI18N
         btnClear.setText(" Clear");
@@ -85,6 +85,7 @@ public class EditCommunityPane extends javax.swing.JPanel {
 
         jPanel1.setBackground(null);
         jPanel1.setOpaque(false);
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Community Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Helvetica Neue", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
         txtName.setText(community.getcName());
 
@@ -105,22 +106,22 @@ public class EditCommunityPane extends javax.swing.JPanel {
 
         lblName.setText("Name:");
 
-        cbbCity1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
-        //if(selectedHospital.getCity().equals("Boston")) {
-            //    cbbCity.setSelectedIndex(0);
-            //} else if(selectedHospital.getCity().equals("Malden")) {
-            //    cbbCity.setSelectedIndex(1);
-            //} else {
-            //    cbbCity.setSelectedIndex(2);
-            //}
-        cbbCity1.addMouseListener(new java.awt.event.MouseAdapter() {
+        cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
+        if(community.getCity().equals("Boston")) {
+            cbbCity.setSelectedIndex(0);
+        } else if(community.getCity().equals("Malden")) {
+            cbbCity.setSelectedIndex(1);
+        } else {
+            cbbCity.setSelectedIndex(2);
+        }
+        cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbbCity1MouseClicked(evt);
+                cbbCityMouseClicked(evt);
             }
         });
-        cbbCity1.addActionListener(new java.awt.event.ActionListener() {
+        cbbCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbCity1ActionPerformed(evt);
+                cbbCityActionPerformed(evt);
             }
         });
 
@@ -138,7 +139,7 @@ public class EditCommunityPane extends javax.swing.JPanel {
                     .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbbCity1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -158,7 +159,7 @@ public class EditCommunityPane extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCity)
-                    .addComponent(cbbCity1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAddress)
@@ -171,7 +172,7 @@ public class EditCommunityPane extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtxtInhabitants, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblZipCode1))
-                .addContainerGap())
+                .addGap(20, 20, 20))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -179,33 +180,33 @@ public class EditCommunityPane extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(btnClear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSubmitAppointment)
-                .addGap(88, 88, 88))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
+                .addGap(120, 120, 120)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(139, 139, 139))))
+                        .addGap(185, 185, 185))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(37, 37, 37)
+                                .addComponent(btnClear)
+                                .addGap(97, 97, 97)
+                                .addComponent(btnSubmitAppointment))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(112, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(70, 70, 70)
                 .addComponent(jLabel1)
-                .addGap(44, 44, 44)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(59, 59, 59)
+                .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -263,21 +264,21 @@ public class EditCommunityPane extends javax.swing.JPanel {
 
         // 防止连续点击造成的编辑失败
         community = newCommunity;
+
     }//GEN-LAST:event_btnSubmitAppointmentActionPerformed
 
-    private void cbbCity1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCity1MouseClicked
+    private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
 
-    }//GEN-LAST:event_cbbCity1MouseClicked
+    }//GEN-LAST:event_cbbCityMouseClicked
 
-    private void cbbCity1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCity1ActionPerformed
+    private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
 
-    }//GEN-LAST:event_cbbCity1ActionPerformed
+    }//GEN-LAST:event_cbbCityActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmitAppointment;
     private javax.swing.JComboBox<String> cbbCity;
-    private javax.swing.JComboBox<String> cbbCity1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JFormattedTextField jtxtInhabitants;

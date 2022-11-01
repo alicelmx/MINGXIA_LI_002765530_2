@@ -401,7 +401,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         });
 
         lblIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/patient.jpeg"))); // NOI18N
+        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/doctor2.jpeg"))); // NOI18N
         lblIcon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         lblIcon.setPreferredSize(new java.awt.Dimension(120, 120));
         lblIcon.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -615,7 +615,7 @@ public class DoctorRegisterFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Congrats! Register Successfully!", "", JOptionPane.PLAIN_MESSAGE);
 
         if (!fromHospitalAdmin) {
-            LoginFrame loginFrame = new LoginFrame(enumvalue.RoleEnum.PATIENT.getIndex());
+            LoginFrame loginFrame = new LoginFrame(enumvalue.RoleEnum.DOCTOR.getIndex());
             loginFrame.setLocationRelativeTo(null);
             loginFrame.setVisible(true);
         }

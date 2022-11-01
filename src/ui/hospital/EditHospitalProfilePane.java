@@ -174,20 +174,31 @@ public class EditHospitalProfilePane extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
+        BasicInfoPane.setBackground(null);
+        BasicInfoPane.setOpaque(false);
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
         lblCity.setText("City:");
 
         lblZipCode.setText("ZipCode:");
 
-        // Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());
-        //txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.setText(curHospital.getZipCode());
         txtZipCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtZipCodeActionPerformed(evt);
             }
         });
 
+        int selectedIdx = 0;
+        for(Community c : communityList) {
+            if(c.getCity().equals(curHospital.getCity())) {
+                cbbCommunity.addItem(c.getcName());
+            }
+            if(c.getcName().equals(curHospital.getCommunity())) {
+                selectedIdx = cbbCommunity.getItemCount()-1;
+            }
+        }
+        cbbCommunity.setSelectedIndex(selectedIdx);
         cbbCommunity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCommunityMouseClicked(evt);
@@ -202,13 +213,13 @@ public class EditHospitalProfilePane extends javax.swing.JPanel {
         lblCommunity.setText("Community:");
 
         cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
-        //if(selectedHospital.getCity().equals("Boston")) {
-            //    cbbCity.setSelectedIndex(0);
-            //} else if(selectedHospital.getCity().equals("Malden")) {
-            //    cbbCity.setSelectedIndex(1);
-            //} else {
-            //    cbbCity.setSelectedIndex(2);
-            //}
+        if(curHospital.getCity().equals("Boston")) {
+            cbbCity.setSelectedIndex(0);
+        } else if(curHospital.getCity().equals("Malden")) {
+            cbbCity.setSelectedIndex(1);
+        } else {
+            cbbCity.setSelectedIndex(2);
+        }
         cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCityMouseClicked(evt);

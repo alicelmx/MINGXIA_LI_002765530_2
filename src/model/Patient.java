@@ -17,7 +17,6 @@ public class Patient extends Person {
     private String community;
     private String zipcode;
     private String house;
-//    private EncounterHistory encounterHistory;
 
     public String getPid() {
         return pid;

@@ -62,16 +62,15 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         AddressDetialsPane2 = new javax.swing.JPanel();
         lblHouse2 = new javax.swing.JLabel();
-        txtHouse2 = new javax.swing.JTextField();
+        txtHouse = new javax.swing.JTextField();
         lblCommunity2 = new javax.swing.JLabel();
         lblCity2 = new javax.swing.JLabel();
-        cbbCity2 = new javax.swing.JComboBox<>();
+        cbbCity = new javax.swing.JComboBox<>();
         cbbCommunity = new javax.swing.JComboBox<>();
         lblZipCode = new javax.swing.JLabel();
         txtZipCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Register");
         setResizable(false);
 
         ContactInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contact Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
@@ -241,29 +240,41 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
 
         lblHouse2.setText("House No:");
 
+        txtHouse.setText(curPatient.getHouse());
+
         lblCommunity2.setText("Community:");
 
         lblCity2.setText("City:");
 
-        cbbCity2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
-        //if(selectedHospital.getCity().equals("Boston")) {
-            //    cbbCity.setSelectedIndex(0);
-            //} else if(selectedHospital.getCity().equals("Malden")) {
-            //    cbbCity.setSelectedIndex(1);
-            //} else {
-            //    cbbCity.setSelectedIndex(2);
-            //}
-        cbbCity2.addMouseListener(new java.awt.event.MouseAdapter() {
+        cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
+        if(curPatient.getCity().equals("Boston")) {
+            cbbCity.setSelectedIndex(0);
+        } else if(curPatient.getCity().equals("Malden")) {
+            cbbCity.setSelectedIndex(1);
+        } else {
+            cbbCity.setSelectedIndex(2);
+        }
+        cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbbCity2MouseClicked(evt);
+                cbbCityMouseClicked(evt);
             }
         });
-        cbbCity2.addActionListener(new java.awt.event.ActionListener() {
+        cbbCity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbCity2ActionPerformed(evt);
+                cbbCityActionPerformed(evt);
             }
         });
 
+        int selectedIdx = 0;
+        for(Community c : communityList) {
+            if(c.getCity().equals(curPatient.getCity())) {
+                cbbCommunity.addItem(c.getcName());
+            }
+            if(c.getcName().equals(curPatient.getCommunity())) {
+                selectedIdx = cbbCommunity.getItemCount()-1;
+            }
+        }
+        cbbCommunity.setSelectedIndex(selectedIdx);
         cbbCommunity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCommunityMouseClicked(evt);
@@ -278,7 +289,7 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
         lblZipCode.setText("ZipCode:");
 
         // Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());
-        //txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.setText(curPatient.getZipcode());
         txtZipCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtZipCodeActionPerformed(evt);
@@ -305,12 +316,12 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
                         .addGroup(AddressDetialsPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbbCommunity, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtZipCode)
-                            .addComponent(cbbCity2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cbbCity, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AddressDetialsPane2Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addComponent(lblHouse2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtHouse2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtHouse, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(68, 68, 68))
         );
         AddressDetialsPane2Layout.setVerticalGroup(
@@ -318,12 +329,12 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
             .addGroup(AddressDetialsPane2Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(AddressDetialsPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHouse2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtHouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblHouse2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(AddressDetialsPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCity2)
-                    .addComponent(cbbCity2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(12, 12, 12)
                 .addGroup(AddressDetialsPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbCommunity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -332,7 +343,7 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
                 .addGroup(AddressDetialsPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtZipCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblZipCode))
-                .addContainerGap())
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout InputPaneLayout = new javax.swing.GroupLayout(InputPane);
@@ -349,10 +360,10 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
                         .addGap(109, 109, 109)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(104, Short.MAX_VALUE))
-                    .addGroup(InputPaneLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(AddressDetialsPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InputPaneLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(AddressDetialsPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(52, 52, 52))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InputPaneLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -364,12 +375,11 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
             InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, InputPaneLayout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(InputPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(InputPaneLayout.createSequentialGroup()
-                        .addGap(20, 20, 20)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(AddressDetialsPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(AddressDetialsPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(InputPaneLayout.createSequentialGroup()
                         .addComponent(BasicInfoPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -386,14 +396,14 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(0, 0, 0)
                 .addComponent(InputPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(0, 0, 0)
                 .addComponent(InputPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
@@ -497,12 +507,12 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void cbbCity2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCity2MouseClicked
+    private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
         txtZipCode.setText("");
         txtZipCode.setEnabled(true);
-    }//GEN-LAST:event_cbbCity2MouseClicked
+    }//GEN-LAST:event_cbbCityMouseClicked
 
-    private void cbbCity2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCity2ActionPerformed
+    private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
 
         String cityName = (String) cbbCity.getSelectedItem();
         List<Community> communitys = CommunityDao.queryCommunityListByCityName(cityName);
@@ -512,7 +522,7 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
             return;
         }
         communitys.forEach(o -> cbbCommunity.addItem(o.getcName()));
-    }//GEN-LAST:event_cbbCity2ActionPerformed
+    }//GEN-LAST:event_cbbCityActionPerformed
 
     private void cbbCommunityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCommunityMouseClicked
         txtZipCode.setText("");
@@ -544,8 +554,6 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel AddressDetialsPane;
-    private javax.swing.JPanel AddressDetialsPane1;
     private javax.swing.JPanel AddressDetialsPane2;
     private javax.swing.JPanel BasicInfoPane;
     private javax.swing.JPanel ContactInfoPane;
@@ -554,23 +562,15 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.ButtonGroup btngrpSex;
     private javax.swing.JComboBox<String> cbbCity;
-    private javax.swing.JComboBox<String> cbbCity1;
-    private javax.swing.JComboBox<String> cbbCity2;
     private javax.swing.JComboBox<String> cbbCommunity;
     private javax.swing.JComboBox<String> chooseMaritialStatus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblCity;
-    private javax.swing.JLabel lblCity1;
     private javax.swing.JLabel lblCity2;
-    private javax.swing.JLabel lblCommunity;
-    private javax.swing.JLabel lblCommunity1;
     private javax.swing.JLabel lblCommunity2;
     private javax.swing.JLabel lblDateOfBirth;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFirstName;
     private javax.swing.JLabel lblGender;
-    private javax.swing.JLabel lblHouse;
-    private javax.swing.JLabel lblHouse1;
     private javax.swing.JLabel lblHouse2;
     private javax.swing.JLabel lblLastName;
     private javax.swing.JLabel lblMaritialStatus;
@@ -583,8 +583,6 @@ public class EditPatientInfoFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtHouse;
-    private javax.swing.JTextField txtHouse1;
-    private javax.swing.JTextField txtHouse2;
     private javax.swing.JTextField txtLastName;
     private javax.swing.JTextField txtMobilePhone;
     private javax.swing.JTextField txtZipCode;

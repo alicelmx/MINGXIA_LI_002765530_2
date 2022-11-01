@@ -253,9 +253,9 @@ public class AddAppointmentFrame extends javax.swing.JFrame {
                 .addComponent(SearchPatientPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(SearchPatientPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnMakeAppointment4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -424,12 +424,6 @@ public class AddAppointmentFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel SearchPatientPane;
     private javax.swing.JPanel SearchPatientPane1;
-    private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnBack1;
-    private javax.swing.JButton btnBack2;
-    private javax.swing.JButton btnMakeAppointment1;
-    private javax.swing.JButton btnMakeAppointment2;
-    private javax.swing.JButton btnMakeAppointment3;
     private javax.swing.JButton btnMakeAppointment4;
     private javax.swing.JButton btnSearchDoctor;
     private javax.swing.JButton btnSearchPatient;

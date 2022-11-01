@@ -342,10 +342,10 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="cbbCommunity" alignment="0" max="32767" attributes="0"/>
+                      <Component id="cbbCommunity" alignment="0" pref="294" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="txtHouse" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="41" max="32767" attributes="0"/>
+                          <Component id="txtHouse" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblCity" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="cbbCity" min="-2" pref="150" max="-2" attributes="0"/>
@@ -412,7 +412,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbCityActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="//if(selectedHospital.getCity().equals(&quot;Boston&quot;)) {&#xa;//    cbbCity.setSelectedIndex(0);&#xa;//} else if(selectedHospital.getCity().equals(&quot;Malden&quot;)) {&#xa;//    cbbCity.setSelectedIndex(1);&#xa;//} else {&#xa;//    cbbCity.setSelectedIndex(2);&#xa;//}"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="if(curPatient.getCity().equals(&quot;Boston&quot;)) {&#xa;    cbbCity.setSelectedIndex(0);&#xa;} else if(curPatient.getCity().equals(&quot;Malden&quot;)) {&#xa;    cbbCity.setSelectedIndex(1);&#xa;} else {&#xa;    cbbCity.setSelectedIndex(2);&#xa;}"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -422,6 +422,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbCommunityActionPerformed"/>
           </Events>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="int selectedIdx = 0;&#xa;for(Community c : communityList) {&#xa;    if(c.getCity().equals(curPatient.getCity())) {&#xa;        cbbCommunity.addItem(c.getcName());&#xa;    }&#xa;    if(c.getcName().equals(curPatient.getCommunity())) {&#xa;        selectedIdx = cbbCommunity.getItemCount()-1;&#xa;    }&#xa;}&#xa;cbbCommunity.setSelectedIndex(selectedIdx);"/>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
@@ -440,7 +441,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtZipCodeActionPerformed"/>
           </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="// Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());&#xa;//txtZipCode.setText(selectedHospital.getZipCode());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="// Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());&#xa;txtZipCode.setText(curPatient.getZipcode());"/>
           </AuxValues>
         </Component>
       </SubComponents>

@@ -7,6 +7,7 @@ package dao;
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
+import model.Community;
 import model.Patient;
 import org.apache.commons.lang3.ObjectUtils;
 import tool.GsonUtils;
@@ -111,6 +112,8 @@ public class PatientDao {
 
         for (Patient p : patientList) {
             if (p.getCommunity().equals(oldCName)) {
+                Community newC = CommunityDao.queryCommunityListByCName(newCName);
+                p.setCity(newC.getCity());
                 p.setCommunity(newCName);
             }
         }

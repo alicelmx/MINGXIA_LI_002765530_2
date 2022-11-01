@@ -607,6 +607,8 @@ public class EditDoctorProfilePane extends javax.swing.JPanel {
         txtDataOfBirth.setText("");
         txtMobilePhone.setText("");
         txtEmail.setText("");
+        chooseMaritialStatus.setSelectedIndex(0);
+        cbbLevel.setSelectedIndex(0);
         ckbMon.setSelected(false);
         ckbTues.setSelected(false);
         ckbWed.setSelected(false);

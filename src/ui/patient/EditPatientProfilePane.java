@@ -23,7 +23,7 @@ import tool.DateUtils;
  * @author limingxia
  */
 public class EditPatientProfilePane extends javax.swing.JPanel {
-    
+
     public List<Community> communityList;
     public Patient curPatient;
 
@@ -33,15 +33,15 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
     public EditPatientProfilePane() {
         initComponents();
     }
-    
+
     EditPatientProfilePane(Patient patient) {
         communityList = CommunityDao.queryAllCommunityList();
         curPatient = PatientDao.queryPatientByPid(patient.getPid());
-        
+
         initComponents();
-        
+
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -251,13 +251,13 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
         lblCity.setText("City:");
 
         cbbCity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Boston", "Malden", "Cambridge" }));
-        //if(selectedHospital.getCity().equals("Boston")) {
-            //    cbbCity.setSelectedIndex(0);
-            //} else if(selectedHospital.getCity().equals("Malden")) {
-            //    cbbCity.setSelectedIndex(1);
-            //} else {
-            //    cbbCity.setSelectedIndex(2);
-            //}
+        if(curPatient.getCity().equals("Boston")) {
+            cbbCity.setSelectedIndex(0);
+        } else if(curPatient.getCity().equals("Malden")) {
+            cbbCity.setSelectedIndex(1);
+        } else {
+            cbbCity.setSelectedIndex(2);
+        }
         cbbCity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCityMouseClicked(evt);
@@ -269,6 +269,16 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
             }
         });
 
+        int selectedIdx = 0;
+        for(Community c : communityList) {
+            if(c.getCity().equals(curPatient.getCity())) {
+                cbbCommunity.addItem(c.getcName());
+            }
+            if(c.getcName().equals(curPatient.getCommunity())) {
+                selectedIdx = cbbCommunity.getItemCount()-1;
+            }
+        }
+        cbbCommunity.setSelectedIndex(selectedIdx);
         cbbCommunity.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cbbCommunityMouseClicked(evt);
@@ -285,7 +295,7 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
         lblZipCode.setText("ZipCode:");
 
         // Community c = CommunityDao.queryCommunityListByCName((String)cbbCommunity.getSelectedItem());
-        //txtZipCode.setText(selectedHospital.getZipCode());
+        txtZipCode.setText(curPatient.getZipcode());
         txtZipCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtZipCodeActionPerformed(evt);
@@ -304,10 +314,10 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
                     .addComponent(lblHouse))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(AddressDetialsPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cbbCommunity, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbbCommunity, javax.swing.GroupLayout.Alignment.LEADING, 0, 294, Short.MAX_VALUE)
                     .addGroup(AddressDetialsPaneLayout.createSequentialGroup()
-                        .addComponent(txtHouse, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                        .addComponent(txtHouse)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCity)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(cbbCity, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -387,9 +397,9 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void chooseMaritialStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseMaritialStatusActionPerformed
-        
+
     }//GEN-LAST:event_chooseMaritialStatusActionPerformed
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         // name
         String firstName = txtFirstName.getText();
@@ -415,7 +425,7 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Please Choose Your Gender!");
             return;
         }
-        
+
         String dateOfBirth = txtDataOfBirth.getText();
         if (StringUtils.isBlank(dateOfBirth)) {
             JOptionPane.showMessageDialog(this, "Please Input Your Birthday!");
@@ -425,36 +435,36 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Invalid Date, Please Input as 2022/01/01!");
             return;
         }
-        
+
         int selectedMaritialStatus = chooseMaritialStatus.getSelectedIndex();
-        
+
         String mobilePhone = txtMobilePhone.getText();
         if (!CheckUtils.checkPhoneNo(mobilePhone)) {
             JOptionPane.showMessageDialog(this, "Please Check Phone!");
             return;
         }
-        
+
         String email = txtEmail.getText();
         if (!CheckUtils.checkEmail(email)) {
             JOptionPane.showMessageDialog(this, "Please Check Email!");
             return;
         }
-        
+
         String zipCode = txtZipCode.getText();
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         String city = (String) cbbCity.getSelectedItem();
         String community = (String) cbbCommunity.getSelectedItem();
         String houseNo = txtHouse.getText();
-        
+
         if (StringUtils.isBlank(houseNo) || StringUtils.isBlank(city)) {
             JOptionPane.showMessageDialog(this, "Please Input City and House No!");
             return;
         }
-        
+
         Patient patient = new Patient();
         patient.setUsername(curPatient.getUsername());
         patient.setCity(city);
@@ -468,56 +478,56 @@ public class EditPatientProfilePane extends javax.swing.JPanel {
         patient.setZipcode(zipCode);
         patient.setPhoneNum(mobilePhone);
         patient.setDateOfBirth(dateOfBirth);
-        
+
         if (!PatientDao.updatePatient(curPatient, patient)) {
             JOptionPane.showMessageDialog(this, "Fail to Edit!", "", JOptionPane.PLAIN_MESSAGE);
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Edit Successfully!", "", JOptionPane.PLAIN_MESSAGE);
 
         // 防止连续点击造成的编辑失败
         curPatient = patient;
     }//GEN-LAST:event_btnSaveActionPerformed
-    
+
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
         txtZipCode.setText("");
         txtZipCode.setEnabled(true);
     }//GEN-LAST:event_cbbCityMouseClicked
-    
+
     private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
-        
+
         String cityName = (String) cbbCity.getSelectedItem();
         List<Community> communitys = CommunityDao.queryCommunityListByCityName(cityName);
         cbbCommunity.removeAllItems();
-        
+
         if (ObjectUtils.isEmpty(communitys)) {
             return;
         }
         communitys.forEach(o -> cbbCommunity.addItem(o.getcName()));
     }//GEN-LAST:event_cbbCityActionPerformed
-    
+
     private void cbbCommunityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCommunityMouseClicked
         txtZipCode.setText("");
         txtZipCode.setEnabled(true);
     }//GEN-LAST:event_cbbCommunityMouseClicked
-    
+
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        
+
         String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
         Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
-        
+
         if (ObjectUtils.isNotEmpty(sc)) {
             txtZipCode.setText(sc.getZipcode());
             txtZipCode.setEnabled(false);
         }
     }//GEN-LAST:event_cbbCommunityActionPerformed
-    
+
     private void txtZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZipCodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtZipCodeActionPerformed

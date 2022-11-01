@@ -5,9 +5,7 @@
 package ui.patient;
 
 import dao.AppointmentDao;
-import java.awt.Image;
 import java.util.List;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Appointment;
 import model.Doctor;
@@ -50,7 +48,6 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
 
         btnSubmitAppointment = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
-        lblIcon = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lblAppointmentTime = new javax.swing.JLabel();
         lblHospitalName = new javax.swing.JLabel();
@@ -79,16 +76,6 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-
-        ImageIcon imageIcon = new ImageIcon(getClass().getResource("/assets/doctorAvatar.png"));// 创建照片对象
-        Image img = imageIcon.getImage();
-        img = img.getScaledInstance(120, 160, Image.SCALE_AREA_AVERAGING);
-        imageIcon.setImage(img);
-        lblIcon.setIcon(imageIcon);
-        lblIcon.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
-        lblIcon.setPreferredSize(new java.awt.Dimension(120, 120));
-        lblIcon.setSize(new java.awt.Dimension(120, 120));
-        lblIcon.setText(null);
 
         lblAppointmentTime.setText("Appointment Time:");
 
@@ -121,14 +108,11 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
                     .addComponent(lblAppointmentTime, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblHospitalName)
-                        .addComponent(lblDoctorName)
-                        .addComponent(cbcAvailableTime, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblDepartmentName)
-                        .addGap(52, 52, 52)))
-                .addContainerGap())
+                    .addComponent(lblHospitalName)
+                    .addComponent(lblDepartmentName)
+                    .addComponent(lblDoctorName)
+                    .addComponent(cbcAvailableTime, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,17 +140,16 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(128, 128, 128)
-                .addComponent(btnBack)
-                .addGap(47, 47, 47)
-                .addComponent(btnSubmitAppointment)
-                .addGap(135, 135, 135))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblIcon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(63, 63, 63)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(btnBack)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnSubmitAppointment)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnBack, btnSubmitAppointment});
@@ -174,11 +157,9 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(63, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblIcon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addContainerGap(52, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSubmitAppointment, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -265,6 +246,5 @@ public class MakeAppointmentFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblDoctorNameTitle;
     private javax.swing.JLabel lblHospital;
     private javax.swing.JLabel lblHospitalName;
-    private javax.swing.JLabel lblIcon;
     // End of variables declaration//GEN-END:variables
 }
