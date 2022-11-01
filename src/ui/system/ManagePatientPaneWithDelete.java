@@ -27,7 +27,7 @@ import ui.hospital.*;
  * @author limingxia
  */
 public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
-    
+
     public PatientDirectory patientDirectory = new PatientDirectory();
     public List<Patient> patientList;
     public String currHospitalID;
@@ -38,32 +38,32 @@ public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
      */
     public ManagePatientPaneWithDelete() {
         getPatientDirectory();
-        
+
         initComponents();
-        
+
         populateTable(patientDirectory.getPatientList());
-        
+
     }
-    
+
     public ManagePatientPaneWithDelete(Hospital currentHospital) {
         currHospitalID = currentHospital.getHid();
         getPatientDirectory();
-        
+
         initComponents();
-        
+
         populateTable(patientDirectory.getPatientList());
-        
+
     }
-    
+
     public ManagePatientPaneWithDelete(Community curCommunity) {
         curCommunityName = curCommunity.getcName();
         getPatientDirectory();
-        
+
         initComponents();
-        
+
         populateTable(patientDirectory.getPatientList());
     }
-    
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -193,61 +193,61 @@ public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
                     .addComponent(txtKeyword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnRefesh, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeletePatient, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtKeywordActionPerformed
-    
+
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String keyword = txtKeyword.getText();
         if (StringUtils.isBlank(keyword)) {
             JOptionPane.showMessageDialog(this, "Please Input Keyword to Search.");
             return;
         }
-        
+
         List<Patient> searchResult = patientDirectory.searchByKeyword(keyword);
-        
+
         populateTable(searchResult);
     }//GEN-LAST:event_btnSearchActionPerformed
-    
+
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int selectedRowIndex = tbPatient.getSelectedRow();
-        
+
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please Select a Patient to Edit.");
             return;
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
         Patient selectedPatient = (Patient) model.getValueAt(selectedRowIndex, 0);
-        
+
         EditPatientInfoFrame editPatientInfoFrame = new EditPatientInfoFrame(selectedPatient);
         editPatientInfoFrame.setLocationRelativeTo(null);
         editPatientInfoFrame.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
-    
+
     private void btnRefeshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefeshActionPerformed
         txtKeyword.setText("");
         getPatientDirectory();
         populateTable(patientDirectory.getPatientList());
     }//GEN-LAST:event_btnRefeshActionPerformed
-    
+
     private void btnDeletePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletePatientActionPerformed
         int selectedRowIndex = tbPatient.getSelectedRow();
-        
+
         if (selectedRowIndex < 0) {
             JOptionPane.showMessageDialog(this, "Please Select a Patient to Edit!");
             return;
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
         Patient selectedPatient = (Patient) model.getValueAt(selectedRowIndex, 0);
 
@@ -256,39 +256,39 @@ public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "This Patient Still Has Appointments!");
             return;
         }
-        
+
         if (!PatientDao.deletePatient(selectedPatient)) {
             JOptionPane.showMessageDialog(this, "Fail to Delete!");
             return;
         }
-        
+
         if (!LoginDao.deleteOldUserByUserName(selectedPatient.getUsername())) {
             JOptionPane.showMessageDialog(this, "Fail to Delete!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Delete Successfully!");
-        
+
         btnRefesh.doClick();
     }//GEN-LAST:event_btnDeletePatientActionPerformed
-    
+
     private void populateTable(List<Patient> patients) {
-        
+
         DefaultTableModel model = (DefaultTableModel) tbPatient.getModel();
         model.setRowCount(0);
-        
+
         if (ObjectUtils.isEmpty(patients)) {
             return;
         }
-        
+
         for (Patient patient : patients) {
-            
+
             Object[] row = new Object[4];
             row[0] = patient;
             row[1] = patient.getFullName();
             row[2] = patient.getPhoneNum();
             row[3] = patient.getDateOfBirth();
-            
+
             model.addRow(row);
         }
     }
@@ -305,10 +305,10 @@ public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void getPatientDirectory() {
-        
+
         if (!StringUtils.isBlank(currHospitalID)) {
             patientDirectory.clearAll();
-            
+
             List<Encounter> encounters = EncounterDao.queryEncounterByHID(this.currHospitalID);
             if (ObjectUtils.isEmpty(encounters)) {
                 return;
@@ -319,7 +319,7 @@ public class ManagePatientPaneWithDelete extends javax.swing.JPanel {
                     patientDirectory.addPatient(p);
                 }
             });
-            
+
         } else if (!StringUtils.isBlank(curCommunityName)) {
             patientList = PatientDao.queryPatientByCName(curCommunityName);
             patientDirectory.setPatientList(patientList);

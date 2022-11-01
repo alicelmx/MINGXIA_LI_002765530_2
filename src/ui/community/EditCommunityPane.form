@@ -27,9 +27,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="btnClear" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnClear" linkSize="3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="97" max="-2" attributes="0"/>
-                              <Component id="btnSubmitAppointment" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSubmitAppointment" linkSize="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -48,8 +48,8 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnClear" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
-                  <Component id="btnSubmitAppointment" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="btnClear" linkSize="4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="btnSubmitAppointment" linkSize="4" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="95" max="32767" attributes="0"/>
           </Group>

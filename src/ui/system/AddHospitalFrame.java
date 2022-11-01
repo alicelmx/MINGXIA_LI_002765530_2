@@ -21,7 +21,7 @@ import tool.CheckUtils;
  * @author limingxia
  */
 public class AddHospitalFrame extends javax.swing.JFrame {
-    
+
     public List<Community> communityList;
 
     /**
@@ -170,8 +170,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addGap(30, 30, 30))
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital.jpeg"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/hospital1.png"))); // NOI18N
 
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/about.png"))); // NOI18N
         btnSave.setText("Save");
@@ -200,6 +199,9 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                 .addComponent(btnSave)
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear, btnSave});
+
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -209,6 +211,8 @@ public class AddHospitalFrame extends javax.swing.JFrame {
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        jPanel2Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear, btnSave});
 
         BasicInfoPane.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address Info", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 16), new java.awt.Color(0, 153, 153))); // NOI18N
 
@@ -335,12 +339,12 @@ public class AddHospitalFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        
+
         clearAllBlanket();
     }//GEN-LAST:event_btnClearActionPerformed
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+
         String userName = txtUserName.getText();
         String password = txtPassword.getText();
         String cpassword = txtConfirmPassword.getText();
@@ -365,7 +369,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Duplicate Username, Please Change Another!");
             return;
         }
-        
+
         String hName = txtName.getText();
         String phone = txtPhone.getText();
         String intro = txaIntro.getText(); // optional
@@ -378,21 +382,21 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please Check Phone No!");
             return;
         }
-        
+
         String city = (String) cbbCity.getSelectedItem();
         String community = (String) cbbCommunity.getSelectedItem();
         String zipCode = txtZipCode.getText();
-        
+
         if (StringUtils.isBlank(city) || StringUtils.isBlank(community) || StringUtils.isBlank(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Input All the Information!");
             return;
         }
-        
+
         if (!CheckUtils.checkZipCode(zipCode)) {
             JOptionPane.showMessageDialog(this, "Please Check Zip Code!");
             return;
         }
-        
+
         Hospital hospital = new Hospital();
         hospital.sethName(hName);
         hospital.setPhone(phone);
@@ -401,64 +405,64 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         hospital.setZipCode(zipCode);
         hospital.setCommunity(community);
         hospital.setHospitalAdminUserName(userName);
-        
+
         if (!HospitalDao.insertNewHospital(hospital)) {
             JOptionPane.showMessageDialog(this, "Duplicate Hospital!");
             return;
         }
-        
+
         Login newHospitalAdmin = new Login();
         newHospitalAdmin.setUserName(userName);
         newHospitalAdmin.setPassword(password);
         newHospitalAdmin.setRoleType(enumvalue.RoleEnum.HOSPITAL_ADMIN.getIndex());
-        
+
         if (!LoginDao.insertNewUser(newHospitalAdmin)) {
             JOptionPane.showMessageDialog(this, "Fail to Save!");
             return;
         }
-        
+
         JOptionPane.showMessageDialog(this, "Successfully!");
-        
+
         clearAllBlanket();
-        
+
         this.dispose();
     }//GEN-LAST:event_btnSaveActionPerformed
-    
+
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-    
+
     private void txtZipCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtZipCodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtZipCodeActionPerformed
-    
+
     private void cbbCommunityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCommunityMouseClicked
         txtZipCode.setText("");
         txtZipCode.setEnabled(true);
     }//GEN-LAST:event_cbbCommunityMouseClicked
-    
+
     private void cbbCommunityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCommunityActionPerformed
-        
+
         String selectedCommmunity = (String) cbbCommunity.getSelectedItem();
         Community sc = CommunityDao.queryCommunityListByCName(selectedCommmunity);
-        
+
         if (ObjectUtils.isNotEmpty(sc)) {
             txtZipCode.setText(sc.getZipcode());
             txtZipCode.setEnabled(false);
         }
     }//GEN-LAST:event_cbbCommunityActionPerformed
-    
+
     private void cbbCityMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbbCityMouseClicked
         txtZipCode.setText("");
         txtZipCode.setEnabled(true);
     }//GEN-LAST:event_cbbCityMouseClicked
-    
+
     private void cbbCityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbCityActionPerformed
-        
+
         String cityName = (String) cbbCity.getSelectedItem();
         List<Community> communitys = CommunityDao.queryCommunityListByCityName(cityName);
         cbbCommunity.removeAllItems();
-        
+
         if (ObjectUtils.isEmpty(communitys)) {
             return;
         }
@@ -499,7 +503,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void clearAllBlanket() {
         txtName.setText("");
         txtPhone.setText("");
@@ -510,7 +514,7 @@ public class AddHospitalFrame extends javax.swing.JFrame {
         txtUserName.setText("");
         txtPassword.setText("");
         txtConfirmPassword.setText("");
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

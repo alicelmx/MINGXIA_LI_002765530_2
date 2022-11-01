@@ -213,6 +213,9 @@ public class AddCommunityFrame extends javax.swing.JFrame {
                         .addComponent(btnSave)))
                 .addContainerGap(59, Short.MAX_VALUE))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnClear, btnSave});
+
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -226,6 +229,8 @@ public class AddCommunityFrame extends javax.swing.JFrame {
                     .addComponent(btnClear, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(49, 49, 49))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnClear, btnSave});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

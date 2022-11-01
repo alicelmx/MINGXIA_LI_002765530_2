@@ -32,9 +32,9 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
-                      <Component id="btnClear" min="-2" pref="90" max="-2" attributes="0"/>
+                      <Component id="btnClear" linkSize="1" min="-2" pref="90" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                      <Component id="btnSave" min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="btnSave" linkSize="1" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="68" max="32767" attributes="0"/>
@@ -50,12 +50,12 @@
               <Component id="ContactInfoPane" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="AddressDetialsPane" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSave" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
-                  <Component id="btnClear" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="btnSave" linkSize="2" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                  <Component id="btnClear" linkSize="2" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace pref="68" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
